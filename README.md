@@ -23,10 +23,42 @@ Patsāvīgi grupā izstrādāt projektu. Projekts tiks vērtēts ar atzīmi.
 >     3. Prezentācijai jābūt kvalitatīvai
 >     4. Prezentācijā nav obligāti jārunā visiem grupas dalībniekiem, bet uz titullapas jābūt visu dalībnieku vārdiem
 
-Iesniegšanas termiņš: 01.04.2025 23:59
+Iesniegšanas termiņš: **01.04.2025 23:59**
 
 ## Mūsu risinājums
+
+### Ideja
+Mūsu skolā ir nepieciešama datoru izsniegšanas sistēma. Datortelpā ir pieejami Windows laptopi, kurus var izmantot jebkurš skolēns, bet šobrīd aktuālas sistēmas viņu izsniegšanai nav. 
+Mūsu projekts palīdzētu izveidot risinājumu, kas uzlabotu drošību un pārliecinātos par datoru laicīgu atgriežšanu.
+
+### SQL tabulas
+Users
+| ID | username   | name    | surname  | class |
+|----|------------|---------|----------|-------|
+| 1  | vvkocetoks | Viktors | Kočetoks | 12.EI |
+| 2  | mpunans    | Markuss | Punāns   | 12.EI |
+| 3  | esulcs13   | Emīls   | Šulcs    | 12.EI |
+
+Items
+| ID | item     |
+|----|----------|
+| 1  | Computer |
+| 2  | Charger  |
+| 3  | Mouse    |
+
+Handouts
+| ID | item     | username   | issued_at        | due_at           | returned_at      |
+|----|----------|------------|------------------|------------------|------------------|
+| 1  | Computer | vvkocetoks | 08:37 11.02.2025 | 12:20 11.02.2025 | 12:17 11.02.2025 |
+| 2  | Charger  | vvkocetoks | 08:37 11.02.2025 | 12:20 11.02.2025 | 12:17 11.02.2025 |
+| 3  | Mouse    | vvkocetoks | 08:37 11.02.2025 | 12:20 11.02.2025 | 12:17 11.02.2025 |
+
 
 ### Mūsu grupa
 Viktors Kočetoks, Markuss Punāns, Emīls Šulcs
 12. EI klase, Rīgas Valsts vācu ģimnāzija
+
+### Papildus iespējamās idejas
+Microsoft kontu pieslēgšanās - viss vienā platformā
+Tumšais un gaišais režīms
+Skolas mājaslapā pieejams skaits ar pieejamiem datoriem
