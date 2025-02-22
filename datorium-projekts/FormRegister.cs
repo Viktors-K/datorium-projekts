@@ -16,5 +16,23 @@ namespace datorium_projekts
         {
             InitializeComponent();
         }
+
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+            bool passwordMatches = (textBoxPassword.Text == textBoxRepeatPassword.Text);
+            bool passwordNull = string.IsNullOrEmpty(textBoxPassword.Text) || string.IsNullOrEmpty(textBoxRepeatPassword.Text);
+            if (!passwordMatches) {
+                labelError.Text = "Paroles nav vienādas!";
+                labelError.Show();
+                return;
+            }
+            if (passwordNull)
+            {
+                labelError.Text = "Parole nevar būt tukša!";
+                labelError.Show();
+                return;
+            }
+            this.Close();
+        }
     }
 }

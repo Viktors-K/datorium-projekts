@@ -66,12 +66,13 @@
             // 
             // buttonRegister
             // 
-            buttonRegister.Location = new Point(124, 240);
+            buttonRegister.Location = new Point(27, 199);
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(124, 23);
             buttonRegister.TabIndex = 10;
             buttonRegister.Text = "Pieslēgties";
             buttonRegister.UseVisualStyleBackColor = true;
+            buttonRegister.Click += buttonRegister_Click;
             // 
             // textBoxEmail
             // 
@@ -128,11 +129,12 @@
             labelError.BackColor = Color.Silver;
             labelError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(133, 222);
+            labelError.Location = new Point(27, 225);
             labelError.Name = "labelError";
             labelError.Size = new Size(105, 15);
             labelError.TabIndex = 17;
             labelError.Text = "Nepareiza parole!";
+            labelError.Visible = false;
             // 
             // textBoxName
             // 
@@ -187,7 +189,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
-            ClientSize = new Size(388, 293);
+            ClientSize = new Size(368, 252);
             Controls.Add(textBoxClass);
             Controls.Add(labelClass);
             Controls.Add(textBoxSurname);
@@ -205,8 +207,10 @@
             Controls.Add(textBoxEmail);
             Controls.Add(labelEmail);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximumSize = new Size(384, 291);
+            MinimumSize = new Size(384, 291);
             Name = "FormRegister";
-            Text = "FormRegister";
+            Text = "Reģistrācija";
             ResumeLayout(false);
             PerformLayout();
         }
