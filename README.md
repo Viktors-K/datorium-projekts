@@ -53,6 +53,14 @@ Handouts
 | 2  | 1        | vvkocetoks | 08:37 11.02.2025 | 12:20 11.02.2025 | 12:17 11.02.2025 |
 | 3  | 3        | vvkocetoks | 08:37 11.02.2025 | 12:20 11.02.2025 | 12:17 11.02.2025 |
 
+Reservations
+
+| ID | username   | item_id | reserved_from     | reserved_until   | status    |
+|----|------------|---------|-------------------|------------------|-----------|
+| 1  | esulcs13   | 1       | 10:00 12.02.2025  | 12:00 12.02.2025 | active    |
+| 2  | vvkocetoks | 2       | 14:00 12.02.2025  | 16:00 12.02.2025 | cancelled |
+| 3  | mpunans    | 3       | 09:00 13.02.2025  | 11:00 13.02.2025 | completed |
+
 
 ### Mūsu grupa
 Viktors Kočetoks, Markuss Punāns, Emīls Šulcs
