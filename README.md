@@ -70,3 +70,8 @@ Viktors Kočetoks, Markuss Punāns, Emīls Šulcs
 Microsoft kontu pieslēgšanās - viss vienā platformā
 Tumšais un gaišais režīms
 Skolas mājaslapā pieejams skaits ar pieejamiem datoriem
+
+### To-Do
+lietotājs jau eksistē pie registracijas
+epasta adrese jau izmantota
+
