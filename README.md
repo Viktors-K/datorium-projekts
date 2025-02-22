@@ -33,18 +33,18 @@ Mūsu projekts palīdzētu izveidot risinājumu, kas uzlabotu drošību un pārl
 
 ### SQL tabulas
 Users
-| ID | username   | name    | surname  | class |
-|----|------------|---------|----------|-------|
-| 1  | vvkocetoks | Viktors | Kočetoks | 12.EI |
-| 2  | mpunans    | Markuss | Punāns   | 12.EI |
-| 3  | esulcs13   | Emīls   | Šulcs    | 12.EI |
+| ID | username   | email                  | password_hash | admin | profile_data                                                 |
+|----|------------|------------------------|---------------|-------|--------------------------------------------------------------|
+| 1  | vvkocetoks | vvkocetoks@edu.riga.lv | $2a$12$wH9... | 1     | {"name": "Viktors", "surname": "Kočetoks", "class": "12.EI"} |
+| 2  | mpunans    | mpunans@edu.riga.lv    | $2a$12$OYn... | 0     | {"name": "Markuss", "surname": "Punāns", "class": "12.EI"}   |
+| 3  | esulcs13   | esulcs13@edu.riga.lv   | $2a$12$XbN... | 0     | {"name": "Emīls", "surname": "Šulcs", "class": "12.EI"}      |
 
 Items
-| ID | item     |
-|----|----------|
-| 1  | Computer |
-| 2  | Charger  |
-| 3  | Mouse    |
+| ID | item     | details    |
+|----|----------|------------|
+| 1  | Computer | Windows OS |
+| 2  | Charger  | 9V adapter |
+| 3  | Mouse    | USB-A      |
 
 Handouts
 | ID | item_id  | username   | issued_at        | due_at           | returned_at      |
