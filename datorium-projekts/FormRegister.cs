@@ -22,44 +22,81 @@ namespace datorium_projekts
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
+            // booleans to check validity of input
             bool passwordMatches = (textBoxPassword.Text == textBoxRepeatPassword.Text);
             bool passwordNull = string.IsNullOrEmpty(textBoxPassword.Text) || string.IsNullOrEmpty(textBoxRepeatPassword.Text);
             bool usernameNull = string.IsNullOrEmpty(textBoxUsername.Text);
             bool otherBoxesNull = string.IsNullOrEmpty(textBoxEmail.Text) || string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxSurname.Text) || string.IsNullOrEmpty(textBoxClass.Text);
+            
+            //regex expressions for inputs
+            string passwordPattern = @"^(?=.*[A-Z])(?=.*[!@#$%^&*()_+={}\[\]:;""'<>,.?/|\\]).{6,}$";
+            string usernamePattern = @"^\w+$";
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            //defining variables for inputs, removing all spaces
+            string username = textBoxUsername.Text.Replace(" ", "");
+            string email = textBoxEmail.Text.Replace(" ", "");
+            string password = textBoxPassword.Text.Replace(" ", "");
+            string name = textBoxName.Text.Replace(" ", "");
+            string surname = textBoxSurname.Text.Replace(" ", "");
+            string student_class = textBoxClass.Text.Replace(" ", "");
+
+            //checking validity of inputs
             if (!passwordMatches)
             {
-                labelError.Text = "Paroles nav vienādas!";
-                labelError.Show();
+                ShowError("Paroles nav vienādas!");
                 return;
             }
             if (passwordNull)
             {
-                labelError.Text = "Parole nevar būt tukša!";
-                labelError.Show();
+                ShowError("Parole nevar būt tukša!");
                 return;
             }
             if (usernameNull)
             {
-                labelError.Text = "Lietotājvārds nevar būt tukšs!";
-                labelError.Show();
+                ShowError("Lietotājvārds nevar būt tukšs!");
                 return;
             }
             if (otherBoxesNull)
             {
-                labelError.Text = "Pārējie lauciņi nevar būt tukši!";
-                labelError.Show();
+                ShowError("Pārējie lauciņi nevar būt tukši!");
                 return;
             }
+            if (!Regex.IsMatch(username, usernamePattern))
+            {
+                ShowError("Lietotājvārdā var izmantot tikai burtus, skaitļus un _ simbolu!");
+                return;
+            };
+            if (!Regex.IsMatch(password, passwordPattern))
+            {
+                ShowError("Parolei jābūt vismaz 6 simbolu garai, un \njāizmanto vienu lielo burtu un vienu simbolu!");
+                return;
+            };
+            if (!Regex.IsMatch(email, emailPattern))
+            {
+                ShowError("E-pasts nav derīgs!");
+                return;
+            };
+
+            //register user with encrypted and salted password if input valid
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(textBoxPassword.Text);
-            userManager.AddUser(
-                username: textBoxUsername.Text,
-                email: textBoxEmail.Text,
-                password_hash: passwordHash,
-                name: textBoxName.Text,
-                surname: textBoxSurname.Text,
-                student_class: textBoxClass.Text
-            );
-            this.Close();
+            try
+            {
+                userManager.AddUser(username, email, passwordHash, name, surname, student_class);
+                password = null;
+                MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception)
+            {
+                ShowError("Kļūda pievienojot lietotāju!");
+            }
+        }
+        // method for displaying error messages
+        private void ShowError(string message)
+        {
+            labelError.Text = message;
+            labelError.Show();
         }
     }
 }

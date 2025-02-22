@@ -189,7 +189,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
-            ClientSize = new Size(368, 252);
+            ClientSize = new Size(368, 261);
             Controls.Add(textBoxClass);
             Controls.Add(labelClass);
             Controls.Add(textBoxSurname);
@@ -207,8 +207,8 @@
             Controls.Add(textBoxEmail);
             Controls.Add(labelEmail);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximumSize = new Size(384, 291);
-            MinimumSize = new Size(384, 291);
+            MaximumSize = new Size(384, 300);
+            MinimumSize = new Size(384, 300);
             Name = "FormRegister";
             Text = "Reģistrācija";
             ResumeLayout(false);

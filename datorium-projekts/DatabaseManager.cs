@@ -73,16 +73,16 @@ namespace datorium_projekts
                 var reader = selectCmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    string json_data = reader["user_info"].ToString();
-                    Dictionary<string, string> user_info = JsonSerializer.Deserialize<Dictionary<string, string>>(json_data);
+                    string json_data = reader["profile_data"].ToString();
+                    Dictionary<string, string> profile_data = JsonSerializer.Deserialize<Dictionary<string, string>>(json_data);
                     new_user = new User(
                         id: Convert.ToInt32(reader["id"]),
                         username: Convert.ToString(reader["username"]),
                         email: Convert.ToString(reader["email"]),
                         password_hash: Convert.ToString(reader["password_hash"]),
-                        name: user_info["Name"],
-                        surname: user_info["Surname"],
-                        student_class: user_info["StudentClass"],
+                        name: profile_data["Name"],
+                        surname: profile_data["Surname"],
+                        student_class: profile_data["StudentClass"],
                         admin: Convert.ToBoolean(reader["admin"])
                     );
                 }

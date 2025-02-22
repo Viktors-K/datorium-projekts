@@ -36,6 +36,7 @@
             textBoxPassword = new TextBox();
             labelPassword = new Label();
             buttonRegister = new Button();
+            labelError = new Label();
             SuspendLayout();
             // 
             // labelUsername
@@ -43,9 +44,9 @@
             labelUsername.AutoSize = true;
             labelUsername.Location = new Point(92, 25);
             labelUsername.Name = "labelUsername";
-            labelUsername.Size = new Size(126, 15);
+            labelUsername.Size = new Size(77, 15);
             labelUsername.TabIndex = 0;
-            labelUsername.Text = "Lietotājvārds / E-pasts:";
+            labelUsername.Text = "Lietotājvārds:";
             // 
             // textBoxUsername
             // 
@@ -72,6 +73,7 @@
             buttonLogin.TabIndex = 3;
             buttonLogin.Text = "Pieslēgties";
             buttonLogin.UseVisualStyleBackColor = true;
+            buttonLogin.Click += buttonLogin_Click;
             // 
             // textBoxPassword
             // 
@@ -100,12 +102,29 @@
             buttonRegister.UseVisualStyleBackColor = true;
             buttonRegister.Click += buttonRegister_Click;
             // 
+            // labelError
+            // 
+            labelError.AutoSize = true;
+            labelError.BackColor = Color.Silver;
+            labelError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            labelError.ForeColor = Color.Red;
+            labelError.Location = new Point(12, 204);
+            labelError.MaximumSize = new Size(290, 0);
+            labelError.MinimumSize = new Size(290, 0);
+            labelError.Name = "labelError";
+            labelError.Size = new Size(290, 15);
+            labelError.TabIndex = 18;
+            labelError.Text = "Nepareiza parole!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
+            labelError.Visible = false;
+            // 
             // FormLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
-            ClientSize = new Size(315, 219);
+            ClientSize = new Size(315, 228);
+            Controls.Add(labelError);
             Controls.Add(buttonRegister);
             Controls.Add(textBoxPassword);
             Controls.Add(labelPassword);
@@ -129,5 +148,6 @@
         private TextBox textBoxPassword;
         private Label labelPassword;
         private Button buttonRegister;
+        private Label labelError;
     }
 }
