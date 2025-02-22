@@ -13,9 +13,10 @@ DROP TABLE IF EXISTS Reservations;
 CREATE TABLE IF NOT EXISTS Users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT NOT NULL UNIQUE,
-  name TEXT NOT NULL,
-  surname TEXT NOT NULL,
-  class TEXT NOT NULL
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  admin BOOLEAN NOT NULL DEFAULT 0,
+  profile_data JSON
 );
 
 CREATE TABLE IF NOT EXISTS Items (
@@ -46,12 +47,18 @@ CREATE TABLE IF NOT EXISTS Reservations (
 );
 
 -- Sākuma datu izveide
-INSERT INTO Users(username, name, surname, class) 
-VALUES ('vvkocetoks', 'Viktors', 'Kočetoks', '12.EI');
-INSERT INTO Users(username, name, surname, class) 
-VALUES ('mpunans', 'Markuss', 'Punāns', '12.EI');
-INSERT INTO Users(username, name, surname, class) 
-VALUES ('esulcs13', 'Emīls', 'Šulcs', '12.EI');
+INSERT INTO Users (username, email, password_hash, admin, profile_data)
+VALUES ('vvkocetoks', 'vvkocetoks@edu.riga.lv', '$2a$12$wH9WqjzXfIS0JbHtv37Zo.GfdJzF.dFq2lAmgOQyU27MTeFg3.kz6', 1,
+        '{"name": "Viktors", "surname": "Kočetoks", "class": "12.EI"}'
+);
+INSERT INTO Users (username, email, password_hash, admin, profile_data)
+VALUES ('mpunans', 'mpunans@edu.riga.lv', '$2a$12$OYn2nQh3GG1RO3lh1/zBz.vR5TO8m2gdtTyE/mMwnz6eyYtTzJzzm', 0,
+        '{"name": "Markuss", "surname": "Punāns", "class": "12.EI"}'
+);
+INSERT INTO Users (username, email, password_hash, admin, profile_data)
+VALUES ('esulcs13', 'esulcs13@edu.riga.lv', '$2a$12$XbNq.Vx5zj6Hnn5BB7Xjw.x2mjBQw2R9xoXzD8U1a9P.WaK3eGFEq', 0,
+        '{"name": "Emīls", "surname": "Šulcs", "class": "12.EI"}'
+);
 
 INSERT INTO Items(type, details) 
 VALUES ('Laptop', 'Windows OS');
@@ -75,4 +82,4 @@ INSERT INTO Reservations(item_id, username, reserved_from, reserved_until, statu
 VALUES ('3', 'mpunans', '09:00 13.02.2025', '11:00 13.02.2025', 'completed');
 
 -- Izsniegumu tabulas izvade pārbaudei sqliteonline.com
-SELECT * FROM Handouts;
+SELECT * FROM Users;

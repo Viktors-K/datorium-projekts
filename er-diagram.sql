@@ -6,24 +6,25 @@
 Table users {
   id integer [primary key, increment]
   username varchar [unique, not null]
-  name varchar [not null]
-  surname varchar [not null]
-  class varchar [not null]
+  email varchar [unique, not null]
+  password_hash varchar [not null]
+  admin boolean [not null, default: 0]
+  profile_data json
 }
 
 Table items {
   id integer [primary key, increment]
   type varchar [not null]
-  description text
+  details text
 }
 
 Table handouts {
   id integer [primary key, increment]
   item_id integer [not null]
   username varchar [not null]
-  issue_time timestamp [not null]
-  due_time timestamp [not null]
-  returned_time timestamp
+  issued_at timestamp [not null]
+  due_at timestamp [not null]
+  returned_at timestamp
 }
 
 Table reservations {
@@ -35,8 +36,8 @@ Table reservations {
   status varchar [not null]
 }
 
-Ref: reservations.item_id > items.id // many-to-one  
-Ref: reservations.username > users.username // many-to-one  
+Ref: handouts.item_id > items.id
+Ref: handouts.username > users.username
 
-Ref: handouts.item_id > items.id // many-to-one  
-Ref: handouts.username > users.username // many-to-one  
+Ref: reservations.item_id > items.id
+Ref: reservations.username > users.username
