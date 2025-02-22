@@ -61,7 +61,7 @@ Reservations
 | 2  | 2         | vvkocetoks | 14:00 12.02.2025  | 16:00 12.02.2025 | cancelled |
 | 3  | 3         | mpunans    | 09:00 13.02.2025  | 11:00 13.02.2025 | completed |
 
-
+![ER diagramma datubāzei](er-diagram.png "ER diagramma")
 ### Mūsu grupa
 Viktors Kočetoks, Markuss Punāns, Emīls Šulcs
 12. EI klase, Rīgas Valsts vācu ģimnāzija
