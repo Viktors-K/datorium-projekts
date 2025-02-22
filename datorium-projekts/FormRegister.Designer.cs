@@ -70,7 +70,7 @@
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(124, 23);
             buttonRegister.TabIndex = 10;
-            buttonRegister.Text = "Pieslēgties";
+            buttonRegister.Text = "Reģistrēties";
             buttonRegister.UseVisualStyleBackColor = true;
             buttonRegister.Click += buttonRegister_Click;
             // 
