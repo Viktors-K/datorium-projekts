@@ -63,7 +63,8 @@ namespace datorium_projekts
             MessageBox.Show("Lietotājs veiksmīgi pieslēgts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
             
             // hide current form and open new one, when new form closed, close this one as well.
-            FormMain newForm = new FormMain();
+            FormMain newForm = new FormMain(username);
+            username = null;
             this.Hide();
             newForm.FormClosed += (s, args) => this.Close();
             newForm.Show();

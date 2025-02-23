@@ -44,7 +44,7 @@
             button4 = new Button();
             buttonUserChangeInfo = new Button();
             button6 = new Button();
-            label2 = new Label();
+            labelRole = new Label();
             listBoxNotifications = new ListBox();
             dataGridViewItems = new DataGridView();
             tabPage2 = new TabPage();
@@ -166,13 +166,13 @@
             // 
             groupBoxUserControls.Controls.Add(labelWelcome);
             groupBoxUserControls.Controls.Add(groupBox1);
-            groupBoxUserControls.Controls.Add(label2);
+            groupBoxUserControls.Controls.Add(labelRole);
             groupBoxUserControls.Location = new Point(6, 6);
             groupBoxUserControls.Name = "groupBoxUserControls";
             groupBoxUserControls.Size = new Size(189, 185);
             groupBoxUserControls.TabIndex = 5;
             groupBoxUserControls.TabStop = false;
-            groupBoxUserControls.Text = "Lietotājs";
+            groupBoxUserControls.Text = "Lietotājs [username]";
             // 
             // labelWelcome
             // 
@@ -222,14 +222,14 @@
             button6.Text = "Mainīt paroli";
             button6.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // labelRole
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(6, 34);
-            label2.Name = "label2";
-            label2.Size = new Size(162, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Pieslēdzies kā: Administrators";
+            labelRole.AutoSize = true;
+            labelRole.Location = new Point(6, 34);
+            labelRole.Name = "labelRole";
+            labelRole.Size = new Size(112, 15);
+            labelRole.TabIndex = 1;
+            labelRole.Text = "Pieslēdzies kā: [role]";
             // 
             // listBoxNotifications
             // 
@@ -300,7 +300,7 @@
         private TabPage tabPage2;
         private TabPage tabPage3;
         private DataGridView dataGridViewItems;
-        private Label label2;
+        private Label labelRole;
         private Label labelWelcome;
         private GroupBox groupBox1;
         private Button button4;

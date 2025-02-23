@@ -13,11 +13,26 @@ namespace datorium_projekts
     public partial class FormMain : Form
     {
         private ItemManager itemManager;
-        public FormMain()
+        private UserManager userManager;
+        private User currentUser;
+        public FormMain(string username)
         {
             InitializeComponent();
+            userManager = new UserManager("Data Source=main.db");
             itemManager = new ItemManager("Data Source=main.db");
+            currentUser = userManager.GetUser(username);
             AddItemsToTable();
+
+            labelWelcome.Text = $"Laipni lūgti, {currentUser.Name} {currentUser.Surname}!";
+            groupBoxUserControls.Text = $"Lietotājs {currentUser.Username}";
+            if (currentUser.Admin)
+            {
+                labelRole.Text = $"Pieslēdzies kā: Administrators";
+            }
+            else
+            {
+                labelRole.Text = $"Pieslēdzies kā: Lietotājs";
+            }
         }
         public void AddItemsToTable()
         {
@@ -36,11 +51,9 @@ namespace datorium_projekts
                     (string)item.Type,
                     (string)item.Details
                 };
-                dt.Rows.Add(row);   
+                dt.Rows.Add(row);
             }
             dataGridViewItems.DataSource = dt;
         }
-
-
     }
 }
