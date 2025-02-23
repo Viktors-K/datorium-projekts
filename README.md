@@ -25,13 +25,18 @@ Patsāvīgi grupā izstrādāt projektu. Projekts tiks vērtēts ar atzīmi.
 
 Iesniegšanas termiņš: **01.04.2025 23:59**
 
-## Mūsu risinājums
+# Mūsu risinājums
 
-### Ideja
-Mūsu skolā ir nepieciešama datoru izsniegšanas sistēma. Datortelpā ir pieejami Windows laptopi, kurus var izmantot jebkurš skolēns, bet šobrīd aktuālas sistēmas viņu izsniegšanai nav. 
+## Mūsu grupa
+Viktors Kočetoks, Markuss Punāns, Emīls Šulcs
+12. EI klase, Rīgas Valsts vācu ģimnāzija
+
+## Ideja
+Mūsu skolā ir nepieciešama datoru izsniegšanas sistēma. 
+Datortelpā ir pieejami Windows laptopi, kurus var izmantot jebkurš skolēns, bet šobrīd aktuālas sistēmas viņu izsniegšanai nav. 
 Mūsu projekts palīdzētu izveidot risinājumu, kas uzlabotu drošību un pārliecinātos par datoru laicīgu atgriežšanu.
 
-### SQL tabulas
+## SQL tabulas
 Users
 | ID | username   | email                  | password_hash | admin | profile_data                                                 |
 |----|------------|------------------------|---------------|-------|--------------------------------------------------------------|
@@ -62,16 +67,23 @@ Reservations
 | 3  | 3         | mpunans    | 09:00 13.02.2025  | 11:00 13.02.2025 | completed |
 
 ![ER diagramma datubāzei](er-diagram.png "ER diagramma")
-### Mūsu grupa
-Viktors Kočetoks, Markuss Punāns, Emīls Šulcs
-12. EI klase, Rīgas Valsts vācu ģimnāzija
 
-### Papildus iespējamās idejas
+## Koda risinājums
+Aplikācijā ir 3 galvenie Form jeb skati.
+
+Login skatā ir iespējams pieslēgties sistēmai izmantojot lietotājvārdu un paroli.
+
+Register skatā iespējams reģistrēties. Ievadus pārbauda ar RegEx modeļiem lai tie apmierinātu kritērijus (piem. parolei jābūt 6 rakstzīmju garai un jābūt 1 simbolam). 
+Datubāzē tiek glabāta tikai paroles salted hash, jeb, īsāk sakot, parole pati nekur nav pieejama. Tas tika sasniegts izmantojot BCrypt.Net-next bibliotēku, izveidojot kriptēšanas slāni.
+
+Main skatā ir pieejama lielākā daļa no projekta. Skatā izmantots TabControl elements lai izveidotu vairākas cilnes, atšķirībā no lietotāja profila.
+Ja lietotājs ir administrators, tad ir piekļuve citu lietotāju rediģēšanai un jaunu datoru/aksesuāru pievienošanai/rediģēšanai.
+Visiem lietotājiem ir pieejamas 'Datori un aksesuāri' un 'Rezervācijas' cilnes, kurās var apskatīt un izveidot rezervācijas, kā arī vienkārši reģistrēt datora izsniegšanu.
+
+## Papildus iespējamās idejas
 Microsoft kontu pieslēgšanās - viss vienā platformā
 Tumšais un gaišais režīms
 Skolas mājaslapā pieejams skaits ar pieejamiem datoriem
 
-### To-Do
-lietotājs jau eksistē pie registracijas
-epasta adrese jau izmantota
+
 
