@@ -131,6 +131,62 @@ namespace datorium_projekts
                 deleteCmd.ExecuteNonQuery();
             }
         }
+        public bool UsernameExists(string username)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                User new_user = null;
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT * FROM Users WHERE username = @username";
+                selectCmd.Parameters.AddWithValue("@username", username);
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string json_data = reader["profile_data"].ToString();
+                    Dictionary<string, string> profile_data = JsonSerializer.Deserialize<Dictionary<string, string>>(json_data);
+                    new_user = new User(
+                        id: Convert.ToInt32(reader["id"]),
+                        username: Convert.ToString(reader["username"]),
+                        email: Convert.ToString(reader["email"]),
+                        password_hash: Convert.ToString(reader["password_hash"]),
+                        name: profile_data["Name"],
+                        surname: profile_data["Surname"],
+                        student_class: profile_data["StudentClass"],
+                        admin: Convert.ToBoolean(reader["admin"])
+                    );
+                }
+                return !(new_user == null);
+            }
+        }
+        public bool EmailExists(string email)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                User new_user = null;
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT * FROM Users WHERE email = @email";
+                selectCmd.Parameters.AddWithValue("@email", email);
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string json_data = reader["profile_data"].ToString();
+                    Dictionary<string, string> profile_data = JsonSerializer.Deserialize<Dictionary<string, string>>(json_data);
+                    new_user = new User(
+                        id: Convert.ToInt32(reader["id"]),
+                        username: Convert.ToString(reader["username"]),
+                        email: Convert.ToString(reader["email"]),
+                        password_hash: Convert.ToString(reader["password_hash"]),
+                        name: profile_data["Name"],
+                        surname: profile_data["Surname"],
+                        student_class: profile_data["StudentClass"],
+                        admin: Convert.ToBoolean(reader["admin"])
+                    );
+                }
+                return !(new_user == null);
+            }
+        }
     }
     public class ItemManager
     {

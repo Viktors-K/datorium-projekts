@@ -28,12 +28,12 @@ namespace datorium_projekts
             bool usernameNull = string.IsNullOrEmpty(textBoxUsername.Text);
             bool otherBoxesNull = string.IsNullOrEmpty(textBoxEmail.Text) || string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxSurname.Text) || string.IsNullOrEmpty(textBoxClass.Text);
             
-            //regex expressions for inputs
+            // regex expressions for inputs
             string passwordPattern = @"^(?=.*[A-Z])(?=.*[!@#$%^&*()_+={}\[\]:;""'<>,.?/|\\]).{6,}$";
             string usernamePattern = @"^\w+$";
             string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
-            //defining variables for inputs, removing all spaces
+            // defining variables for inputs, removing all spaces
             string username = textBoxUsername.Text.Replace(" ", "");
             string email = textBoxEmail.Text.Replace(" ", "");
             string password = textBoxPassword.Text.Replace(" ", "");
@@ -41,7 +41,7 @@ namespace datorium_projekts
             string surname = textBoxSurname.Text.Replace(" ", "");
             string student_class = textBoxClass.Text.Replace(" ", "");
 
-            //checking validity of inputs
+            // checking validity of inputs
             if (!passwordMatches)
             {
                 ShowError("Paroles nav vienādas!");
@@ -62,6 +62,8 @@ namespace datorium_projekts
                 ShowError("Pārējie lauciņi nevar būt tukši!");
                 return;
             }
+
+            // check if inputs match regex patterns
             if (!Regex.IsMatch(username, usernamePattern))
             {
                 ShowError("Lietotājvārdā var izmantot tikai burtus, skaitļus un _ simbolu!");
@@ -69,7 +71,7 @@ namespace datorium_projekts
             };
             if (!Regex.IsMatch(password, passwordPattern))
             {
-                ShowError("Parolei jābūt vismaz 6 simbolu garai, un \njāizmanto vienu lielo burtu un vienu simbolu!");
+                ShowError("Parolei jābūt vismaz 6 rakstzīmju garai, un \njāizmanto vienu lielo burtu un vienu simbolu!");
                 return;
             };
             if (!Regex.IsMatch(email, emailPattern))
@@ -78,7 +80,19 @@ namespace datorium_projekts
                 return;
             };
 
-            //register user with encrypted and salted password if input valid
+            // check if inputs are unique
+            if (userManager.UsernameExists(username))
+            {
+                ShowError("Lietotājs ar šādu lietotājvārdu jau eksistē!");
+                return;
+            };
+            if (userManager.EmailExists(email))
+            {
+                ShowError("Lietotājs ar šādu e-pastu jau eksistē!");
+                return;
+            };
+
+            // register user with encrypted and salted password if input valid
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(textBoxPassword.Text);
             try
             {

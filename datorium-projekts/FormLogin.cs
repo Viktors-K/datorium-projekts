@@ -18,8 +18,11 @@ namespace datorium_projekts
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            string password = textBoxPassword.Text;
-            string username = textBoxUsername.Text;
+            // defining variables for inputs, removing all spaces
+            string password = textBoxPassword.Text.Replace(" ", "");
+            string username = textBoxUsername.Text.Replace(" ", "");
+
+            // check if fields are not null
             if (string.IsNullOrEmpty(password)) 
             {
                 ShowError("Parole ir tukša!");
@@ -30,6 +33,8 @@ namespace datorium_projekts
                 ShowError("Lietotājvārds ir tukšs!");
                 return;
             }
+
+            // try to find user with given username, otherwise return error
             try
             {
                 User user = userManager.GetUser(username);
@@ -38,6 +43,7 @@ namespace datorium_projekts
                     ShowError("Lietotājs neeksistē!");
                     return;
                 }
+                // check if password matches saved hash
                 if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
                 {
                     ShowError("Parole ir nepareiza!");
@@ -48,12 +54,14 @@ namespace datorium_projekts
                 ShowError("Kļūda lietotāja atrašanā!");
                 return;
             }
-            // successful login
+
+            // successful login, discard password
             password = null;
             labelError.Hide();
             textBoxPassword.Text = null;
             textBoxUsername.Text = null;
             MessageBox.Show("Lietotājs veiksmīgi pieslēgts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
 
         // method for displaying error messages
