@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             tabControlMain = new TabControl();
             tabPageDashboard = new TabPage();
             labelNotifications = new Label();
@@ -290,6 +291,7 @@
             BackColor = Color.Gray;
             ClientSize = new Size(800, 440);
             Controls.Add(tabControlMain);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormMain";
             Text = "Datoru izsniegšanas sistēma";
             tabControlMain.ResumeLayout(false);
