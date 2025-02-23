@@ -32,6 +32,8 @@ namespace datorium_projekts
             else
             {
                 labelRole.Text = $"Pieslēdzies kā: Lietotājs";
+                tabControlMain.TabPages.Remove(tabPageAdminItem);
+                tabControlMain.TabPages.Remove(tabPageAdminUser);
             }
         }
         public void AddItemsToTable()

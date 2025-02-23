@@ -47,8 +47,9 @@
             labelRole = new Label();
             listBoxNotifications = new ListBox();
             dataGridViewItems = new DataGridView();
-            tabPage2 = new TabPage();
-            tabPage3 = new TabPage();
+            tabPageReservations = new TabPage();
+            tabPageAdminItem = new TabPage();
+            tabPageAdminUser = new TabPage();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -61,8 +62,9 @@
             // tabControlMain
             // 
             tabControlMain.Controls.Add(tabPageDashboard);
-            tabControlMain.Controls.Add(tabPage2);
-            tabControlMain.Controls.Add(tabPage3);
+            tabControlMain.Controls.Add(tabPageReservations);
+            tabControlMain.Controls.Add(tabPageAdminItem);
+            tabControlMain.Controls.Add(tabPageAdminUser);
             tabControlMain.Location = new Point(12, 12);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
@@ -251,25 +253,35 @@
             dataGridViewItems.Size = new Size(413, 376);
             dataGridViewItems.TabIndex = 2;
             // 
-            // tabPage2
+            // tabPageReservations
             // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(768, 389);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabPageReservations.Location = new Point(4, 24);
+            tabPageReservations.Name = "tabPageReservations";
+            tabPageReservations.Padding = new Padding(3);
+            tabPageReservations.Size = new Size(768, 389);
+            tabPageReservations.TabIndex = 1;
+            tabPageReservations.Text = "Rezervācijas";
+            tabPageReservations.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // tabPageAdminItem
             // 
-            tabPage3.Location = new Point(4, 24);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(768, 389);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "asd";
-            tabPage3.UseVisualStyleBackColor = true;
+            tabPageAdminItem.Location = new Point(4, 24);
+            tabPageAdminItem.Name = "tabPageAdminItem";
+            tabPageAdminItem.Padding = new Padding(3);
+            tabPageAdminItem.Size = new Size(768, 389);
+            tabPageAdminItem.TabIndex = 2;
+            tabPageAdminItem.Text = "Vienumu rediģēšana";
+            tabPageAdminItem.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAdminUser
+            // 
+            tabPageAdminUser.Location = new Point(4, 24);
+            tabPageAdminUser.Name = "tabPageAdminUser";
+            tabPageAdminUser.Padding = new Padding(3);
+            tabPageAdminUser.Size = new Size(768, 389);
+            tabPageAdminUser.TabIndex = 3;
+            tabPageAdminUser.Text = "Lietotāju rediģēšana";
+            tabPageAdminUser.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -297,8 +309,8 @@
 
         private TabControl tabControlMain;
         private TabPage tabPageDashboard;
-        private TabPage tabPage2;
-        private TabPage tabPage3;
+        private TabPage tabPageReservations;
+        private TabPage tabPageAdminItem;
         private DataGridView dataGridViewItems;
         private Label labelRole;
         private Label labelWelcome;
@@ -316,5 +328,6 @@
         private Button button2;
         private Button buttonReserve;
         private Label label3;
+        private TabPage tabPageAdminUser;
     }
 }
