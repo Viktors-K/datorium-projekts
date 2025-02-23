@@ -48,15 +48,15 @@ namespace datorium_projekts
         public string Username;
         public DateTime IssuedAt;
         public DateTime DueAt;
-        public DateTime ReturnedAt;
-        public Handout(int id, int item_id, string username, DateTime issued_at, DateTime due_at, DateTime returned_at)
+        public string Status;
+        public Handout(int id, int item_id, string username, DateTime issued_at, DateTime due_at, string status)
         {
             this.Id = id;
             this.ItemId = item_id;
             this.Username = username;
             this.IssuedAt = issued_at;
             this.DueAt = due_at;
-            this.ReturnedAt = returned_at;
+            this.Status = status;
         }
     }
     public class Reservation

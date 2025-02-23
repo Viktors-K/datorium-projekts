@@ -61,7 +61,12 @@ namespace datorium_projekts
             textBoxPassword.Text = null;
             textBoxUsername.Text = null;
             MessageBox.Show("Lietotājs veiksmīgi pieslēgts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            
+            // hide current form and open new one, when new form closed, close this one as well.
+            FormMain newForm = new FormMain();
+            this.Hide();
+            newForm.FormClosed += (s, args) => this.Close();
+            newForm.Show();
         }
 
         // method for displaying error messages

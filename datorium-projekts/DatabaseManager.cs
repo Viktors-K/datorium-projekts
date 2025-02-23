@@ -277,6 +277,55 @@ namespace datorium_projekts
                 deleteCmd.ExecuteNonQuery();
             }
         }
+        public List<Item> GetAllItems()
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                List<Item> item_list = new List<Item>();
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT * FROM Items";
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Item new_item = new Item(
+                        id: Convert.ToInt32(reader["id"]),
+                        type: Convert.ToString(reader["type"]),
+                        details: Convert.ToString(reader["details"])
+                    );
+                    item_list.Add(new_item);
+                }
+                return item_list;
+            }
+        }
+        public Boolean IsAvailable(int item_id)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                // check if table Handouts has an active handout on item
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT 1 FROM Handouts WHERE item_id = @item_id AND status = active";
+                selectCmd.Parameters.AddWithValue("@item_id", item_id);
+                var reader = selectCmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    return false;
+                }
+                // check if table Reservations has an active reservation on item
+                selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT 1 FROM Reservations WHERE item_id = @item_id AND status = active";
+                selectCmd.Parameters.AddWithValue("@item_id", item_id);
+                reader = selectCmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    return false;
+                }
+
+                // if none of the tables have an active query for the item return true
+                return true;
+            }
+        }
     }
     public class HandoutManager
     {
@@ -299,7 +348,7 @@ namespace datorium_projekts
                           username TEXT NOT NULL,
                           issued_at TEXT NOT NULL,
                           due_at TEXT NOT NULL,
-                          returned_at TEXT,
+                          status TEXT NOT NULL,
                           FOREIGN KEY (item_id) REFERENCES Items(id),
                           FOREIGN KEY (username) REFERENCES Users(username)
                     );
@@ -307,19 +356,19 @@ namespace datorium_projekts
                 createTableCmd.ExecuteNonQuery();
             }
         }
-        public void AddHandout(int item_id, string username, DateTime issued_at, DateTime due_at, DateTime returned_at)
+        public void AddHandout(int item_id, string username, DateTime issued_at, DateTime due_at, string status)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
                 var insertCmd = connection.CreateCommand();
-                insertCmd.CommandText = @"INSERT INTO Handouts(item_id, username, issued_at, due_at, returned_at)
-                                                      VALUES (@item_id, @username, @issued_at, @due_at, @returned_at)";
+                insertCmd.CommandText = @"INSERT INTO Handouts(item_id, username, issued_at, due_at, status)
+                                                      VALUES (@item_id, @username, @issued_at, @due_at, @status)";
                 insertCmd.Parameters.AddWithValue("@item_id", item_id);
                 insertCmd.Parameters.AddWithValue("@username", username);
                 insertCmd.Parameters.AddWithValue("@issued_at", issued_at.ToString());
                 insertCmd.Parameters.AddWithValue("@due_at", due_at.ToString());
-                insertCmd.Parameters.AddWithValue("@returned_at", returned_at.ToString());
+                insertCmd.Parameters.AddWithValue("@status", status);
                 insertCmd.ExecuteNonQuery();
             }
         }
@@ -341,7 +390,7 @@ namespace datorium_projekts
                         username: Convert.ToString(reader["username"]),
                         issued_at: Convert.ToDateTime(reader["issued_at"]),
                         due_at: Convert.ToDateTime(reader["due_at"]),
-                        returned_at: Convert.ToDateTime(reader["returned_at"])
+                        status: Convert.ToString(reader["status"])
                     );
                 }
                 return new_handout;
@@ -359,14 +408,14 @@ namespace datorium_projekts
                         username = @username,
                         issued_at = @issued_at,
                         due_at = @due_at,
-                        returned_at = @returned_at
+                        status = @status
                     WHERE id = @id;
 				";
                 updateCmd.Parameters.AddWithValue("@item_id", new_handout.ItemId);
                 updateCmd.Parameters.AddWithValue("@username", new_handout.Username);
                 updateCmd.Parameters.AddWithValue("@issued_at", new_handout.IssuedAt.ToString());
                 updateCmd.Parameters.AddWithValue("@due_at", new_handout.DueAt.ToString());
-                updateCmd.Parameters.AddWithValue("@returned_at", new_handout.ReturnedAt.ToString());
+                updateCmd.Parameters.AddWithValue("@status", new_handout.Status);
                 updateCmd.Parameters.AddWithValue("@id", old_handout.Id);
                 updateCmd.ExecuteNonQuery();
             }
