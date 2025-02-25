@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BCrypt.Net;
 using System.Text.RegularExpressions;
+using MaterialSkin;
+using MaterialSkin.Controls;
 namespace datorium_projekts
 {
-    public partial class FormRegister : Form
+    public partial class FormRegister : MaterialForm
     {
         private UserManager userManager;
         public FormRegister()
@@ -23,23 +25,23 @@ namespace datorium_projekts
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             // booleans to check validity of input
-            bool passwordMatches = (textBoxPassword.Text == textBoxRepeatPassword.Text);
-            bool passwordNull = string.IsNullOrEmpty(textBoxPassword.Text) || string.IsNullOrEmpty(textBoxRepeatPassword.Text);
-            bool usernameNull = string.IsNullOrEmpty(textBoxUsername.Text);
-            bool otherBoxesNull = string.IsNullOrEmpty(textBoxEmail.Text) || string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxSurname.Text) || string.IsNullOrEmpty(textBoxClass.Text);
-            
+            bool passwordMatches = (materialTextBoxPassword.Text == materialTextBoxRepeatPassword.Text);
+            bool passwordNull = string.IsNullOrEmpty(materialTextBoxPassword.Text) || string.IsNullOrEmpty(materialTextBoxRepeatPassword.Text);
+            bool usernameNull = string.IsNullOrEmpty(materialTextBoxUsername.Text);
+            bool otherBoxesNull = string.IsNullOrEmpty(materialTextBoxEmail.Text) || string.IsNullOrEmpty(materialTextBoxName.Text) || string.IsNullOrEmpty(materialTextBoxSurname.Text) || string.IsNullOrEmpty(materialTextBoxClass.Text);
+
             // regex expressions for inputs
             string passwordPattern = @"^(?=.*[A-Z])(?=.*[!@#$%^&*()_+={}\[\]:;""'<>,.?/|\\]).{6,}$";
             string usernamePattern = @"^\w+$";
             string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
             // defining variables for inputs, removing all spaces
-            string username = textBoxUsername.Text.Replace(" ", "");
-            string email = textBoxEmail.Text.Replace(" ", "");
-            string password = textBoxPassword.Text.Replace(" ", "");
-            string name = textBoxName.Text.Replace(" ", "");
-            string surname = textBoxSurname.Text.Replace(" ", "");
-            string student_class = textBoxClass.Text.Replace(" ", "");
+            string username = materialTextBoxUsername.Text.Replace(" ", "");
+            string email = materialTextBoxEmail.Text.Replace(" ", "");
+            string password = materialTextBoxPassword.Text.Replace(" ", "");
+            string name = materialTextBoxName.Text.Replace(" ", "");
+            string surname = materialTextBoxSurname.Text.Replace(" ", "");
+            string student_class = materialTextBoxClass.Text.Replace(" ", "");
 
             // checking validity of inputs
             if (!passwordMatches)
@@ -93,7 +95,7 @@ namespace datorium_projekts
             };
 
             // register user with encrypted and salted password if input valid
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(textBoxPassword.Text);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(materialTextBoxPassword.Text);
             try
             {
                 userManager.AddUser(username, email, passwordHash, name, surname, student_class);
@@ -109,8 +111,8 @@ namespace datorium_projekts
         // method for displaying error messages
         private void ShowError(string message)
         {
-            labelError.Text = message;
-            labelError.Show();
+            materialLabelError.Text = message;
+            materialLabelError.Show();
         }
     }
 }
