@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using MaterialSkin;
+using MaterialSkin.Controls;
 namespace datorium_projekts
 {
-    public partial class FormMain : Form
+    public partial class FormMain : MaterialForm
     {
         private ItemManager itemManager;
         private UserManager userManager;
@@ -23,17 +24,17 @@ namespace datorium_projekts
             currentUser = userManager.GetUser(username);
             AddItemsToTable();
 
-            labelWelcome.Text = $"Laipni lūgti, {currentUser.Name} {currentUser.Surname}!";
-            groupBoxUserControls.Text = $"Lietotājs {currentUser.Username}";
+            //labelWelcome.Text = $"Laipni lūgti, {currentUser.Name} {currentUser.Surname}!";
+            // groupBoxUserControls.Text = $"Lietotājs {currentUser.Username}";
             if (currentUser.Admin)
             {
-                labelRole.Text = $"Pieslēdzies kā: Administrators";
+                //    labelRole.Text = $"Pieslēdzies kā: Administrators";
             }
             else
             {
-                labelRole.Text = $"Pieslēdzies kā: Lietotājs";
-                tabControlMain.TabPages.Remove(tabPageAdminItem);
-                tabControlMain.TabPages.Remove(tabPageAdminUser);
+                //    labelRole.Text = $"Pieslēdzies kā: Lietotājs";
+                //    tabControlMain.TabPages.Remove(tabPageAdminItem);
+                //    tabControlMain.TabPages.Remove(tabPageAdminUser);
             }
         }
         public void AddItemsToTable()
@@ -55,7 +56,7 @@ namespace datorium_projekts
                 };
                 dt.Rows.Add(row);
             }
-            dataGridViewItems.DataSource = dt;
+            //dataGridViewItems.DataSource = dt;
         }
     }
 }
