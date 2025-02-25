@@ -29,109 +29,163 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
-            labelUsername = new Label();
-            textBoxUsername = new TextBox();
-            checkBoxRememberMe = new CheckBox();
-            buttonLogin = new Button();
-            textBoxPassword = new TextBox();
-            labelPassword = new Label();
-            buttonRegister = new Button();
-            labelError = new Label();
+            materialButtonLogin = new MaterialSkin.Controls.MaterialButton();
+            materialLabelUsername = new MaterialSkin.Controls.MaterialLabel();
+            materialCheckboxRememberMe = new MaterialSkin.Controls.MaterialCheckbox();
+            materialTextBoxUsername = new MaterialSkin.Controls.MaterialTextBox();
+            materialTextBoxPassword = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabelPassword = new MaterialSkin.Controls.MaterialLabel();
+            materialButtonRegister = new MaterialSkin.Controls.MaterialButton();
+            materialLabelError = new MaterialSkin.Controls.MaterialLabel();
             SuspendLayout();
             // 
-            // labelUsername
+            // materialButtonLogin
             // 
-            labelUsername.AutoSize = true;
-            labelUsername.Location = new Point(92, 25);
-            labelUsername.Name = "labelUsername";
-            labelUsername.Size = new Size(77, 15);
-            labelUsername.TabIndex = 0;
-            labelUsername.Text = "Lietotājvārds:";
+            materialButtonLogin.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonLogin.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonLogin.Depth = 0;
+            materialButtonLogin.HighEmphasis = true;
+            materialButtonLogin.Icon = null;
+            materialButtonLogin.Location = new Point(20, 280);
+            materialButtonLogin.Margin = new Padding(4, 6, 4, 6);
+            materialButtonLogin.MinimumSize = new Size(250, 0);
+            materialButtonLogin.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonLogin.Name = "materialButtonLogin";
+            materialButtonLogin.NoAccentTextColor = Color.Empty;
+            materialButtonLogin.Size = new Size(250, 36);
+            materialButtonLogin.TabIndex = 0;
+            materialButtonLogin.Text = "Pieslēgties";
+            materialButtonLogin.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonLogin.UseAccentColor = true;
+            materialButtonLogin.UseVisualStyleBackColor = true;
+            materialButtonLogin.Click += buttonLogin_Click;
             // 
-            // textBoxUsername
+            // materialLabelUsername
             // 
-            textBoxUsername.Location = new Point(92, 43);
-            textBoxUsername.Name = "textBoxUsername";
-            textBoxUsername.Size = new Size(124, 23);
-            textBoxUsername.TabIndex = 1;
+            materialLabelUsername.AutoSize = true;
+            materialLabelUsername.Depth = 0;
+            materialLabelUsername.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelUsername.Location = new Point(20, 80);
+            materialLabelUsername.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelUsername.Name = "materialLabelUsername";
+            materialLabelUsername.Size = new Size(97, 19);
+            materialLabelUsername.TabIndex = 1;
+            materialLabelUsername.Text = "Lietotājvārds:";
             // 
-            // checkBoxRememberMe
+            // materialCheckboxRememberMe
             // 
-            checkBoxRememberMe.AutoSize = true;
-            checkBoxRememberMe.Location = new Point(92, 116);
-            checkBoxRememberMe.Name = "checkBoxRememberMe";
-            checkBoxRememberMe.Size = new Size(108, 19);
-            checkBoxRememberMe.TabIndex = 2;
-            checkBoxRememberMe.Text = "Atcerēties mani";
-            checkBoxRememberMe.UseVisualStyleBackColor = true;
+            materialCheckboxRememberMe.AutoSize = true;
+            materialCheckboxRememberMe.Depth = 0;
+            materialCheckboxRememberMe.Location = new Point(20, 235);
+            materialCheckboxRememberMe.Margin = new Padding(0);
+            materialCheckboxRememberMe.MouseLocation = new Point(-1, -1);
+            materialCheckboxRememberMe.MouseState = MaterialSkin.MouseState.HOVER;
+            materialCheckboxRememberMe.Name = "materialCheckboxRememberMe";
+            materialCheckboxRememberMe.ReadOnly = false;
+            materialCheckboxRememberMe.Ripple = true;
+            materialCheckboxRememberMe.Size = new Size(144, 37);
+            materialCheckboxRememberMe.TabIndex = 2;
+            materialCheckboxRememberMe.Text = "Atcerēties mani";
+            materialCheckboxRememberMe.UseVisualStyleBackColor = true;
             // 
-            // buttonLogin
+            // materialTextBoxUsername
             // 
-            buttonLogin.Location = new Point(92, 141);
-            buttonLogin.Name = "buttonLogin";
-            buttonLogin.Size = new Size(124, 23);
-            buttonLogin.TabIndex = 3;
-            buttonLogin.Text = "Pieslēgties";
-            buttonLogin.UseVisualStyleBackColor = true;
-            buttonLogin.Click += buttonLogin_Click;
+            materialTextBoxUsername.AnimateReadOnly = false;
+            materialTextBoxUsername.BorderStyle = BorderStyle.None;
+            materialTextBoxUsername.Depth = 0;
+            materialTextBoxUsername.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxUsername.LeadingIcon = null;
+            materialTextBoxUsername.Location = new Point(20, 102);
+            materialTextBoxUsername.MaxLength = 50;
+            materialTextBoxUsername.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxUsername.Multiline = false;
+            materialTextBoxUsername.Name = "materialTextBoxUsername";
+            materialTextBoxUsername.Size = new Size(250, 50);
+            materialTextBoxUsername.TabIndex = 3;
+            materialTextBoxUsername.Text = "";
+            materialTextBoxUsername.TrailingIcon = null;
             // 
-            // textBoxPassword
+            // materialTextBoxPassword
             // 
-            textBoxPassword.Location = new Point(92, 87);
-            textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.Size = new Size(124, 23);
-            textBoxPassword.TabIndex = 5;
-            textBoxPassword.UseSystemPasswordChar = true;
+            materialTextBoxPassword.AnimateReadOnly = false;
+            materialTextBoxPassword.BorderStyle = BorderStyle.None;
+            materialTextBoxPassword.Depth = 0;
+            materialTextBoxPassword.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxPassword.LeadingIcon = null;
+            materialTextBoxPassword.LeaveOnEnterKey = true;
+            materialTextBoxPassword.Location = new Point(20, 180);
+            materialTextBoxPassword.MaxLength = 50;
+            materialTextBoxPassword.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxPassword.Multiline = false;
+            materialTextBoxPassword.Name = "materialTextBoxPassword";
+            materialTextBoxPassword.Password = true;
+            materialTextBoxPassword.Size = new Size(250, 50);
+            materialTextBoxPassword.TabIndex = 5;
+            materialTextBoxPassword.Text = "";
+            materialTextBoxPassword.TrailingIcon = null;
             // 
-            // labelPassword
+            // materialLabelPassword
             // 
-            labelPassword.AutoSize = true;
-            labelPassword.Location = new Point(92, 69);
-            labelPassword.Name = "labelPassword";
-            labelPassword.Size = new Size(43, 15);
-            labelPassword.TabIndex = 4;
-            labelPassword.Text = "Parole:";
+            materialLabelPassword.AutoSize = true;
+            materialLabelPassword.Depth = 0;
+            materialLabelPassword.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelPassword.Location = new Point(20, 158);
+            materialLabelPassword.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelPassword.Name = "materialLabelPassword";
+            materialLabelPassword.Size = new Size(50, 19);
+            materialLabelPassword.TabIndex = 4;
+            materialLabelPassword.Text = "Parole:";
             // 
-            // buttonRegister
+            // materialButtonRegister
             // 
-            buttonRegister.Location = new Point(92, 170);
-            buttonRegister.Name = "buttonRegister";
-            buttonRegister.Size = new Size(124, 23);
-            buttonRegister.TabIndex = 6;
-            buttonRegister.Text = "Neesmu reģistrējies";
-            buttonRegister.UseVisualStyleBackColor = true;
-            buttonRegister.Click += buttonRegister_Click;
+            materialButtonRegister.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonRegister.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonRegister.Depth = 0;
+            materialButtonRegister.HighEmphasis = true;
+            materialButtonRegister.Icon = null;
+            materialButtonRegister.Location = new Point(20, 325);
+            materialButtonRegister.Margin = new Padding(4, 6, 4, 6);
+            materialButtonRegister.MinimumSize = new Size(250, 0);
+            materialButtonRegister.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonRegister.Name = "materialButtonRegister";
+            materialButtonRegister.NoAccentTextColor = Color.Empty;
+            materialButtonRegister.Size = new Size(250, 36);
+            materialButtonRegister.TabIndex = 6;
+            materialButtonRegister.Text = "Neesmu reģistrējies";
+            materialButtonRegister.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonRegister.UseAccentColor = false;
+            materialButtonRegister.UseVisualStyleBackColor = true;
+            materialButtonRegister.Click += buttonRegister_Click;
             // 
-            // labelError
+            // materialLabelError
             // 
-            labelError.AutoSize = true;
-            labelError.BackColor = Color.Silver;
-            labelError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(12, 204);
-            labelError.MaximumSize = new Size(290, 0);
-            labelError.MinimumSize = new Size(290, 0);
-            labelError.Name = "labelError";
-            labelError.Size = new Size(290, 15);
-            labelError.TabIndex = 18;
-            labelError.Text = "Nepareiza parole!";
-            labelError.TextAlign = ContentAlignment.MiddleCenter;
-            labelError.Visible = false;
+            materialLabelError.AutoSize = true;
+            materialLabelError.Depth = 0;
+            materialLabelError.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelError.HighEmphasis = true;
+            materialLabelError.Location = new Point(20, 367);
+            materialLabelError.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelError.Name = "materialLabelError";
+            materialLabelError.Size = new Size(46, 19);
+            materialLabelError.TabIndex = 7;
+            materialLabelError.Text = "Kļūda!";
+            materialLabelError.UseAccent = true;
+            materialLabelError.Visible = false;
             // 
             // FormLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Gray;
-            ClientSize = new Size(315, 228);
-            Controls.Add(labelError);
-            Controls.Add(buttonRegister);
-            Controls.Add(textBoxPassword);
-            Controls.Add(labelPassword);
-            Controls.Add(buttonLogin);
-            Controls.Add(checkBoxRememberMe);
-            Controls.Add(textBoxUsername);
-            Controls.Add(labelUsername);
+            BackColor = SystemColors.ControlLight;
+            ClientSize = new Size(291, 391);
+            Controls.Add(materialLabelError);
+            Controls.Add(materialButtonRegister);
+            Controls.Add(materialTextBoxPassword);
+            Controls.Add(materialLabelPassword);
+            Controls.Add(materialTextBoxUsername);
+            Controls.Add(materialCheckboxRememberMe);
+            Controls.Add(materialLabelUsername);
+            Controls.Add(materialButtonLogin);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormLogin";
             Text = "Datoru izsniegšanas sistēma";
@@ -141,13 +195,13 @@
 
         #endregion
 
-        private Label labelUsername;
-        private TextBox textBoxUsername;
-        private CheckBox checkBoxRememberMe;
-        private Button buttonLogin;
-        private TextBox textBoxPassword;
-        private Label labelPassword;
-        private Button buttonRegister;
-        private Label labelError;
+        private MaterialSkin.Controls.MaterialButton materialButtonLogin;
+        private MaterialSkin.Controls.MaterialLabel materialLabelUsername;
+        private MaterialSkin.Controls.MaterialCheckbox materialCheckboxRememberMe;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxUsername;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxPassword;
+        private MaterialSkin.Controls.MaterialLabel materialLabelPassword;
+        private MaterialSkin.Controls.MaterialButton materialButtonRegister;
+        private MaterialSkin.Controls.MaterialLabel materialLabelError;
     }
 }
