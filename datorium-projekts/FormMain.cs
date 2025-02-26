@@ -22,7 +22,7 @@ namespace datorium_projekts
             userManager = new UserManager("Data Source=main.db");
             itemManager = new ItemManager("Data Source=main.db");
             currentUser = userManager.GetUser(username);
-            AddItemsToTable();
+            AddItemsToListView();
 
             //labelWelcome.Text = $"Laipni lūgti, {currentUser.Name} {currentUser.Surname}!";
             // groupBoxUserControls.Text = $"Lietotājs {currentUser.Username}";
@@ -37,26 +37,21 @@ namespace datorium_projekts
                 //    tabControlMain.TabPages.Remove(tabPageAdminUser);
             }
         }
-        public void AddItemsToTable()
+        public void AddItemsToListView()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("ID", typeof(int));
-            dt.Columns.Add("Veids", typeof(string));
-            dt.Columns.Add("Apraksts", typeof(string));
+            materialListViewItems.View = View.Details; // Ensure the ListView is in Details mode
+            materialListViewItems.Items.Clear();
 
-            // import Item data
+            // Import Item Data
             List<Item> item_list = itemManager.GetAllItems();
             foreach (Item item in item_list)
             {
-                object[] row = new object[]
-                {
-                    (int)item.Id,
-                    (string)item.Type,
-                    (string)item.Details
-                };
-                dt.Rows.Add(row);
+                ListViewItem listViewItem = new ListViewItem(item.Id.ToString());
+                listViewItem.SubItems.Add(item.Type);
+                listViewItem.SubItems.Add(item.Details);
+
+                materialListViewItems.Items.Add(listViewItem);
             }
-            //dataGridViewItems.DataSource = dt;
         }
     }
 }

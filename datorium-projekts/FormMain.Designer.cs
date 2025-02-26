@@ -33,12 +33,18 @@
             materialDrawer1 = new MaterialSkin.Controls.MaterialDrawer();
             materialTabControlMain = new MaterialSkin.Controls.MaterialTabControl();
             tabPageHandouts = new TabPage();
+            materialListViewItems = new MaterialSkin.Controls.MaterialListView();
+            columnHeaderId = new ColumnHeader();
+            columnHeaderType = new ColumnHeader();
+            columnHeaderDetails = new ColumnHeader();
+            columnHeaderStatus = new ColumnHeader();
             tabPageReservations = new TabPage();
             tabPageAdminItem = new TabPage();
             tabPageAdminUser = new TabPage();
             tabPageUser = new TabPage();
             imageListIcons = new ImageList(components);
             materialTabControlMain.SuspendLayout();
+            tabPageHandouts.SuspendLayout();
             SuspendLayout();
             // 
             // materialDrawer1
@@ -80,6 +86,7 @@
             // 
             // tabPageHandouts
             // 
+            tabPageHandouts.Controls.Add(materialListViewItems);
             tabPageHandouts.ImageKey = "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageHandouts.Location = new Point(4, 24);
             tabPageHandouts.Name = "tabPageHandouts";
@@ -88,6 +95,45 @@
             tabPageHandouts.TabIndex = 0;
             tabPageHandouts.Text = "Izsniegšana";
             tabPageHandouts.UseVisualStyleBackColor = true;
+            // 
+            // materialListViewItems
+            // 
+            materialListViewItems.AutoSizeTable = false;
+            materialListViewItems.BackColor = Color.FromArgb(255, 255, 255);
+            materialListViewItems.BorderStyle = BorderStyle.None;
+            materialListViewItems.Columns.AddRange(new ColumnHeader[] { columnHeaderId, columnHeaderType, columnHeaderDetails, columnHeaderStatus });
+            materialListViewItems.Depth = 0;
+            materialListViewItems.FullRowSelect = true;
+            materialListViewItems.Location = new Point(50, 0);
+            materialListViewItems.MinimumSize = new Size(200, 100);
+            materialListViewItems.MouseLocation = new Point(-1, -1);
+            materialListViewItems.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewItems.Name = "materialListViewItems";
+            materialListViewItems.OwnerDraw = true;
+            materialListViewItems.Size = new Size(750, 100);
+            materialListViewItems.TabIndex = 0;
+            materialListViewItems.UseCompatibleStateImageBehavior = false;
+            materialListViewItems.View = View.Details;
+            // 
+            // columnHeaderId
+            // 
+            columnHeaderId.Text = "ID";
+            columnHeaderId.Width = 50;
+            // 
+            // columnHeaderType
+            // 
+            columnHeaderType.Text = "Veids";
+            columnHeaderType.Width = 125;
+            // 
+            // columnHeaderDetails
+            // 
+            columnHeaderDetails.Text = "Apraksts";
+            columnHeaderDetails.Width = 450;
+            // 
+            // columnHeaderStatus
+            // 
+            columnHeaderStatus.Text = "Statuss";
+            columnHeaderStatus.Width = 125;
             // 
             // tabPageReservations
             // 
@@ -162,6 +208,7 @@
             Padding = new Padding(0, 24, 3, 3);
             Text = "Datoru izsniegšanas sistēma";
             materialTabControlMain.ResumeLayout(false);
+            tabPageHandouts.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -174,5 +221,10 @@
         private TabPage tabPageAdminUser;
         private TabPage tabPageUser;
         private ImageList imageListIcons;
+        private MaterialSkin.Controls.MaterialListView materialListViewItems;
+        private ColumnHeader columnHeaderId;
+        private ColumnHeader columnHeaderType;
+        private ColumnHeader columnHeaderDetails;
+        private ColumnHeader columnHeaderStatus;
     }
 }
