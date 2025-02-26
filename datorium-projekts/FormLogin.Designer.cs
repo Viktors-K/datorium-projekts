@@ -53,7 +53,7 @@
             materialButtonLogin.Name = "materialButtonLogin";
             materialButtonLogin.NoAccentTextColor = Color.Empty;
             materialButtonLogin.Size = new Size(250, 36);
-            materialButtonLogin.TabIndex = 0;
+            materialButtonLogin.TabIndex = 6;
             materialButtonLogin.Text = "Pieslēgties";
             materialButtonLogin.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             materialButtonLogin.UseAccentColor = true;
@@ -84,7 +84,7 @@
             materialCheckboxRememberMe.ReadOnly = false;
             materialCheckboxRememberMe.Ripple = true;
             materialCheckboxRememberMe.Size = new Size(144, 37);
-            materialCheckboxRememberMe.TabIndex = 2;
+            materialCheckboxRememberMe.TabIndex = 5;
             materialCheckboxRememberMe.Text = "Atcerēties mani";
             materialCheckboxRememberMe.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +101,7 @@
             materialTextBoxUsername.Multiline = false;
             materialTextBoxUsername.Name = "materialTextBoxUsername";
             materialTextBoxUsername.Size = new Size(250, 50);
-            materialTextBoxUsername.TabIndex = 3;
+            materialTextBoxUsername.TabIndex = 2;
             materialTextBoxUsername.Text = "";
             materialTextBoxUsername.TrailingIcon = null;
             // 
@@ -120,7 +120,7 @@
             materialTextBoxPassword.Name = "materialTextBoxPassword";
             materialTextBoxPassword.Password = true;
             materialTextBoxPassword.Size = new Size(250, 50);
-            materialTextBoxPassword.TabIndex = 5;
+            materialTextBoxPassword.TabIndex = 4;
             materialTextBoxPassword.Text = "";
             materialTextBoxPassword.TrailingIcon = null;
             // 
@@ -133,7 +133,7 @@
             materialLabelPassword.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabelPassword.Name = "materialLabelPassword";
             materialLabelPassword.Size = new Size(50, 19);
-            materialLabelPassword.TabIndex = 4;
+            materialLabelPassword.TabIndex = 3;
             materialLabelPassword.Text = "Parole:";
             // 
             // materialButtonRegister
@@ -150,7 +150,7 @@
             materialButtonRegister.Name = "materialButtonRegister";
             materialButtonRegister.NoAccentTextColor = Color.Empty;
             materialButtonRegister.Size = new Size(250, 36);
-            materialButtonRegister.TabIndex = 6;
+            materialButtonRegister.TabIndex = 7;
             materialButtonRegister.Text = "Neesmu reģistrējies";
             materialButtonRegister.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             materialButtonRegister.UseAccentColor = false;
@@ -167,7 +167,7 @@
             materialLabelError.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabelError.Name = "materialLabelError";
             materialLabelError.Size = new Size(46, 19);
-            materialLabelError.TabIndex = 7;
+            materialLabelError.TabIndex = 8;
             materialLabelError.Text = "Kļūda!";
             materialLabelError.UseAccent = true;
             materialLabelError.Visible = false;

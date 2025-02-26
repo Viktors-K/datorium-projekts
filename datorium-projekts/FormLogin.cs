@@ -83,10 +83,5 @@ namespace datorium_projekts
             materialLabelError.Text = message;
             materialLabelError.Show();
         }
-
-        private void FormLogin_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

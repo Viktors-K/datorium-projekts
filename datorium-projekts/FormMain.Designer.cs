@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             materialDrawer1 = new MaterialSkin.Controls.MaterialDrawer();
             materialTabControlMain = new MaterialSkin.Controls.MaterialTabControl();
@@ -35,6 +36,8 @@
             tabPageReservations = new TabPage();
             tabPageAdminItem = new TabPage();
             tabPageAdminUser = new TabPage();
+            tabPageUser = new TabPage();
+            imageListIcons = new ImageList(components);
             materialTabControlMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -63,55 +66,83 @@
             materialTabControlMain.Controls.Add(tabPageReservations);
             materialTabControlMain.Controls.Add(tabPageAdminItem);
             materialTabControlMain.Controls.Add(tabPageAdminUser);
+            materialTabControlMain.Controls.Add(tabPageUser);
             materialTabControlMain.Depth = 0;
-            materialTabControlMain.Location = new Point(0, 64);
+            materialTabControlMain.ImageList = imageListIcons;
+            materialTabControlMain.Location = new Point(0, 24);
             materialTabControlMain.Margin = new Padding(0);
             materialTabControlMain.MouseState = MaterialSkin.MouseState.HOVER;
             materialTabControlMain.Multiline = true;
             materialTabControlMain.Name = "materialTabControlMain";
             materialTabControlMain.SelectedIndex = 0;
-            materialTabControlMain.Size = new Size(800, 378);
+            materialTabControlMain.Size = new Size(800, 413);
             materialTabControlMain.TabIndex = 3;
             // 
             // tabPageHandouts
             // 
+            tabPageHandouts.ImageKey = "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageHandouts.Location = new Point(4, 24);
             tabPageHandouts.Name = "tabPageHandouts";
             tabPageHandouts.Padding = new Padding(3);
-            tabPageHandouts.Size = new Size(792, 350);
+            tabPageHandouts.Size = new Size(792, 385);
             tabPageHandouts.TabIndex = 0;
             tabPageHandouts.Text = "Izsniegšana";
             tabPageHandouts.UseVisualStyleBackColor = true;
             // 
             // tabPageReservations
             // 
+            tabPageReservations.ImageKey = "schedule_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageReservations.Location = new Point(4, 24);
             tabPageReservations.Name = "tabPageReservations";
             tabPageReservations.Padding = new Padding(3);
-            tabPageReservations.Size = new Size(792, 350);
+            tabPageReservations.Size = new Size(792, 385);
             tabPageReservations.TabIndex = 1;
             tabPageReservations.Text = "Rezervācijas";
             tabPageReservations.UseVisualStyleBackColor = true;
             // 
             // tabPageAdminItem
             // 
+            tabPageAdminItem.ImageKey = "inventory_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageAdminItem.Location = new Point(4, 24);
             tabPageAdminItem.Name = "tabPageAdminItem";
             tabPageAdminItem.Padding = new Padding(3);
-            tabPageAdminItem.Size = new Size(792, 350);
+            tabPageAdminItem.Size = new Size(792, 385);
             tabPageAdminItem.TabIndex = 2;
             tabPageAdminItem.Text = "Inventārs";
             tabPageAdminItem.UseVisualStyleBackColor = true;
             // 
             // tabPageAdminUser
             // 
+            tabPageAdminUser.ImageKey = "manage_accounts_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageAdminUser.Location = new Point(4, 24);
             tabPageAdminUser.Name = "tabPageAdminUser";
             tabPageAdminUser.Padding = new Padding(3);
-            tabPageAdminUser.Size = new Size(792, 350);
+            tabPageAdminUser.Size = new Size(792, 385);
             tabPageAdminUser.TabIndex = 3;
             tabPageAdminUser.Text = "Lietotāji";
             tabPageAdminUser.UseVisualStyleBackColor = true;
+            // 
+            // tabPageUser
+            // 
+            tabPageUser.ImageKey = "person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
+            tabPageUser.Location = new Point(4, 24);
+            tabPageUser.Name = "tabPageUser";
+            tabPageUser.Padding = new Padding(3);
+            tabPageUser.Size = new Size(792, 385);
+            tabPageUser.TabIndex = 4;
+            tabPageUser.Text = "Konts";
+            tabPageUser.UseVisualStyleBackColor = true;
+            // 
+            // imageListIcons
+            // 
+            imageListIcons.ColorDepth = ColorDepth.Depth32Bit;
+            imageListIcons.ImageStream = (ImageListStreamer)resources.GetObject("imageListIcons.ImageStream");
+            imageListIcons.TransparentColor = Color.Transparent;
+            imageListIcons.Images.SetKeyName(0, "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(1, "inventory_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(2, "manage_accounts_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(3, "person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(4, "schedule_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
             // 
             // FormMain
             // 
@@ -122,9 +153,13 @@
             Controls.Add(materialTabControlMain);
             Controls.Add(materialDrawer1);
             DrawerAutoShow = true;
+            DrawerBackgroundWithAccent = true;
+            DrawerShowIconsWhenHidden = true;
             DrawerTabControl = materialTabControlMain;
+            FormStyle = FormStyles.ActionBar_None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormMain";
+            Padding = new Padding(0, 24, 3, 3);
             Text = "Datoru izsniegšanas sistēma";
             materialTabControlMain.ResumeLayout(false);
             ResumeLayout(false);
@@ -137,5 +172,7 @@
         private TabPage tabPageReservations;
         private TabPage tabPageAdminItem;
         private TabPage tabPageAdminUser;
+        private TabPage tabPageUser;
+        private ImageList imageListIcons;
     }
 }

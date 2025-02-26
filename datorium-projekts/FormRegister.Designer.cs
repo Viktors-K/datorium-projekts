@@ -147,7 +147,7 @@
             materialTextBoxUsername.Multiline = false;
             materialTextBoxUsername.Name = "materialTextBoxUsername";
             materialTextBoxUsername.Size = new Size(162, 50);
-            materialTextBoxUsername.TabIndex = 7;
+            materialTextBoxUsername.TabIndex = 9;
             materialTextBoxUsername.Text = "";
             materialTextBoxUsername.TrailingIcon = null;
             // 
@@ -160,7 +160,7 @@
             materialLabelUsername.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabelUsername.Name = "materialLabelUsername";
             materialLabelUsername.Size = new Size(97, 19);
-            materialLabelUsername.TabIndex = 6;
+            materialLabelUsername.TabIndex = 8;
             materialLabelUsername.Text = "Lietotājvārds:";
             // 
             // materialTextBoxPassword
@@ -177,7 +177,7 @@
             materialTextBoxPassword.Name = "materialTextBoxPassword";
             materialTextBoxPassword.Password = true;
             materialTextBoxPassword.Size = new Size(162, 50);
-            materialTextBoxPassword.TabIndex = 9;
+            materialTextBoxPassword.TabIndex = 11;
             materialTextBoxPassword.Text = "";
             materialTextBoxPassword.TrailingIcon = null;
             // 
@@ -190,7 +190,7 @@
             materialLabelPassword.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabelPassword.Name = "materialLabelPassword";
             materialLabelPassword.Size = new Size(50, 19);
-            materialLabelPassword.TabIndex = 8;
+            materialLabelPassword.TabIndex = 10;
             materialLabelPassword.Text = "Parole:";
             // 
             // materialTextBoxRepeatPassword
@@ -208,7 +208,7 @@
             materialTextBoxRepeatPassword.Name = "materialTextBoxRepeatPassword";
             materialTextBoxRepeatPassword.Password = true;
             materialTextBoxRepeatPassword.Size = new Size(162, 50);
-            materialTextBoxRepeatPassword.TabIndex = 11;
+            materialTextBoxRepeatPassword.TabIndex = 13;
             materialTextBoxRepeatPassword.Text = "";
             materialTextBoxRepeatPassword.TrailingIcon = null;
             // 
@@ -221,7 +221,7 @@
             materialLabelRepeatPassword.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabelRepeatPassword.Name = "materialLabelRepeatPassword";
             materialLabelRepeatPassword.Size = new Size(105, 19);
-            materialLabelRepeatPassword.TabIndex = 10;
+            materialLabelRepeatPassword.TabIndex = 12;
             materialLabelRepeatPassword.Text = "Atkārtot paroli:";
             // 
             // materialTextBoxClass
@@ -237,7 +237,7 @@
             materialTextBoxClass.Multiline = false;
             materialTextBoxClass.Name = "materialTextBoxClass";
             materialTextBoxClass.Size = new Size(162, 50);
-            materialTextBoxClass.TabIndex = 13;
+            materialTextBoxClass.TabIndex = 7;
             materialTextBoxClass.Text = "";
             materialTextBoxClass.TrailingIcon = null;
             // 
@@ -251,7 +251,7 @@
             materialLabelClass.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabelClass.Name = "materialLabelClass";
             materialLabelClass.Size = new Size(44, 19);
-            materialLabelClass.TabIndex = 12;
+            materialLabelClass.TabIndex = 6;
             materialLabelClass.Text = "Klase:";
             // 
             // materialButtonRegister
