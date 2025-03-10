@@ -165,6 +165,34 @@ namespace datorium_projekts
                 return false;
             }
         }
+        public List<User> GetAllUsers()
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                List<User> user_list = new List<User>();
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT * FROM Users";
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string json_data = reader["profile_data"].ToString();
+                    Dictionary<string, string> profile_data = JsonSerializer.Deserialize<Dictionary<string, string>>(json_data);
+                    User new_user = new User(
+                        id: Convert.ToInt32(reader["id"]),
+                        username: Convert.ToString(reader["username"]),
+                        email: Convert.ToString(reader["email"]),
+                        password_hash: Convert.ToString(reader["password_hash"]),
+                        name: profile_data["Name"],
+                        surname: profile_data["Surname"],
+                        student_class: profile_data["StudentClass"],
+                        admin: Convert.ToBoolean(reader["admin"])
+                    );
+                    user_list.Add(new_user);
+                }
+                return user_list;
+            }
+        }
     }
     public class ItemManager
     {

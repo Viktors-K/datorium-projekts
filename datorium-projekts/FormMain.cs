@@ -21,28 +21,42 @@ namespace datorium_projekts
             InitializeComponent();
             userManager = new UserManager("Data Source=main.db");
             itemManager = new ItemManager("Data Source=main.db");
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             currentUser = userManager.GetUser(username);
             AddItemsToListView();
 
-            //labelWelcome.Text = $"Laipni lūgti, {currentUser.Name} {currentUser.Surname}!";
-            // groupBoxUserControls.Text = $"Lietotājs {currentUser.Username}";
+            
             if (currentUser.Admin)
             {
-                //    labelRole.Text = $"Pieslēdzies kā: Administrators";
+                materialLabelUsername.Text = $"Administrators {currentUser.Username}";
             }
             else
             {
-                //    labelRole.Text = $"Pieslēdzies kā: Lietotājs";
-                //    tabControlMain.TabPages.Remove(tabPageAdminItem);
-                //    tabControlMain.TabPages.Remove(tabPageAdminUser);
+                materialLabelUsername.Text = $"Lietotājs {currentUser.Username}";
+                materialTabControlMain.TabPages.Remove(tabPageAdminItem);
+                materialTabControlMain.TabPages.Remove(tabPageAdminUser);
             }
+
+            materialLabelName.Text = $"{currentUser.Name} {currentUser.Surname}";
+
+            if (currentUser.StudentClass != null) 
+            {
+                materialLabelGrade.Text = $"{currentUser.StudentClass} klase";
+            }
+            else
+            {
+                materialLabelGrade.Visible = false;
+            }
+            
         }
         public void AddItemsToListView()
         {
-            materialListViewItems.View = View.Details; // Ensure the ListView is in Details mode
+            materialListViewItems.View = View.Details;
             materialListViewItems.Items.Clear();
 
-            // Import Item Data
             List<Item> item_list = itemManager.GetAllItems();
             foreach (Item item in item_list)
             {
@@ -50,6 +64,24 @@ namespace datorium_projekts
                 listViewItem.SubItems.Add(item.Type);
                 listViewItem.SubItems.Add(item.Details);
 
+                materialListViewItems.Items.Add(listViewItem);
+            }
+        }
+        public void AddUsersToListView()
+        {
+            materialListViewUsers.View = View.Details;
+            materialListViewUsers.Items.Clear();
+
+            List<User> user_list = userManager.GetAllUsers();
+            foreach (User user in user_list)
+            {
+                ListViewItem listViewItem = new ListViewItem(user.Id.ToString());
+                listViewItem.SubItems.Add(user.Username);
+                listViewItem.SubItems.Add(user.Email);
+                listViewItem.SubItems.Add(user.Admin ? "Administrators" : "Lietotājs");
+                listViewItem.SubItems.Add(user.Name);
+                listViewItem.SubItems.Add(user.Surname);
+                listViewItem.SubItems.Add(user.StudentClass);
                 materialListViewItems.Items.Add(listViewItem);
             }
         }
