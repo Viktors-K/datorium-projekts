@@ -60,11 +60,11 @@ Handouts
 
 Reservations
 
-| ID | item_id   | username   | reserved_from     | reserved_until   | status    |
-|----|-----------|------------|-------------------|------------------|-----------|
-| 1  | 1         | esulcs13   | 10:00 12.02.2025  | 12:00 12.02.2025 | active    |
-| 2  | 2         | vvkocetoks | 14:00 12.02.2025  | 16:00 12.02.2025 | cancelled |
-| 3  | 3         | mpunans    | 09:00 13.02.2025  | 11:00 13.02.2025 | completed |
+| ID | item_id  | username   | reserved_from     | reserved_until   | status    |
+|----|----------|------------|-------------------|------------------|-----------|
+| 1  | 1        | esulcs13   | 10:00 12.02.2025  | 12:00 12.02.2025 | active    |
+| 2  | 2        | vvkocetoks | 14:00 12.02.2025  | 16:00 12.02.2025 | cancelled |
+| 3  | 3        | mpunans    | 09:00 13.02.2025  | 11:00 13.02.2025 | completed |
 
 ![ER diagramma datubāzei](er-diagram.png "ER diagramma")
 

@@ -29,186 +29,290 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRegister));
-            textBoxPassword = new TextBox();
-            labelPassword = new Label();
-            buttonRegister = new Button();
-            textBoxEmail = new TextBox();
-            labelEmail = new Label();
-            textBoxUsername = new TextBox();
-            labelUsername = new Label();
-            textBoxRepeatPassword = new TextBox();
-            labelRepeatPassword = new Label();
-            labelError = new Label();
-            textBoxName = new TextBox();
-            labelName = new Label();
-            textBoxSurname = new TextBox();
-            labelSurname = new Label();
-            textBoxClass = new TextBox();
-            labelClass = new Label();
+            materialLabelEmail = new MaterialSkin.Controls.MaterialLabel();
+            materialTextBoxEmail = new MaterialSkin.Controls.MaterialTextBox();
+            materialTextBoxName = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabelName = new MaterialSkin.Controls.MaterialLabel();
+            materialTextBoxSurname = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabelSurname = new MaterialSkin.Controls.MaterialLabel();
+            materialTextBoxUsername = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabelUsername = new MaterialSkin.Controls.MaterialLabel();
+            materialTextBoxPassword = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabelPassword = new MaterialSkin.Controls.MaterialLabel();
+            materialTextBoxRepeatPassword = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabelRepeatPassword = new MaterialSkin.Controls.MaterialLabel();
+            materialTextBoxClass = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabelClass = new MaterialSkin.Controls.MaterialLabel();
+            materialButtonRegister = new MaterialSkin.Controls.MaterialButton();
+            materialLabelError = new MaterialSkin.Controls.MaterialLabel();
             SuspendLayout();
             // 
-            // textBoxPassword
+            // materialLabelEmail
             // 
-            textBoxPassword.Location = new Point(29, 82);
-            textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.Size = new Size(124, 23);
-            textBoxPassword.TabIndex = 12;
-            textBoxPassword.UseSystemPasswordChar = true;
+            materialLabelEmail.AutoSize = true;
+            materialLabelEmail.Depth = 0;
+            materialLabelEmail.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelEmail.Location = new Point(20, 80);
+            materialLabelEmail.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelEmail.Name = "materialLabelEmail";
+            materialLabelEmail.Size = new Size(57, 19);
+            materialLabelEmail.TabIndex = 0;
+            materialLabelEmail.Text = "E-pasts:";
             // 
-            // labelPassword
+            // materialTextBoxEmail
             // 
-            labelPassword.AutoSize = true;
-            labelPassword.Location = new Point(29, 64);
-            labelPassword.Name = "labelPassword";
-            labelPassword.Size = new Size(43, 15);
-            labelPassword.TabIndex = 11;
-            labelPassword.Text = "Parole:";
+            materialTextBoxEmail.AnimateReadOnly = false;
+            materialTextBoxEmail.BorderStyle = BorderStyle.None;
+            materialTextBoxEmail.Depth = 0;
+            materialTextBoxEmail.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxEmail.LeadingIcon = null;
+            materialTextBoxEmail.Location = new Point(20, 103);
+            materialTextBoxEmail.MaxLength = 50;
+            materialTextBoxEmail.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxEmail.Multiline = false;
+            materialTextBoxEmail.Name = "materialTextBoxEmail";
+            materialTextBoxEmail.Size = new Size(162, 50);
+            materialTextBoxEmail.TabIndex = 1;
+            materialTextBoxEmail.Text = "";
+            materialTextBoxEmail.TrailingIcon = null;
             // 
-            // buttonRegister
+            // materialTextBoxName
             // 
-            buttonRegister.Location = new Point(27, 199);
-            buttonRegister.Name = "buttonRegister";
-            buttonRegister.Size = new Size(124, 23);
-            buttonRegister.TabIndex = 10;
-            buttonRegister.Text = "Reģistrēties";
-            buttonRegister.UseVisualStyleBackColor = true;
-            buttonRegister.Click += buttonRegister_Click;
+            materialTextBoxName.AnimateReadOnly = false;
+            materialTextBoxName.BorderStyle = BorderStyle.None;
+            materialTextBoxName.Depth = 0;
+            materialTextBoxName.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxName.LeadingIcon = null;
+            materialTextBoxName.Location = new Point(20, 183);
+            materialTextBoxName.MaxLength = 50;
+            materialTextBoxName.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxName.Multiline = false;
+            materialTextBoxName.Name = "materialTextBoxName";
+            materialTextBoxName.Size = new Size(162, 50);
+            materialTextBoxName.TabIndex = 3;
+            materialTextBoxName.Text = "";
+            materialTextBoxName.TrailingIcon = null;
             // 
-            // textBoxEmail
+            // materialLabelName
             // 
-            textBoxEmail.Location = new Point(210, 38);
-            textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(124, 23);
-            textBoxEmail.TabIndex = 8;
+            materialLabelName.AutoSize = true;
+            materialLabelName.Depth = 0;
+            materialLabelName.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelName.Location = new Point(20, 160);
+            materialLabelName.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelName.Name = "materialLabelName";
+            materialLabelName.Size = new Size(46, 19);
+            materialLabelName.TabIndex = 2;
+            materialLabelName.Text = "Vārds:";
             // 
-            // labelEmail
+            // materialTextBoxSurname
             // 
-            labelEmail.AutoSize = true;
-            labelEmail.Location = new Point(210, 20);
-            labelEmail.Name = "labelEmail";
-            labelEmail.Size = new Size(48, 15);
-            labelEmail.TabIndex = 7;
-            labelEmail.Text = "E-pasts:";
+            materialTextBoxSurname.AnimateReadOnly = false;
+            materialTextBoxSurname.BorderStyle = BorderStyle.None;
+            materialTextBoxSurname.Depth = 0;
+            materialTextBoxSurname.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxSurname.LeadingIcon = null;
+            materialTextBoxSurname.Location = new Point(20, 263);
+            materialTextBoxSurname.MaxLength = 50;
+            materialTextBoxSurname.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxSurname.Multiline = false;
+            materialTextBoxSurname.Name = "materialTextBoxSurname";
+            materialTextBoxSurname.Size = new Size(162, 50);
+            materialTextBoxSurname.TabIndex = 5;
+            materialTextBoxSurname.Text = "";
+            materialTextBoxSurname.TrailingIcon = null;
             // 
-            // textBoxUsername
+            // materialLabelSurname
             // 
-            textBoxUsername.Location = new Point(29, 38);
-            textBoxUsername.Name = "textBoxUsername";
-            textBoxUsername.Size = new Size(124, 23);
-            textBoxUsername.TabIndex = 14;
+            materialLabelSurname.AutoSize = true;
+            materialLabelSurname.Depth = 0;
+            materialLabelSurname.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelSurname.Location = new Point(20, 240);
+            materialLabelSurname.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelSurname.Name = "materialLabelSurname";
+            materialLabelSurname.Size = new Size(62, 19);
+            materialLabelSurname.TabIndex = 4;
+            materialLabelSurname.Text = "Uzvārds:";
             // 
-            // labelUsername
+            // materialTextBoxUsername
             // 
-            labelUsername.AutoSize = true;
-            labelUsername.Location = new Point(27, 20);
-            labelUsername.Name = "labelUsername";
-            labelUsername.Size = new Size(77, 15);
-            labelUsername.TabIndex = 13;
-            labelUsername.Text = "Lietotājvārds:";
+            materialTextBoxUsername.AnimateReadOnly = false;
+            materialTextBoxUsername.BorderStyle = BorderStyle.None;
+            materialTextBoxUsername.Depth = 0;
+            materialTextBoxUsername.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxUsername.LeadingIcon = null;
+            materialTextBoxUsername.Location = new Point(227, 103);
+            materialTextBoxUsername.MaxLength = 50;
+            materialTextBoxUsername.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxUsername.Multiline = false;
+            materialTextBoxUsername.Name = "materialTextBoxUsername";
+            materialTextBoxUsername.Size = new Size(162, 50);
+            materialTextBoxUsername.TabIndex = 9;
+            materialTextBoxUsername.Text = "";
+            materialTextBoxUsername.TrailingIcon = null;
             // 
-            // textBoxRepeatPassword
+            // materialLabelUsername
             // 
-            textBoxRepeatPassword.Location = new Point(29, 126);
-            textBoxRepeatPassword.Name = "textBoxRepeatPassword";
-            textBoxRepeatPassword.Size = new Size(124, 23);
-            textBoxRepeatPassword.TabIndex = 16;
-            textBoxRepeatPassword.UseSystemPasswordChar = true;
+            materialLabelUsername.AutoSize = true;
+            materialLabelUsername.Depth = 0;
+            materialLabelUsername.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelUsername.Location = new Point(227, 80);
+            materialLabelUsername.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelUsername.Name = "materialLabelUsername";
+            materialLabelUsername.Size = new Size(97, 19);
+            materialLabelUsername.TabIndex = 8;
+            materialLabelUsername.Text = "Lietotājvārds:";
             // 
-            // labelRepeatPassword
+            // materialTextBoxPassword
             // 
-            labelRepeatPassword.AutoSize = true;
-            labelRepeatPassword.Location = new Point(29, 108);
-            labelRepeatPassword.Name = "labelRepeatPassword";
-            labelRepeatPassword.Size = new Size(82, 15);
-            labelRepeatPassword.TabIndex = 15;
-            labelRepeatPassword.Text = "Atkātot paroli:";
+            materialTextBoxPassword.AnimateReadOnly = false;
+            materialTextBoxPassword.BorderStyle = BorderStyle.None;
+            materialTextBoxPassword.Depth = 0;
+            materialTextBoxPassword.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxPassword.LeadingIcon = null;
+            materialTextBoxPassword.Location = new Point(227, 183);
+            materialTextBoxPassword.MaxLength = 50;
+            materialTextBoxPassword.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxPassword.Multiline = false;
+            materialTextBoxPassword.Name = "materialTextBoxPassword";
+            materialTextBoxPassword.Password = true;
+            materialTextBoxPassword.Size = new Size(162, 50);
+            materialTextBoxPassword.TabIndex = 11;
+            materialTextBoxPassword.Text = "";
+            materialTextBoxPassword.TrailingIcon = null;
             // 
-            // labelError
+            // materialLabelPassword
             // 
-            labelError.AutoSize = true;
-            labelError.BackColor = Color.Silver;
-            labelError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(27, 225);
-            labelError.Name = "labelError";
-            labelError.Size = new Size(105, 15);
-            labelError.TabIndex = 17;
-            labelError.Text = "Nepareiza parole!";
-            labelError.Visible = false;
+            materialLabelPassword.AutoSize = true;
+            materialLabelPassword.Depth = 0;
+            materialLabelPassword.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelPassword.Location = new Point(227, 160);
+            materialLabelPassword.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelPassword.Name = "materialLabelPassword";
+            materialLabelPassword.Size = new Size(50, 19);
+            materialLabelPassword.TabIndex = 10;
+            materialLabelPassword.Text = "Parole:";
             // 
-            // textBoxName
+            // materialTextBoxRepeatPassword
             // 
-            textBoxName.Location = new Point(210, 82);
-            textBoxName.Name = "textBoxName";
-            textBoxName.Size = new Size(124, 23);
-            textBoxName.TabIndex = 19;
+            materialTextBoxRepeatPassword.AnimateReadOnly = false;
+            materialTextBoxRepeatPassword.BorderStyle = BorderStyle.None;
+            materialTextBoxRepeatPassword.Depth = 0;
+            materialTextBoxRepeatPassword.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxRepeatPassword.LeadingIcon = null;
+            materialTextBoxRepeatPassword.LeaveOnEnterKey = true;
+            materialTextBoxRepeatPassword.Location = new Point(227, 263);
+            materialTextBoxRepeatPassword.MaxLength = 50;
+            materialTextBoxRepeatPassword.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxRepeatPassword.Multiline = false;
+            materialTextBoxRepeatPassword.Name = "materialTextBoxRepeatPassword";
+            materialTextBoxRepeatPassword.Password = true;
+            materialTextBoxRepeatPassword.Size = new Size(162, 50);
+            materialTextBoxRepeatPassword.TabIndex = 13;
+            materialTextBoxRepeatPassword.Text = "";
+            materialTextBoxRepeatPassword.TrailingIcon = null;
             // 
-            // labelName
+            // materialLabelRepeatPassword
             // 
-            labelName.AutoSize = true;
-            labelName.Location = new Point(210, 64);
-            labelName.Name = "labelName";
-            labelName.Size = new Size(38, 15);
-            labelName.TabIndex = 18;
-            labelName.Text = "Vārds:";
+            materialLabelRepeatPassword.AutoSize = true;
+            materialLabelRepeatPassword.Depth = 0;
+            materialLabelRepeatPassword.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelRepeatPassword.Location = new Point(227, 240);
+            materialLabelRepeatPassword.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelRepeatPassword.Name = "materialLabelRepeatPassword";
+            materialLabelRepeatPassword.Size = new Size(105, 19);
+            materialLabelRepeatPassword.TabIndex = 12;
+            materialLabelRepeatPassword.Text = "Atkārtot paroli:";
             // 
-            // textBoxSurname
+            // materialTextBoxClass
             // 
-            textBoxSurname.Location = new Point(210, 126);
-            textBoxSurname.Name = "textBoxSurname";
-            textBoxSurname.Size = new Size(124, 23);
-            textBoxSurname.TabIndex = 21;
+            materialTextBoxClass.AnimateReadOnly = false;
+            materialTextBoxClass.BorderStyle = BorderStyle.None;
+            materialTextBoxClass.Depth = 0;
+            materialTextBoxClass.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialTextBoxClass.LeadingIcon = null;
+            materialTextBoxClass.Location = new Point(20, 343);
+            materialTextBoxClass.MaxLength = 50;
+            materialTextBoxClass.MouseState = MaterialSkin.MouseState.OUT;
+            materialTextBoxClass.Multiline = false;
+            materialTextBoxClass.Name = "materialTextBoxClass";
+            materialTextBoxClass.Size = new Size(162, 50);
+            materialTextBoxClass.TabIndex = 7;
+            materialTextBoxClass.Text = "";
+            materialTextBoxClass.TrailingIcon = null;
             // 
-            // labelSurname
+            // materialLabelClass
             // 
-            labelSurname.AutoSize = true;
-            labelSurname.Location = new Point(210, 108);
-            labelSurname.Name = "labelSurname";
-            labelSurname.Size = new Size(51, 15);
-            labelSurname.TabIndex = 20;
-            labelSurname.Text = "Uzvārds:";
+            materialLabelClass.AutoSize = true;
+            materialLabelClass.BackColor = SystemColors.ControlLight;
+            materialLabelClass.Depth = 0;
+            materialLabelClass.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelClass.Location = new Point(20, 320);
+            materialLabelClass.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelClass.Name = "materialLabelClass";
+            materialLabelClass.Size = new Size(44, 19);
+            materialLabelClass.TabIndex = 6;
+            materialLabelClass.Text = "Klase:";
             // 
-            // textBoxClass
+            // materialButtonRegister
             // 
-            textBoxClass.Location = new Point(210, 170);
-            textBoxClass.Name = "textBoxClass";
-            textBoxClass.Size = new Size(124, 23);
-            textBoxClass.TabIndex = 23;
+            materialButtonRegister.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonRegister.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonRegister.Depth = 0;
+            materialButtonRegister.HighEmphasis = true;
+            materialButtonRegister.Icon = null;
+            materialButtonRegister.Location = new Point(227, 343);
+            materialButtonRegister.Margin = new Padding(4, 6, 4, 6);
+            materialButtonRegister.MinimumSize = new Size(162, 50);
+            materialButtonRegister.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonRegister.Name = "materialButtonRegister";
+            materialButtonRegister.NoAccentTextColor = Color.Empty;
+            materialButtonRegister.Size = new Size(162, 50);
+            materialButtonRegister.TabIndex = 14;
+            materialButtonRegister.Text = "Reģistrēties";
+            materialButtonRegister.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonRegister.UseAccentColor = true;
+            materialButtonRegister.UseVisualStyleBackColor = true;
+            materialButtonRegister.Click += buttonRegister_Click;
             // 
-            // labelClass
+            // materialLabelError
             // 
-            labelClass.AutoSize = true;
-            labelClass.Location = new Point(211, 152);
-            labelClass.Name = "labelClass";
-            labelClass.Size = new Size(37, 15);
-            labelClass.TabIndex = 22;
-            labelClass.Text = "Klase:";
+            materialLabelError.AutoSize = true;
+            materialLabelError.Depth = 0;
+            materialLabelError.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabelError.HighEmphasis = true;
+            materialLabelError.Location = new Point(20, 400);
+            materialLabelError.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelError.Name = "materialLabelError";
+            materialLabelError.Size = new Size(46, 19);
+            materialLabelError.TabIndex = 15;
+            materialLabelError.Text = "Kļūda!";
+            materialLabelError.UseAccent = true;
+            materialLabelError.Visible = false;
             // 
             // FormRegister
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Gray;
-            ClientSize = new Size(368, 261);
-            Controls.Add(textBoxClass);
-            Controls.Add(labelClass);
-            Controls.Add(textBoxSurname);
-            Controls.Add(labelSurname);
-            Controls.Add(textBoxName);
-            Controls.Add(labelName);
-            Controls.Add(labelError);
-            Controls.Add(textBoxRepeatPassword);
-            Controls.Add(labelRepeatPassword);
-            Controls.Add(textBoxUsername);
-            Controls.Add(labelUsername);
-            Controls.Add(textBoxPassword);
-            Controls.Add(labelPassword);
-            Controls.Add(buttonRegister);
-            Controls.Add(textBoxEmail);
-            Controls.Add(labelEmail);
+            BackColor = SystemColors.ControlLight;
+            ClientSize = new Size(408, 430);
+            Controls.Add(materialLabelError);
+            Controls.Add(materialButtonRegister);
+            Controls.Add(materialTextBoxClass);
+            Controls.Add(materialLabelClass);
+            Controls.Add(materialTextBoxRepeatPassword);
+            Controls.Add(materialLabelRepeatPassword);
+            Controls.Add(materialTextBoxPassword);
+            Controls.Add(materialLabelPassword);
+            Controls.Add(materialTextBoxUsername);
+            Controls.Add(materialLabelUsername);
+            Controls.Add(materialTextBoxSurname);
+            Controls.Add(materialLabelSurname);
+            Controls.Add(materialTextBoxName);
+            Controls.Add(materialLabelName);
+            Controls.Add(materialTextBoxEmail);
+            Controls.Add(materialLabelEmail);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximumSize = new Size(384, 300);
-            MinimumSize = new Size(384, 300);
             Name = "FormRegister";
             Text = "Reģistrācija";
             ResumeLayout(false);
@@ -217,21 +321,21 @@
 
         #endregion
 
-        private TextBox textBoxPassword;
-        private Label labelPassword;
-        private Button buttonRegister;
-        private TextBox textBoxEmail;
-        private Label labelEmail;
-        private TextBox textBoxUsername;
-        private Label labelUsername;
-        private TextBox textBoxRepeatPassword;
-        private Label labelRepeatPassword;
-        private Label labelError;
-        private TextBox textBoxName;
-        private Label labelName;
-        private TextBox textBoxSurname;
-        private Label labelSurname;
-        private TextBox textBoxClass;
-        private Label labelClass;
+        private MaterialSkin.Controls.MaterialLabel materialLabelEmail;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxEmail;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxName;
+        private MaterialSkin.Controls.MaterialLabel materialLabelName;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxSurname;
+        private MaterialSkin.Controls.MaterialLabel materialLabelSurname;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxUsername;
+        private MaterialSkin.Controls.MaterialLabel materialLabelUsername;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxPassword;
+        private MaterialSkin.Controls.MaterialLabel materialLabelPassword;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxRepeatPassword;
+        private MaterialSkin.Controls.MaterialLabel materialLabelRepeatPassword;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxClass;
+        private MaterialSkin.Controls.MaterialLabel materialLabelClass;
+        private MaterialSkin.Controls.MaterialButton materialButtonRegister;
+        private MaterialSkin.Controls.MaterialLabel materialLabelError;
     }
 }

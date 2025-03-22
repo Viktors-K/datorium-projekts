@@ -1,29 +1,43 @@
 ﻿using BCrypt.Net;
+using MaterialSkin;
+using MaterialSkin.Controls;
 namespace datorium_projekts
 {
-    public partial class FormLogin : Form
+    public partial class FormLogin : MaterialForm
     {
         private UserManager userManager;
         public FormLogin()
         {
             InitializeComponent();
             userManager = new UserManager("Data Source=main.db");
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            FormRegister formRegister = new FormRegister();
-            formRegister.ShowDialog();
+            System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] click on register button");
+            using (FormRegister formRegister = new FormRegister())
+            {
+                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] created registration form");
+                if (formRegister.ShowDialog() == DialogResult.OK)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] register success.");
+                    MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             // defining variables for inputs, removing all spaces
-            string password = textBoxPassword.Text.Replace(" ", "");
-            string username = textBoxUsername.Text.Replace(" ", "");
+            string password = materialTextBoxPassword.Text.Replace(" ", "");
+            string username = materialTextBoxUsername.Text.Replace(" ", "");
 
             // check if fields are not null
-            if (string.IsNullOrEmpty(password)) 
+            if (string.IsNullOrEmpty(password))
             {
                 ShowError("Parole ir tukša!");
                 return;
@@ -49,7 +63,8 @@ namespace datorium_projekts
                     ShowError("Parole ir nepareiza!");
                     return;
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 ShowError("Kļūda lietotāja atrašanā!");
                 return;
@@ -57,11 +72,11 @@ namespace datorium_projekts
 
             // successful login, discard password
             password = null;
-            labelError.Hide();
-            textBoxPassword.Text = null;
-            textBoxUsername.Text = null;
+            materialLabelError.Hide();
+            materialTextBoxPassword.Text = null;
+            materialTextBoxUsername.Text = null;
             MessageBox.Show("Lietotājs veiksmīgi pieslēgts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
+
             // hide current form and open new one, when new form closed, close this one as well.
             FormMain newForm = new FormMain(username);
             username = null;
@@ -73,8 +88,8 @@ namespace datorium_projekts
         // method for displaying error messages
         private void ShowError(string message)
         {
-            labelError.Text = message;
-            labelError.Show();
+            materialLabelError.Text = message;
+            materialLabelError.Show();
         }
     }
 }

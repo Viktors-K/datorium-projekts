@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using MaterialSkin;
+using MaterialSkin.Controls;
 namespace datorium_projekts
 {
-    public partial class FormMain : Form
+    public partial class FormMain : MaterialForm
     {
         private ItemManager itemManager;
         private UserManager userManager;
@@ -20,42 +21,72 @@ namespace datorium_projekts
             InitializeComponent();
             userManager = new UserManager("Data Source=main.db");
             itemManager = new ItemManager("Data Source=main.db");
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             currentUser = userManager.GetUser(username);
-            AddItemsToTable();
-
-            labelWelcome.Text = $"Laipni lūgti, {currentUser.Name} {currentUser.Surname}!";
-            groupBoxUserControls.Text = $"Lietotājs {currentUser.Username}";
+            AddItemsToListView();
+            
             if (currentUser.Admin)
             {
-                labelRole.Text = $"Pieslēdzies kā: Administrators";
+                AdminSetup();
             }
             else
             {
-                labelRole.Text = $"Pieslēdzies kā: Lietotājs";
-                tabControlMain.TabPages.Remove(tabPageAdminItem);
-                tabControlMain.TabPages.Remove(tabPageAdminUser);
+                materialLabelUsername.Text = $"Lietotājs {currentUser.Username}";
+                materialTabControlMain.TabPages.Remove(tabPageAdminItem);
+                materialTabControlMain.TabPages.Remove(tabPageAdminUser);
+            }
+
+            materialLabelName.Text = $"{currentUser.Name} {currentUser.Surname}";
+
+            if (currentUser.StudentClass != null) 
+            {
+                materialLabelGrade.Text = $"{currentUser.StudentClass} klase";
+            }
+            else
+            {
+                materialLabelGrade.Visible = false;
             }
         }
-        public void AddItemsToTable()
+        public void AdminSetup()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("ID", typeof(int));
-            dt.Columns.Add("Veids", typeof(string));
-            dt.Columns.Add("Apraksts", typeof(string));
+            materialLabelUsername.Text = $"Administrators {currentUser.Username}";
+            AddUsersToListView();
+        }
+        public void AddItemsToListView()
+        {
+            materialListViewItems.View = View.Details;
+            materialListViewItems.Items.Clear();
 
-            // import Item data
             List<Item> item_list = itemManager.GetAllItems();
             foreach (Item item in item_list)
             {
-                object[] row = new object[]
-                {
-                    (int)item.Id,
-                    (string)item.Type,
-                    (string)item.Details
-                };
-                dt.Rows.Add(row);
+                ListViewItem listViewItem = new ListViewItem(item.Id.ToString());
+                listViewItem.SubItems.Add(item.Type);
+                listViewItem.SubItems.Add(item.Details);
+
+                materialListViewItems.Items.Add(listViewItem);
             }
-            dataGridViewItems.DataSource = dt;
+        }
+        public void AddUsersToListView()
+        {
+            materialListViewUsers.View = View.Details;
+            materialListViewUsers.Items.Clear();
+
+            List<User> user_list = userManager.GetAllUsers();
+            foreach (User user in user_list)
+            {
+                ListViewItem listViewItem = new ListViewItem(user.Id.ToString());
+                listViewItem.SubItems.Add(user.Username);
+                listViewItem.SubItems.Add(user.Email);
+                listViewItem.SubItems.Add(user.Admin ? "Administrators" : "Lietotājs");
+                listViewItem.SubItems.Add(user.Name);
+                listViewItem.SubItems.Add(user.Surname);
+                listViewItem.SubItems.Add(user.StudentClass);
+                materialListViewUsers.Items.Add(listViewItem);
+            }
         }
     }
 }
