@@ -11,6 +11,9 @@ using BCrypt.Net;
 using System.Text.RegularExpressions;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Xml.Linq;
+using System.Security.Policy;
 namespace datorium_projekts
 {
     public partial class FormRegister : MaterialForm
@@ -99,19 +102,53 @@ namespace datorium_projekts
             };
 
             // register user with encrypted and salted password if input valid
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(materialTextBoxPassword.Text);
+            RegisterUser(username, email, password, name, surname, student_class);
+            this.DialogResult = DialogResult.OK;
+        }
+        private async void RegisterUser(string username, string email, string password, string name, string surname, string student_class)
+        {
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+
             try
             {
-                userManager.AddUser(username, email, passwordHash, name, surname, student_class);
-                password = null;
-                MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Starting Task.Run...");
+
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Inside Task.Run before AddUser...");
+                        userManager.AddUser(username, email, password, name, surname, student_class);
+                        System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Registration complete!");
+                    }
+                    catch (Exception innerEx)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] ERROR inside Task.Run: {innerEx.Message}");
+                        throw;
+                    }
+                });
+
+                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Before setting DialogResult...");
+
+                Invoke((MethodInvoker)delegate
+                {
+                    DialogResult = DialogResult.OK;
+                    System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] DialogResult set to OK!");
+                    Close();
+                });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ShowError("Kļūda pievienojot lietotāju!");
+                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] ERROR in RegisterUser: {ex.Message}");
+
+                Invoke((MethodInvoker)delegate
+                {
+                    MessageBox.Show($"Kļūda pievienojot lietotāju!\n{ex.Message}", "Kļūda", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowError("Kļūda pievienojot lietotāju!");
+                });
             }
         }
+
         // method for displaying error messages
         private void ShowError(string message)
         {

@@ -27,11 +27,10 @@ namespace datorium_projekts
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             currentUser = userManager.GetUser(username);
             AddItemsToListView();
-
             
             if (currentUser.Admin)
             {
-                materialLabelUsername.Text = $"Administrators {currentUser.Username}";
+                AdminSetup();
             }
             else
             {
@@ -50,7 +49,11 @@ namespace datorium_projekts
             {
                 materialLabelGrade.Visible = false;
             }
-            
+        }
+        public void AdminSetup()
+        {
+            materialLabelUsername.Text = $"Administrators {currentUser.Username}";
+            AddUsersToListView();
         }
         public void AddItemsToListView()
         {
@@ -82,7 +85,7 @@ namespace datorium_projekts
                 listViewItem.SubItems.Add(user.Name);
                 listViewItem.SubItems.Add(user.Surname);
                 listViewItem.SubItems.Add(user.StudentClass);
-                materialListViewItems.Items.Add(listViewItem);
+                materialListViewUsers.Items.Add(listViewItem);
             }
         }
     }

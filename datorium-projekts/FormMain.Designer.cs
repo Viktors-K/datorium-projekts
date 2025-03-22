@@ -34,10 +34,10 @@
             materialTabControlMain = new MaterialSkin.Controls.MaterialTabControl();
             tabPageHandouts = new TabPage();
             materialListViewItems = new MaterialSkin.Controls.MaterialListView();
-            columnHeader5 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
-            columnHeader7 = new ColumnHeader();
-            columnHeader8 = new ColumnHeader();
+            columnHeaderItemsID = new ColumnHeader();
+            columnHeaderItemsType = new ColumnHeader();
+            columnHeaderItemsDescription = new ColumnHeader();
+            columnHeaderItemsStatus = new ColumnHeader();
             tabPageReservations = new TabPage();
             tabPageUser = new TabPage();
             materialCardProfile = new MaterialSkin.Controls.MaterialCard();
@@ -46,8 +46,7 @@
             materialLabelUsername = new MaterialSkin.Controls.MaterialLabel();
             tabPageAdminItem = new TabPage();
             tabPageAdminUser = new TabPage();
-            imageListIcons = new ImageList(components);
-            materialListView1 = new MaterialSkin.Controls.MaterialListView();
+            materialListViewUsers = new MaterialSkin.Controls.MaterialListView();
             columnHeaderID = new ColumnHeader();
             columnHeaderUsername = new ColumnHeader();
             columnHeaderEmail = new ColumnHeader();
@@ -55,6 +54,7 @@
             columnHeaderName = new ColumnHeader();
             columnHeaderSurname = new ColumnHeader();
             columnHeaderGrade = new ColumnHeader();
+            imageListIcons = new ImageList(components);
             materialTabControlMain.SuspendLayout();
             tabPageHandouts.SuspendLayout();
             tabPageUser.SuspendLayout();
@@ -97,7 +97,7 @@
             materialTabControlMain.Name = "materialTabControlMain";
             materialTabControlMain.SelectedIndex = 0;
             materialTabControlMain.Size = new Size(800, 413);
-            materialTabControlMain.TabIndex = 3;
+            materialTabControlMain.TabIndex = 0;
             // 
             // tabPageHandouts
             // 
@@ -115,7 +115,7 @@
             materialListViewItems.AutoSizeTable = false;
             materialListViewItems.BackColor = Color.FromArgb(255, 255, 255);
             materialListViewItems.BorderStyle = BorderStyle.None;
-            materialListViewItems.Columns.AddRange(new ColumnHeader[] { columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
+            materialListViewItems.Columns.AddRange(new ColumnHeader[] { columnHeaderItemsID, columnHeaderItemsType, columnHeaderItemsDescription, columnHeaderItemsStatus });
             materialListViewItems.Depth = 0;
             materialListViewItems.FullRowSelect = true;
             materialListViewItems.Location = new Point(50, 0);
@@ -130,25 +130,25 @@
             materialListViewItems.UseCompatibleStateImageBehavior = false;
             materialListViewItems.View = View.Details;
             // 
-            // columnHeader5
+            // columnHeaderItemsID
             // 
-            columnHeader5.Text = "ID";
-            columnHeader5.Width = 50;
+            columnHeaderItemsID.Text = "ID";
+            columnHeaderItemsID.Width = 50;
             // 
-            // columnHeader6
+            // columnHeaderItemsType
             // 
-            columnHeader6.Text = "Veids";
-            columnHeader6.Width = 125;
+            columnHeaderItemsType.Text = "Veids";
+            columnHeaderItemsType.Width = 125;
             // 
-            // columnHeader7
+            // columnHeaderItemsDescription
             // 
-            columnHeader7.Text = "Apraksts";
-            columnHeader7.Width = 450;
+            columnHeaderItemsDescription.Text = "Apraksts";
+            columnHeaderItemsDescription.Width = 450;
             // 
-            // columnHeader8
+            // columnHeaderItemsStatus
             // 
-            columnHeader8.Text = "Statuss";
-            columnHeader8.Width = 125;
+            columnHeaderItemsStatus.Text = "Statuss";
+            columnHeaderItemsStatus.Width = 125;
             // 
             // tabPageReservations
             // 
@@ -239,7 +239,7 @@
             // 
             // tabPageAdminUser
             // 
-            tabPageAdminUser.Controls.Add(materialListView1);
+            tabPageAdminUser.Controls.Add(materialListViewUsers);
             tabPageAdminUser.ImageKey = "manage_accounts_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageAdminUser.Location = new Point(4, 24);
             tabPageAdminUser.Name = "tabPageAdminUser";
@@ -249,36 +249,25 @@
             tabPageAdminUser.Text = "Lietotāji";
             tabPageAdminUser.UseVisualStyleBackColor = true;
             // 
-            // imageListIcons
+            // materialListViewUsers
             // 
-            imageListIcons.ColorDepth = ColorDepth.Depth32Bit;
-            imageListIcons.ImageStream = (ImageListStreamer)resources.GetObject("imageListIcons.ImageStream");
-            imageListIcons.TransparentColor = Color.Transparent;
-            imageListIcons.Images.SetKeyName(0, "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(1, "inventory_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(2, "manage_accounts_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(3, "person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(4, "schedule_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            // 
-            // materialListView1
-            // 
-            materialListView1.AutoSizeTable = false;
-            materialListView1.BackColor = Color.FromArgb(255, 255, 255);
-            materialListView1.BorderStyle = BorderStyle.None;
-            materialListView1.Columns.AddRange(new ColumnHeader[] { columnHeaderID, columnHeaderUsername, columnHeaderEmail, columnHeaderAdmin, columnHeaderName, columnHeaderSurname, columnHeaderGrade });
-            materialListView1.Depth = 0;
-            materialListView1.FullRowSelect = true;
-            materialListView1.Location = new Point(60, 0);
-            materialListView1.MaximumSize = new Size(730, 200);
-            materialListView1.MinimumSize = new Size(730, 100);
-            materialListView1.MouseLocation = new Point(-1, -1);
-            materialListView1.MouseState = MaterialSkin.MouseState.OUT;
-            materialListView1.Name = "materialListView1";
-            materialListView1.OwnerDraw = true;
-            materialListView1.Size = new Size(730, 200);
-            materialListView1.TabIndex = 3;
-            materialListView1.UseCompatibleStateImageBehavior = false;
-            materialListView1.View = View.Details;
+            materialListViewUsers.AutoSizeTable = false;
+            materialListViewUsers.BackColor = Color.FromArgb(255, 255, 255);
+            materialListViewUsers.BorderStyle = BorderStyle.None;
+            materialListViewUsers.Columns.AddRange(new ColumnHeader[] { columnHeaderID, columnHeaderUsername, columnHeaderEmail, columnHeaderAdmin, columnHeaderName, columnHeaderSurname, columnHeaderGrade });
+            materialListViewUsers.Depth = 0;
+            materialListViewUsers.FullRowSelect = true;
+            materialListViewUsers.Location = new Point(60, 0);
+            materialListViewUsers.MaximumSize = new Size(730, 200);
+            materialListViewUsers.MinimumSize = new Size(730, 100);
+            materialListViewUsers.MouseLocation = new Point(-1, -1);
+            materialListViewUsers.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewUsers.Name = "materialListViewUsers";
+            materialListViewUsers.OwnerDraw = true;
+            materialListViewUsers.Size = new Size(730, 200);
+            materialListViewUsers.TabIndex = 3;
+            materialListViewUsers.UseCompatibleStateImageBehavior = false;
+            materialListViewUsers.View = View.Details;
             // 
             // columnHeaderID
             // 
@@ -312,12 +301,23 @@
             // 
             columnHeaderGrade.Text = "Klase";
             // 
+            // imageListIcons
+            // 
+            imageListIcons.ColorDepth = ColorDepth.Depth32Bit;
+            imageListIcons.ImageStream = (ImageListStreamer)resources.GetObject("imageListIcons.ImageStream");
+            imageListIcons.TransparentColor = Color.Transparent;
+            imageListIcons.Images.SetKeyName(0, "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(1, "inventory_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(2, "manage_accounts_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(3, "person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            imageListIcons.Images.SetKeyName(4, "schedule_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
-            ClientSize = new Size(992, 440);
+            ClientSize = new Size(801, 440);
             Controls.Add(materialTabControlMain);
             Controls.Add(materialDrawer1);
             DrawerAutoShow = true;
@@ -348,15 +348,15 @@
         private ImageList imageListIcons;
         private TabPage tabPageHandouts;
         private MaterialSkin.Controls.MaterialListView materialListViewItems;
-        private ColumnHeader columnHeader5;
-        private ColumnHeader columnHeader6;
-        private ColumnHeader columnHeader7;
-        private ColumnHeader columnHeader8;
+        private ColumnHeader columnHeaderItemsID;
+        private ColumnHeader columnHeaderItemsType;
+        private ColumnHeader columnHeaderItemsDescription;
+        private ColumnHeader columnHeaderItemsStatus;
         private MaterialSkin.Controls.MaterialCard materialCardProfile;
         private MaterialSkin.Controls.MaterialLabel materialLabelUsername;
         private MaterialSkin.Controls.MaterialLabel materialLabelName;
         private MaterialSkin.Controls.MaterialLabel materialLabelGrade;
-        private MaterialSkin.Controls.MaterialListView materialListView1;
+        private MaterialSkin.Controls.MaterialListView materialListViewUsers;
         private ColumnHeader columnHeaderID;
         private ColumnHeader columnHeaderUsername;
         private ColumnHeader columnHeaderEmail;

@@ -18,8 +18,16 @@ namespace datorium_projekts
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            FormRegister formRegister = new FormRegister();
-            formRegister.ShowDialog();
+            System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] click on register button");
+            using (FormRegister formRegister = new FormRegister())
+            {
+                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] created registration form");
+                if (formRegister.ShowDialog() == DialogResult.OK)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] register success.");
+                    MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
