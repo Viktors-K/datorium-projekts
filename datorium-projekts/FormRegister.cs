@@ -107,13 +107,9 @@ namespace datorium_projekts
         private async void RegisterUser(string username, string email, string password, string name, string surname, string student_class)
         {
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-
             try
             {
-                await Task.Run(() =>
-                {
-                    userManager.AddUser(username, email, passwordHash, name, surname, student_class);
-                });
+                await Task.Run(() => userManager.AddUser(username, email, passwordHash, name, surname, student_class));
 
                 Invoke((MethodInvoker)delegate
                 {
@@ -121,7 +117,7 @@ namespace datorium_projekts
                     MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 });
             }
-            catch (Exception)
+            catch
             {
                 ShowError("Kļūda pievienojot lietotāju!");
             }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace datorium_projekts
 {
@@ -33,11 +35,13 @@ namespace datorium_projekts
     {
         public int Id;
         public string Type;
+        public string Status;
         public string Details;
-        public Item(int id, string type, string details = null)
+        public Item(int id, string type, string status, string details = null)
         {
             this.Id = id;
             this.Type = type;
+            this.Status = status;
             this.Details = details;
         }
     }

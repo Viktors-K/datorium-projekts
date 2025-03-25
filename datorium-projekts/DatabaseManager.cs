@@ -9,6 +9,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Microsoft.VisualBasic;
+using System.Security.Permissions;
 
 namespace datorium_projekts
 {
@@ -200,6 +201,7 @@ namespace datorium_projekts
         {
             _connectionString = connectionString;
             InitItemTable();
+            UpdateStatuses();
         }
         private void InitItemTable()
         {
@@ -211,22 +213,24 @@ namespace datorium_projekts
                     CREATE TABLE IF NOT EXISTS Items (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           type TEXT NOT NULL,
+                          status TEXT NOT NULL,
                           details TEXT
                     );
 				";
                 createTableCmd.ExecuteNonQuery();
             }
         }
-        public void AddItem(int id, string type, string details = null)
+        public void AddItem(int id, string type, string status = "available", string details = null)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
                 var insertCmd = connection.CreateCommand();
-                insertCmd.CommandText = @"INSERT INTO Items(id, type, details)
-                                                      VALUES (@id, @type, @details)";
+                insertCmd.CommandText = @"INSERT INTO Items(id, type, status, details)
+                                                      VALUES (@id, @type, @status, @details)";
                 insertCmd.Parameters.AddWithValue("@id", id);
                 insertCmd.Parameters.AddWithValue("@type", type);
+                insertCmd.Parameters.AddWithValue("@status", status);
                 insertCmd.Parameters.AddWithValue("@details", details);
                 insertCmd.ExecuteNonQuery();
             }
@@ -246,6 +250,7 @@ namespace datorium_projekts
                     new_item = new Item(
                         id: Convert.ToInt32(reader["id"]),
                         type: Convert.ToString(reader["type"]),
+                        status: Convert.ToString(reader["status"]),
                         details: Convert.ToString(reader["details"])
                     );
                 }
@@ -261,10 +266,12 @@ namespace datorium_projekts
                 updateCmd.CommandText = @"
 					UPDATE Items SET
                         type = @type, 
-                        details = @details,
+                        status = @status,
+                        details = @details
                     WHERE id = @id;
 				";
                 updateCmd.Parameters.AddWithValue("@type", new_item.Type);
+                updateCmd.Parameters.AddWithValue("@status", new_item.Status);
                 updateCmd.Parameters.AddWithValue("@details", new_item.Details);
                 updateCmd.Parameters.AddWithValue("@id", old_item.Id);
                 updateCmd.ExecuteNonQuery();
@@ -295,11 +302,55 @@ namespace datorium_projekts
                     Item new_item = new Item(
                         id: Convert.ToInt32(reader["id"]),
                         type: Convert.ToString(reader["type"]),
+                        status: Convert.ToString(reader["status"]),
                         details: Convert.ToString(reader["details"])
                     );
                     item_list.Add(new_item);
                 }
                 return item_list;
+            }
+        }
+        public void UpdateStatuses()
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var selectCmd = "SELECT Id FROM Items";
+                using (var selectCmd = new SqliteCommand(selectCmd, connection))
+                {
+                    using (var reader = selectCmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int itemId = reader.GetInt32(0);
+
+                            // Step 2: Check if the item is in use in either Reservations or Handouts
+                            bool isItemInUse = IsAvailable(itemId);
+
+                            // Step 3: Update the item's status based on whether it is in use
+                            string newStatus = isItemInUse ? "In Use" : "Available";
+                            UpdateItemStatus(itemId, newStatus, connection);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < count; i++)
+                {
+
+                }
+
+
+                // update item with new id
+                var updateCmd = connection.CreateCommand();
+                updateCmd.CommandText = @"
+					UPDATE Items SET
+                        status = @status
+                    WHERE id = @id;
+				";
+                updateCmd.Parameters.AddWithValue("@status", new_status);
+                updateCmd.Parameters.AddWithValue("@id", item_id);
+                updateCmd.ExecuteNonQuery();
             }
         }
         public Boolean IsAvailable(int item_id)
