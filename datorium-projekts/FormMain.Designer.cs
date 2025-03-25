@@ -45,6 +45,11 @@
             materialLabelName = new MaterialSkin.Controls.MaterialLabel();
             materialLabelUsername = new MaterialSkin.Controls.MaterialLabel();
             tabPageAdminItem = new TabPage();
+            materialListViewAdminItems = new MaterialSkin.Controls.MaterialListView();
+            columnHeaderAdminItemId = new ColumnHeader();
+            columnHeaderAdminItemType = new ColumnHeader();
+            columnHeaderAdminItemDescription = new ColumnHeader();
+            columnHeaderAdminItemStatus = new ColumnHeader();
             tabPageAdminUser = new TabPage();
             materialListViewUsers = new MaterialSkin.Controls.MaterialListView();
             columnHeaderID = new ColumnHeader();
@@ -55,10 +60,14 @@
             columnHeaderSurname = new ColumnHeader();
             columnHeaderGrade = new ColumnHeader();
             imageListIcons = new ImageList(components);
+            materialButtonDelete = new MaterialSkin.Controls.MaterialButton();
+            materialButtonAdminItemUpdate = new MaterialSkin.Controls.MaterialButton();
+            materialButtonAdminItemCreate = new MaterialSkin.Controls.MaterialButton();
             materialTabControlMain.SuspendLayout();
             tabPageHandouts.SuspendLayout();
             tabPageUser.SuspendLayout();
             materialCardProfile.SuspendLayout();
+            tabPageAdminItem.SuspendLayout();
             tabPageAdminUser.SuspendLayout();
             SuspendLayout();
             // 
@@ -228,6 +237,10 @@
             // 
             // tabPageAdminItem
             // 
+            tabPageAdminItem.Controls.Add(materialButtonAdminItemCreate);
+            tabPageAdminItem.Controls.Add(materialButtonAdminItemUpdate);
+            tabPageAdminItem.Controls.Add(materialButtonDelete);
+            tabPageAdminItem.Controls.Add(materialListViewAdminItems);
             tabPageAdminItem.ImageKey = "inventory_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageAdminItem.Location = new Point(4, 24);
             tabPageAdminItem.Name = "tabPageAdminItem";
@@ -236,6 +249,46 @@
             tabPageAdminItem.TabIndex = 2;
             tabPageAdminItem.Text = "Inventārs";
             tabPageAdminItem.UseVisualStyleBackColor = true;
+            // 
+            // materialListViewAdminItems
+            // 
+            materialListViewAdminItems.AutoSizeTable = false;
+            materialListViewAdminItems.BackColor = Color.FromArgb(255, 255, 255);
+            materialListViewAdminItems.BorderStyle = BorderStyle.None;
+            materialListViewAdminItems.Columns.AddRange(new ColumnHeader[] { columnHeaderAdminItemId, columnHeaderAdminItemType, columnHeaderAdminItemDescription, columnHeaderAdminItemStatus });
+            materialListViewAdminItems.Depth = 0;
+            materialListViewAdminItems.FullRowSelect = true;
+            materialListViewAdminItems.Location = new Point(50, 0);
+            materialListViewAdminItems.MaximumSize = new Size(750, 331);
+            materialListViewAdminItems.MinimumSize = new Size(750, 100);
+            materialListViewAdminItems.MouseLocation = new Point(-1, -1);
+            materialListViewAdminItems.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewAdminItems.Name = "materialListViewAdminItems";
+            materialListViewAdminItems.OwnerDraw = true;
+            materialListViewAdminItems.Size = new Size(750, 331);
+            materialListViewAdminItems.TabIndex = 3;
+            materialListViewAdminItems.UseCompatibleStateImageBehavior = false;
+            materialListViewAdminItems.View = View.Details;
+            // 
+            // columnHeaderAdminItemId
+            // 
+            columnHeaderAdminItemId.Text = "ID";
+            columnHeaderAdminItemId.Width = 50;
+            // 
+            // columnHeaderAdminItemType
+            // 
+            columnHeaderAdminItemType.Text = "Veids";
+            columnHeaderAdminItemType.Width = 125;
+            // 
+            // columnHeaderAdminItemDescription
+            // 
+            columnHeaderAdminItemDescription.Text = "Apraksts";
+            columnHeaderAdminItemDescription.Width = 450;
+            // 
+            // columnHeaderAdminItemStatus
+            // 
+            columnHeaderAdminItemStatus.Text = "Statuss";
+            columnHeaderAdminItemStatus.Width = 125;
             // 
             // tabPageAdminUser
             // 
@@ -312,6 +365,63 @@
             imageListIcons.Images.SetKeyName(3, "person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
             imageListIcons.Images.SetKeyName(4, "schedule_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
             // 
+            // materialButtonDelete
+            // 
+            materialButtonDelete.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonDelete.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonDelete.Depth = 0;
+            materialButtonDelete.HighEmphasis = true;
+            materialButtonDelete.Icon = null;
+            materialButtonDelete.Location = new Point(489, 340);
+            materialButtonDelete.Margin = new Padding(4, 6, 4, 6);
+            materialButtonDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonDelete.Name = "materialButtonDelete";
+            materialButtonDelete.NoAccentTextColor = Color.Empty;
+            materialButtonDelete.Size = new Size(66, 36);
+            materialButtonDelete.TabIndex = 4;
+            materialButtonDelete.Text = "Dzēst";
+            materialButtonDelete.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonDelete.UseAccentColor = false;
+            materialButtonDelete.UseVisualStyleBackColor = true;
+            // 
+            // materialButtonAdminItemUpdate
+            // 
+            materialButtonAdminItemUpdate.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonAdminItemUpdate.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonAdminItemUpdate.Depth = 0;
+            materialButtonAdminItemUpdate.HighEmphasis = true;
+            materialButtonAdminItemUpdate.Icon = null;
+            materialButtonAdminItemUpdate.Location = new Point(370, 340);
+            materialButtonAdminItemUpdate.Margin = new Padding(4, 6, 4, 6);
+            materialButtonAdminItemUpdate.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonAdminItemUpdate.Name = "materialButtonAdminItemUpdate";
+            materialButtonAdminItemUpdate.NoAccentTextColor = Color.Empty;
+            materialButtonAdminItemUpdate.Size = new Size(111, 36);
+            materialButtonAdminItemUpdate.TabIndex = 5;
+            materialButtonAdminItemUpdate.Text = "Atjaunināt";
+            materialButtonAdminItemUpdate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonAdminItemUpdate.UseAccentColor = false;
+            materialButtonAdminItemUpdate.UseVisualStyleBackColor = true;
+            // 
+            // materialButtonAdminItemCreate
+            // 
+            materialButtonAdminItemCreate.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonAdminItemCreate.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonAdminItemCreate.Depth = 0;
+            materialButtonAdminItemCreate.HighEmphasis = true;
+            materialButtonAdminItemCreate.Icon = null;
+            materialButtonAdminItemCreate.Location = new Point(267, 340);
+            materialButtonAdminItemCreate.Margin = new Padding(4, 6, 4, 6);
+            materialButtonAdminItemCreate.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonAdminItemCreate.Name = "materialButtonAdminItemCreate";
+            materialButtonAdminItemCreate.NoAccentTextColor = Color.Empty;
+            materialButtonAdminItemCreate.Size = new Size(95, 36);
+            materialButtonAdminItemCreate.TabIndex = 6;
+            materialButtonAdminItemCreate.Text = "Pievienot";
+            materialButtonAdminItemCreate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonAdminItemCreate.UseAccentColor = false;
+            materialButtonAdminItemCreate.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -334,6 +444,8 @@
             tabPageUser.ResumeLayout(false);
             materialCardProfile.ResumeLayout(false);
             materialCardProfile.PerformLayout();
+            tabPageAdminItem.ResumeLayout(false);
+            tabPageAdminItem.PerformLayout();
             tabPageAdminUser.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -364,5 +476,13 @@
         private ColumnHeader columnHeaderName;
         private ColumnHeader columnHeaderSurname;
         private ColumnHeader columnHeaderGrade;
+        private MaterialSkin.Controls.MaterialListView materialListViewAdminItems;
+        private ColumnHeader columnHeaderAdminItemId;
+        private ColumnHeader columnHeaderAdminItemType;
+        private ColumnHeader columnHeaderAdminItemDescription;
+        private ColumnHeader columnHeaderAdminItemStatus;
+        private MaterialSkin.Controls.MaterialButton materialButtonAdminItemCreate;
+        private MaterialSkin.Controls.MaterialButton materialButtonAdminItemUpdate;
+        private MaterialSkin.Controls.MaterialButton materialButtonDelete;
     }
 }

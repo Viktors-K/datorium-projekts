@@ -318,6 +318,8 @@ namespace datorium_projekts
                 var selectCmd = connection.CreateCommand();
                 selectCmd.CommandText = "SELECT Id FROM Items";
                 var reader = selectCmd.ExecuteReader();
+
+                // goes through all items
                 while (reader.Read())
                 {
                     // get item id
@@ -325,15 +327,8 @@ namespace datorium_projekts
 
                     // create status string based on availability 
                     string new_status = "available";
-
-                    if (IsTaken(item_id))
-                    {
-                        new_status = "taken";
-                    }
-                    else if (IsReserved(item_id))
-                    {
-                        new_status = "reserved";
-                    }
+                    if (IsTaken(item_id)) new_status = "taken";
+                    else if (IsReserved(item_id)) new_status = "reserved";
 
                     // update item with new status
                     var updateCmd = connection.CreateCommand();

@@ -26,12 +26,10 @@ namespace datorium_projekts
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             currentUser = userManager.GetUser(username);
-            AddItemsToListView();
-            
-            if (currentUser.Admin)
-            {
-                AdminSetup();
-            }
+            AddItemsToListView(materialListViewItems);
+
+            // add admin only functions if user is admin, otherwise remove not needed tabs
+            if (currentUser.Admin) AdminSetup();
             else
             {
                 materialLabelUsername.Text = $"Lietotājs {currentUser.Username}";
@@ -39,26 +37,23 @@ namespace datorium_projekts
                 materialTabControlMain.TabPages.Remove(tabPageAdminUser);
             }
 
-            materialLabelName.Text = $"{currentUser.Name} {currentUser.Surname}";
+            // add users StudentClass value to label if not null, otherwise hide it
+            if (currentUser.StudentClass != null) materialLabelGrade.Text = $"{currentUser.StudentClass} klase";
+            else materialLabelGrade.Visible = false;
 
-            if (currentUser.StudentClass != null) 
-            {
-                materialLabelGrade.Text = $"{currentUser.StudentClass} klase";
-            }
-            else
-            {
-                materialLabelGrade.Visible = false;
-            }
+            // user info on user page
+            materialLabelName.Text = $"{currentUser.Name} {currentUser.Surname}";
         }
         public void AdminSetup()
         {
             materialLabelUsername.Text = $"Administrators {currentUser.Username}";
             AddUsersToListView();
+            AddItemsToListView(materialListViewAdminItems);
         }
-        public void AddItemsToListView()
+        public void AddItemsToListView(MaterialListView listView)
         {
-            materialListViewItems.View = View.Details;
-            materialListViewItems.Items.Clear();
+            listView.View = View.Details;
+            listView.Items.Clear();
 
             List<Item> item_list = itemManager.GetAllItems();
             foreach (Item item in item_list)
@@ -67,7 +62,7 @@ namespace datorium_projekts
                 listViewItem.SubItems.Add(item.Type);
                 listViewItem.SubItems.Add(item.Details);
                 listViewItem.SubItems.Add(item.Status);
-                materialListViewItems.Items.Add(listViewItem);
+                listView.Items.Add(listViewItem);
             }
         }
         public void AddUsersToListView()
