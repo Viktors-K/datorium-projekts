@@ -66,7 +66,7 @@ namespace datorium_projekts
                 ListViewItem listViewItem = new ListViewItem(item.Id.ToString());
                 listViewItem.SubItems.Add(item.Type);
                 listViewItem.SubItems.Add(item.Details);
-
+                listViewItem.SubItems.Add(item.Status);
                 materialListViewItems.Items.Add(listViewItem);
             }
         }

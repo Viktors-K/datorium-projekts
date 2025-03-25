@@ -315,45 +315,40 @@ namespace datorium_projekts
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
-
-                var selectCmd = "SELECT Id FROM Items";
-                using (var selectCmd = new SqliteCommand(selectCmd, connection))
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT Id FROM Items";
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    using (var reader = selectCmd.ExecuteReader())
+                    // get item id
+                    int item_id = reader.GetInt32(0);
+
+                    // create status string based on availability 
+                    string new_status = "available";
+
+                    if (IsTaken(item_id))
                     {
-                        while (reader.Read())
-                        {
-                            int itemId = reader.GetInt32(0);
-
-                            // Step 2: Check if the item is in use in either Reservations or Handouts
-                            bool isItemInUse = IsAvailable(itemId);
-
-                            // Step 3: Update the item's status based on whether it is in use
-                            string newStatus = isItemInUse ? "In Use" : "Available";
-                            UpdateItemStatus(itemId, newStatus, connection);
-                        }
+                        new_status = "taken";
                     }
+                    else if (IsReserved(item_id))
+                    {
+                        new_status = "reserved";
+                    }
+
+                    // update item with new status
+                    var updateCmd = connection.CreateCommand();
+                    updateCmd.CommandText = @"
+					            UPDATE Items SET
+                                    status = @status
+                                WHERE id = @id;
+				            ";
+                    updateCmd.Parameters.AddWithValue("@status", new_status);
+                    updateCmd.Parameters.AddWithValue("@id", item_id);
+                    updateCmd.ExecuteNonQuery();
                 }
-
-                for (int i = 0; i < count; i++)
-                {
-
-                }
-
-
-                // update item with new id
-                var updateCmd = connection.CreateCommand();
-                updateCmd.CommandText = @"
-					UPDATE Items SET
-                        status = @status
-                    WHERE id = @id;
-				";
-                updateCmd.Parameters.AddWithValue("@status", new_status);
-                updateCmd.Parameters.AddWithValue("@id", item_id);
-                updateCmd.ExecuteNonQuery();
             }
         }
-        public Boolean IsAvailable(int item_id)
+        public Boolean IsTaken(int item_id)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -363,22 +358,22 @@ namespace datorium_projekts
                 selectCmd.CommandText = "SELECT 1 FROM Handouts WHERE item_id = @item_id AND status = active";
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
                 var reader = selectCmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    return false;
-                }
+
+                return !reader.HasRows;
+            }
+        }
+        public Boolean IsReserved(int item_id)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
                 // check if table Reservations has an active reservation on item
-                selectCmd = connection.CreateCommand();
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
                 selectCmd.CommandText = "SELECT 1 FROM Reservations WHERE item_id = @item_id AND status = active";
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
-                reader = selectCmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    return false;
-                }
+                var reader = selectCmd.ExecuteReader();
 
-                // if none of the tables have an active query for the item return true
-                return true;
+                return !reader.HasRows;
             }
         }
     }
