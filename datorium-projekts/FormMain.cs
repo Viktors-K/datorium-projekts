@@ -96,6 +96,7 @@ namespace datorium_projekts
             formAdminItems.FormClosed += (s, ev) =>
             {
                 AddItemsToListView(materialListViewAdminItems);
+                AddItemsToListView(materialListViewItems);
             };
         }
 
@@ -110,6 +111,7 @@ namespace datorium_projekts
                 formAdminItems.FormClosed += (s, ev) =>
                 {
                     AddItemsToListView(materialListViewAdminItems);
+                    AddItemsToListView(materialListViewItems);
                 };
             }
         }
@@ -122,6 +124,7 @@ namespace datorium_projekts
                 int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
                 itemManager.DeleteItem(item_id);
                 AddItemsToListView(materialListViewAdminItems);
+                AddItemsToListView(materialListViewItems);
             }
         }
     }

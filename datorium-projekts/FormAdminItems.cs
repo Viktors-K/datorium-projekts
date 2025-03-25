@@ -29,6 +29,9 @@ namespace datorium_projekts
             materialLabelError.Hide();
             if (_goal == "update")
             {
+                Item old_item = _itemManager.GetItem(_oldItemId);
+                materialTextBoxType.Text = old_item.Type;
+                materialTextBoxDetails.Text = old_item.Details;
                 Text = "Vienuma atjaunošana";
                 materialButtonFinish.Text = "Atjaunot";
             }
