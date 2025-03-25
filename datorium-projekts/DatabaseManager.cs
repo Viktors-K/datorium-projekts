@@ -119,7 +119,6 @@ namespace datorium_projekts
                 updateCmd.ExecuteNonQuery();
             }
         }
-
         public void DeleteUser(string username)
         {
             using (var connection = new SqliteConnection(_connectionString))
@@ -271,8 +270,7 @@ namespace datorium_projekts
                 updateCmd.ExecuteNonQuery();
             }
         }
-
-        public void DeleteUser(int id)
+        public void DeleteItem(int id)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -426,7 +424,6 @@ namespace datorium_projekts
                 updateCmd.ExecuteNonQuery();
             }
         }
-
         public void DeleteHandout(int id)
         {
             using (var connection = new SqliteConnection(_connectionString))
@@ -532,7 +529,6 @@ namespace datorium_projekts
                 updateCmd.ExecuteNonQuery();
             }
         }
-
         public void DeleteReservation(int id)
         {
             using (var connection = new SqliteConnection(_connectionString))

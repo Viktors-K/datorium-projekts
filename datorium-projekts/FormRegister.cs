@@ -23,10 +23,9 @@ namespace datorium_projekts
         {
             InitializeComponent();
             userManager = new UserManager("Data Source=main.db");
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            var skinManager = MaterialSkinManager.Instance;
+            skinManager.AddFormToManage(this);
+            skinManager.RemoveFormToManage(this);
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
@@ -118,7 +117,7 @@ namespace datorium_projekts
                     try
                     {
                         System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Inside Task.Run before AddUser...");
-                        userManager.AddUser(username, email, password, name, surname, student_class);
+                        userManager.AddUser(username, email, passwordHash, name, surname, student_class);
                         System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Registration complete!");
                     }
                     catch (Exception innerEx)
@@ -133,19 +132,14 @@ namespace datorium_projekts
                 Invoke((MethodInvoker)delegate
                 {
                     DialogResult = DialogResult.OK;
+                    this.Tag = "Success";
                     System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] DialogResult set to OK!");
-                    Close();
+                    Hide();
                 });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] ERROR in RegisterUser: {ex.Message}");
-
-                Invoke((MethodInvoker)delegate
-                {
-                    MessageBox.Show($"Kļūda pievienojot lietotāju!\n{ex.Message}", "Kļūda", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    ShowError("Kļūda pievienojot lietotāju!");
-                });
+                ShowError("Kļūda pievienojot lietotāju!");
             }
         }
 

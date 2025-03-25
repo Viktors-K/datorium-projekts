@@ -6,11 +6,11 @@ namespace datorium_projekts
     public partial class FormLogin : MaterialForm
     {
         private UserManager userManager;
+        private MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
         public FormLogin()
         {
             InitializeComponent();
             userManager = new UserManager("Data Source=main.db");
-            var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
@@ -19,15 +19,22 @@ namespace datorium_projekts
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] click on register button");
-            using (FormRegister formRegister = new FormRegister())
-            {
+
+                FormRegister formRegister = new FormRegister();
                 System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] created registration form");
-                if (formRegister.ShowDialog() == DialogResult.OK)
+
+                formRegister.FormClosed += (s, args) =>
                 {
-                    System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] register success.");
-                    MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+                    if (formRegister.Tag != null && formRegister.Tag.ToString() == "Success")
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] register success.");
+                            MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        });
+                    }
+                };
+                formRegister.Show(); // Open on a separate thread
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -67,6 +74,7 @@ namespace datorium_projekts
             catch (Exception ex)
             {
                 ShowError("Kļūda lietotāja atrašanā!");
+                MessageBox.Show(ex.Message);
                 return;
             }
 
