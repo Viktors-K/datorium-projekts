@@ -110,31 +110,15 @@ namespace datorium_projekts
 
             try
             {
-                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Starting Task.Run...");
-
                 await Task.Run(() =>
                 {
-                    try
-                    {
-                        System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Inside Task.Run before AddUser...");
-                        userManager.AddUser(username, email, passwordHash, name, surname, student_class);
-                        System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Registration complete!");
-                    }
-                    catch (Exception innerEx)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] ERROR inside Task.Run: {innerEx.Message}");
-                        throw;
-                    }
+                    userManager.AddUser(username, email, passwordHash, name, surname, student_class);
                 });
-
-                System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] Before setting DialogResult...");
 
                 Invoke((MethodInvoker)delegate
                 {
-                    DialogResult = DialogResult.OK;
-                    this.Tag = "Success";
-                    System.Diagnostics.Debug.WriteLine($"[{DateTime.Now}] DialogResult set to OK!");
                     Hide();
+                    MessageBox.Show("Lietotājs veiksmīgi reģistrēts!", "Informācija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 });
             }
             catch (Exception)
