@@ -9,16 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace datorium_projekts
 {
     public partial class FormMain : MaterialForm
     {
         private ItemManager itemManager;
         private UserManager userManager;
+        private ReservationManager reservationManager;
+        private HandoutManager handoutManager;
         private User currentUser;
         public FormMain(string username)
         {
             InitializeComponent();
+            reservationManager = new ReservationManager("Data Source=main.db");
+            handoutManager = new HandoutManager("Data Source=main.db");
             userManager = new UserManager("Data Source=main.db");
             itemManager = new ItemManager("Data Source=main.db");
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -81,6 +86,42 @@ namespace datorium_projekts
                 listViewItem.SubItems.Add(user.Surname);
                 listViewItem.SubItems.Add(user.StudentClass);
                 materialListViewUsers.Items.Add(listViewItem);
+            }
+        }
+
+        private void materialButtonAdminItemCreate_Click(object sender, EventArgs e)
+        {
+            FormAdminItems formAdminItems = new FormAdminItems("create", 1);
+            formAdminItems.Show();
+            formAdminItems.FormClosed += (s, ev) =>
+            {
+                AddItemsToListView(materialListViewAdminItems);
+            };
+        }
+
+        private void materialButtonAdminItemUpdate_Click(object sender, EventArgs e)
+        {
+            if (materialListViewAdminItems.SelectedItems.Count == 1)
+            {
+                ListViewItem selectedItem = materialListViewAdminItems.SelectedItems[0];
+                int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
+                FormAdminItems formAdminItems = new FormAdminItems("update", item_id);
+                formAdminItems.Show();
+                formAdminItems.FormClosed += (s, ev) =>
+                {
+                    AddItemsToListView(materialListViewAdminItems);
+                };
+            }
+        }
+
+        private void materialButtonDelete_Click(object sender, EventArgs e)
+        {
+            if (materialListViewAdminItems.SelectedItems.Count == 1)
+            {
+                ListViewItem selectedItem = materialListViewAdminItems.SelectedItems[0];
+                int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
+                itemManager.DeleteItem(item_id);
+                AddItemsToListView(materialListViewAdminItems);
             }
         }
     }

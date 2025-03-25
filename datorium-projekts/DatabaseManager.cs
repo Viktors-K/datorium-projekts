@@ -220,15 +220,14 @@ namespace datorium_projekts
                 createTableCmd.ExecuteNonQuery();
             }
         }
-        public void AddItem(int id, string type, string status = "available", string details = null)
+        public void AddItem(string type, string status = "available", string details = null)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
                 var insertCmd = connection.CreateCommand();
-                insertCmd.CommandText = @"INSERT INTO Items(id, type, status, details)
-                                                      VALUES (@id, @type, @status, @details)";
-                insertCmd.Parameters.AddWithValue("@id", id);
+                insertCmd.CommandText = @"INSERT INTO Items(type, status, details)
+                                                      VALUES (@type, @status, @details)";
                 insertCmd.Parameters.AddWithValue("@type", type);
                 insertCmd.Parameters.AddWithValue("@status", status);
                 insertCmd.Parameters.AddWithValue("@details", details);
@@ -350,7 +349,7 @@ namespace datorium_projekts
                 // check if table Handouts has an active handout on item
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
-                selectCmd.CommandText = "SELECT 1 FROM Handouts WHERE item_id = @item_id AND status = active";
+                selectCmd.CommandText = "SELECT 1 FROM Handouts WHERE item_id = @item_id AND status = 'active'";
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
                 var reader = selectCmd.ExecuteReader();
 
@@ -364,7 +363,7 @@ namespace datorium_projekts
                 // check if table Reservations has an active reservation on item
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
-                selectCmd.CommandText = "SELECT 1 FROM Reservations WHERE item_id = @item_id AND status = active";
+                selectCmd.CommandText = "SELECT 1 FROM Reservations WHERE item_id = @item_id AND status = 'active'";
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
                 var reader = selectCmd.ExecuteReader();
 
