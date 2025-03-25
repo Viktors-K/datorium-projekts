@@ -353,7 +353,7 @@ namespace datorium_projekts
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
                 var reader = selectCmd.ExecuteReader();
 
-                return !reader.HasRows;
+                return reader.HasRows;
             }
         }
         public Boolean IsReserved(int item_id)
@@ -367,7 +367,7 @@ namespace datorium_projekts
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
                 var reader = selectCmd.ExecuteReader();
 
-                return !reader.HasRows;
+                return reader.HasRows;
             }
         }
     }
