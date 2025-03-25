@@ -45,11 +45,11 @@ Users
 | 3  | esulcs13   | esulcs13@edu.riga.lv   | $2a$12$XbN... | 0     | {"name": "Emīls", "surname": "Šulcs", "class": "12.EI"}      |
 
 Items
-| ID | item     | details    |
-|----|----------|------------|
-| 1  | Computer | Windows OS |
-| 2  | Charger  | 9V adapter |
-| 3  | Mouse    | USB-A      |
+| ID | item     | status    | details    |
+|----|----------|-----------|------------|
+| 1  | Computer | available | Windows OS |
+| 2  | Charger  | reserved  | 9V adapter |
+| 3  | Mouse    | taken     | USB-A      |
 
 Handouts
 | ID | item_id  | username   | issued_at        | due_at           | status    |
