@@ -33,6 +33,8 @@
             materialDrawer1 = new MaterialSkin.Controls.MaterialDrawer();
             materialTabControlMain = new MaterialSkin.Controls.MaterialTabControl();
             tabPageHandouts = new TabPage();
+            materialButtonItemTake = new MaterialSkin.Controls.MaterialButton();
+            materialButtonItemReturn = new MaterialSkin.Controls.MaterialButton();
             materialListViewItems = new MaterialSkin.Controls.MaterialListView();
             columnHeaderItemsID = new ColumnHeader();
             columnHeaderItemsType = new ColumnHeader();
@@ -110,6 +112,8 @@
             // 
             // tabPageHandouts
             // 
+            tabPageHandouts.Controls.Add(materialButtonItemTake);
+            tabPageHandouts.Controls.Add(materialButtonItemReturn);
             tabPageHandouts.Controls.Add(materialListViewItems);
             tabPageHandouts.ImageKey = "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
             tabPageHandouts.Location = new Point(4, 24);
@@ -118,6 +122,46 @@
             tabPageHandouts.TabIndex = 5;
             tabPageHandouts.Text = "Izsniegumi";
             tabPageHandouts.UseVisualStyleBackColor = true;
+            // 
+            // materialButtonItemTake
+            // 
+            materialButtonItemTake.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonItemTake.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonItemTake.Depth = 0;
+            materialButtonItemTake.HighEmphasis = true;
+            materialButtonItemTake.Icon = null;
+            materialButtonItemTake.Location = new Point(336, 343);
+            materialButtonItemTake.Margin = new Padding(4, 6, 4, 6);
+            materialButtonItemTake.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonItemTake.Name = "materialButtonItemTake";
+            materialButtonItemTake.NoAccentTextColor = Color.Empty;
+            materialButtonItemTake.Size = new Size(85, 36);
+            materialButtonItemTake.TabIndex = 9;
+            materialButtonItemTake.Text = "Izsniegt";
+            materialButtonItemTake.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonItemTake.UseAccentColor = false;
+            materialButtonItemTake.UseVisualStyleBackColor = true;
+            materialButtonItemTake.Click += materialButtonItemTake_Click;
+            // 
+            // materialButtonItemReturn
+            // 
+            materialButtonItemReturn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonItemReturn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonItemReturn.Depth = 0;
+            materialButtonItemReturn.HighEmphasis = true;
+            materialButtonItemReturn.Icon = null;
+            materialButtonItemReturn.Location = new Point(429, 343);
+            materialButtonItemReturn.Margin = new Padding(4, 6, 4, 6);
+            materialButtonItemReturn.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonItemReturn.Name = "materialButtonItemReturn";
+            materialButtonItemReturn.NoAccentTextColor = Color.Empty;
+            materialButtonItemReturn.Size = new Size(90, 36);
+            materialButtonItemReturn.TabIndex = 8;
+            materialButtonItemReturn.Text = "Atgriezt";
+            materialButtonItemReturn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonItemReturn.UseAccentColor = false;
+            materialButtonItemReturn.UseVisualStyleBackColor = true;
+            materialButtonItemReturn.Click += materialButtonItemReturn_Click;
             // 
             // materialListViewItems
             // 
@@ -132,6 +176,7 @@
             materialListViewItems.MinimumSize = new Size(750, 100);
             materialListViewItems.MouseLocation = new Point(-1, -1);
             materialListViewItems.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewItems.MultiSelect = false;
             materialListViewItems.Name = "materialListViewItems";
             materialListViewItems.OwnerDraw = true;
             materialListViewItems.Size = new Size(750, 200);
@@ -323,6 +368,7 @@
             materialListViewAdminItems.MinimumSize = new Size(750, 100);
             materialListViewAdminItems.MouseLocation = new Point(-1, -1);
             materialListViewAdminItems.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewAdminItems.MultiSelect = false;
             materialListViewAdminItems.Name = "materialListViewAdminItems";
             materialListViewAdminItems.OwnerDraw = true;
             materialListViewAdminItems.Size = new Size(750, 331);
@@ -375,6 +421,7 @@
             materialListViewUsers.MinimumSize = new Size(730, 100);
             materialListViewUsers.MouseLocation = new Point(-1, -1);
             materialListViewUsers.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewUsers.MultiSelect = false;
             materialListViewUsers.Name = "materialListViewUsers";
             materialListViewUsers.OwnerDraw = true;
             materialListViewUsers.Size = new Size(730, 200);
@@ -444,6 +491,7 @@
             Text = "Datoru izsniegšanas sistēma";
             materialTabControlMain.ResumeLayout(false);
             tabPageHandouts.ResumeLayout(false);
+            tabPageHandouts.PerformLayout();
             tabPageUser.ResumeLayout(false);
             materialCardProfile.ResumeLayout(false);
             materialCardProfile.PerformLayout();
@@ -487,5 +535,7 @@
         private MaterialSkin.Controls.MaterialButton materialButtonAdminItemCreate;
         private MaterialSkin.Controls.MaterialButton materialButtonAdminItemUpdate;
         private MaterialSkin.Controls.MaterialButton materialButtonDelete;
+        private MaterialSkin.Controls.MaterialButton materialButtonItemTake;
+        private MaterialSkin.Controls.MaterialButton materialButtonItemReturn;
     }
 }

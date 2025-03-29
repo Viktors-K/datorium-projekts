@@ -283,6 +283,14 @@ namespace datorium_projekts
             {
                 connection.Open();
                 var deleteCmd = connection.CreateCommand();
+                deleteCmd.CommandText = "DELETE FROM Handouts WHERE item_id = @item_id;";
+                deleteCmd.Parameters.AddWithValue("@item_id", id);
+                deleteCmd.ExecuteNonQuery();
+                deleteCmd = connection.CreateCommand();
+                deleteCmd.CommandText = "DELETE FROM Reservations WHERE item_id = @item_id;";
+                deleteCmd.Parameters.AddWithValue("@item_id", id);
+                deleteCmd.ExecuteNonQuery();
+                deleteCmd = connection.CreateCommand();
                 deleteCmd.CommandText = "DELETE FROM Items WHERE id = @id;";
                 deleteCmd.Parameters.AddWithValue("@id", id);
                 deleteCmd.ExecuteNonQuery();
@@ -290,6 +298,7 @@ namespace datorium_projekts
         }
         public List<Item> GetAllItems()
         {
+            UpdateStatuses();
             using (var connection = new SqliteConnection(_connectionString))
             {
                 List<Item> item_list = new List<Item>();
@@ -483,14 +492,14 @@ namespace datorium_projekts
             {
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
-                selectCmd.CommandText = "SELECT Id FROM Handouts";
+                selectCmd.CommandText = "SELECT * FROM Handouts";
                 var reader = selectCmd.ExecuteReader();
 
                 // goes through all handouts
                 while (reader.Read())
                 {
                     // get handout id
-                    int handout_id = reader.GetInt32(0);
+                    int handout_id = Convert.ToInt32(reader["id"]);
                     string old_status = Convert.ToString(reader["status"]);
                     DateTime due_time = Convert.ToDateTime(reader["due_at"]);
                     DateTime current_time = DateTime.Now;
