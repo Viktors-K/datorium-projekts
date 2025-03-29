@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Microsoft.VisualBasic;
 using System.Security.Permissions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace datorium_projekts
 {
@@ -346,10 +347,10 @@ namespace datorium_projekts
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
-                // check if table Handouts has an active handout on item
+                // check if table Handouts has an active or late handout on item
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
-                selectCmd.CommandText = "SELECT 1 FROM Handouts WHERE item_id = @item_id AND status = 'active'";
+                selectCmd.CommandText = "SELECT 1 FROM Handouts WHERE item_id = @item_id AND status IN ('active', 'late')";
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
                 var reader = selectCmd.ExecuteReader();
 
@@ -363,7 +364,7 @@ namespace datorium_projekts
                 // check if table Reservations has an active reservation on item
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
-                selectCmd.CommandText = "SELECT 1 FROM Reservations WHERE item_id = @item_id AND status = 'active'";
+                selectCmd.CommandText = "SELECT 1 FROM Reservations WHERE item_id = @item_id AND status IN ('active', 'upcoming', 'late')";
                 selectCmd.Parameters.AddWithValue("@item_id", item_id);
                 var reader = selectCmd.ExecuteReader();
 
@@ -378,6 +379,7 @@ namespace datorium_projekts
         {
             _connectionString = connectionString;
             InitHandoutTable();
+            UpdateStatuses();
         }
         private void InitHandoutTable()
         {
@@ -400,7 +402,7 @@ namespace datorium_projekts
                 createTableCmd.ExecuteNonQuery();
             }
         }
-        public void AddHandout(int item_id, string username, DateTime issued_at, DateTime due_at, string status)
+        public void AddHandout(int item_id, string username, DateTime due_at)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -410,9 +412,9 @@ namespace datorium_projekts
                                                       VALUES (@item_id, @username, @issued_at, @due_at, @status)";
                 insertCmd.Parameters.AddWithValue("@item_id", item_id);
                 insertCmd.Parameters.AddWithValue("@username", username);
-                insertCmd.Parameters.AddWithValue("@issued_at", issued_at.ToString());
+                insertCmd.Parameters.AddWithValue("@issued_at", DateTime.Now.ToString());
                 insertCmd.Parameters.AddWithValue("@due_at", due_at.ToString());
-                insertCmd.Parameters.AddWithValue("@status", status);
+                insertCmd.Parameters.AddWithValue("@status", "active");
                 insertCmd.ExecuteNonQuery();
             }
         }
@@ -475,6 +477,44 @@ namespace datorium_projekts
                 deleteCmd.ExecuteNonQuery();
             }
         }
+        public void UpdateStatuses()
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT Id FROM Handouts";
+                var reader = selectCmd.ExecuteReader();
+
+                // goes through all handouts
+                while (reader.Read())
+                {
+                    // get handout id
+                    int handout_id = reader.GetInt32(0);
+                    string old_status = Convert.ToString(reader["status"]);
+                    DateTime due_time = Convert.ToDateTime(reader["due_at"]);
+                    DateTime current_time = DateTime.Now;
+
+                    // check if active handouts are late, if so change them to late
+                    if (old_status == "active")
+                    {
+                        if (due_time < current_time)
+                        {
+                            // update handout with new status
+                            var updateCmd = connection.CreateCommand();
+                            updateCmd.CommandText = @"
+					            UPDATE Handouts SET
+                                    status = @status
+                                WHERE id = @id;
+				            ";
+                            updateCmd.Parameters.AddWithValue("@status", "late");
+                            updateCmd.Parameters.AddWithValue("@id", handout_id);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+        }
     }
     public class ReservationManager
     {
@@ -483,6 +523,7 @@ namespace datorium_projekts
         {
             _connectionString = connectionString;
             InitReservationTable();
+            UpdateStatuses();
         }
         private void InitReservationTable()
         {
@@ -505,10 +546,11 @@ namespace datorium_projekts
                 createTableCmd.ExecuteNonQuery();
             }
         }
-        public void AddReservation(int item_id, string username, DateTime reserved_from, DateTime reserved_until, string status)
+        public void AddReservation(int item_id, string username, DateTime reserved_from, DateTime reserved_until)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
+                DateTime current_time = DateTime.Now;
                 connection.Open();
                 var insertCmd = connection.CreateCommand();
                 insertCmd.CommandText = @"INSERT INTO Handouts(item_id, username, reserved_from, reserved_until, status)
@@ -517,7 +559,22 @@ namespace datorium_projekts
                 insertCmd.Parameters.AddWithValue("@username", username);
                 insertCmd.Parameters.AddWithValue("@reserved_from", reserved_from.ToString());
                 insertCmd.Parameters.AddWithValue("@reserved_until", reserved_until.ToString());
-                insertCmd.Parameters.AddWithValue("@status", status);
+
+                // status setter based on current time
+                if (current_time < reserved_from)
+                {
+                    insertCmd.Parameters.AddWithValue("@status", "upcoming");
+                } else
+                {
+                    if (current_time < reserved_until)
+                    {
+                        insertCmd.Parameters.AddWithValue("@status", "active");
+                    } else
+                    {
+                        insertCmd.Parameters.AddWithValue("@status", "late");
+                    }
+                }
+
                 insertCmd.ExecuteNonQuery();
             }
         }
@@ -578,6 +635,57 @@ namespace datorium_projekts
                 deleteCmd.CommandText = "DELETE FROM Reservations WHERE id = @id;";
                 deleteCmd.Parameters.AddWithValue("@id", id);
                 deleteCmd.ExecuteNonQuery();
+            }
+        }
+        public void UpdateStatuses()
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = "SELECT Id FROM Reservations";
+                var reader = selectCmd.ExecuteReader();
+
+                // goes through all reservations
+                while (reader.Read())
+                {
+                    // get reservation id
+                    int reservation_id = reader.GetInt32(0);
+                    string old_status = Convert.ToString(reader["status"]);
+                    DateTime reserved_from = Convert.ToDateTime(reader["reserved_from"]);
+                    DateTime reserved_until = Convert.ToDateTime(reader["reserved_until"]);
+                    DateTime current_time = DateTime.Now;
+                    string new_status = old_status;
+                    bool updated_needed = false;
+
+                    // status setter based on current time, if already completed or late do nothing
+                    if (old_status != "completed")
+                    {
+                        if (old_status != "late")
+                        {
+                            updated_needed = true;
+                            if (current_time < reserved_from) new_status = "upcoming";
+                            else
+                            {
+                                if (current_time < reserved_until) new_status = "active";
+                                else new_status = "late";
+                            }
+                        }
+                    }
+                    // update reservation with new status
+                    if (updated_needed)
+                    {
+                        var updateCmd = connection.CreateCommand();
+                        updateCmd.CommandText = @"
+					            UPDATE Reservations SET
+                                    status = @status
+                                WHERE id = @id;
+				            ";
+                        updateCmd.Parameters.AddWithValue("@status", new_status);
+                        updateCmd.Parameters.AddWithValue("@id", reservation_id);
+                        updateCmd.ExecuteNonQuery();
+                    }
+                }
             }
         }
     }
