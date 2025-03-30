@@ -511,6 +511,26 @@ namespace datorium_projekts
                 }
             }
         }
+        public void ReturnItem(int item_id, User user)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var updateCmd = connection.CreateCommand();
+                updateCmd.CommandText = @"
+					UPDATE Handouts SET
+                        status = @status
+                    WHERE 
+                        item_id = @item_id AND
+                        username = @username AND
+                        (status = 'active' OR status = 'late');
+				";
+                updateCmd.Parameters.AddWithValue("@item_id", item_id);
+                updateCmd.Parameters.AddWithValue("@username", user.Username);
+                updateCmd.Parameters.AddWithValue("@status", "completed");
+                updateCmd.ExecuteNonQuery();
+            }
+        }
     }
     public class ReservationManager
     {

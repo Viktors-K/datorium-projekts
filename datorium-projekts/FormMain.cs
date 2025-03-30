@@ -152,13 +152,20 @@ namespace datorium_projekts
             {
                 ListViewItem selectedItem = materialListViewItems.SelectedItems[0];
                 int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
-                handoutDialog(item_id);
+                if (selectedItem.SubItems[3].Text == "available") handoutDialog(item_id);
             }
         }
 
         private void materialButtonItemReturn_Click(object sender, EventArgs e)
         {
-
+            if (materialListViewItems.SelectedItems.Count == 1)
+            {
+                ListViewItem selectedItem = materialListViewItems.SelectedItems[0];
+                int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
+                handoutManager.ReturnItem(item_id, currentUser);
+                AddItemsToListView(materialListViewAdminItems);
+                AddItemsToListView(materialListViewItems);
+            }
         }
     }
 }
