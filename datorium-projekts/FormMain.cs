@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MaterialSkin;
+﻿using MaterialSkin;
 using MaterialSkin.Controls;
 
 namespace datorium_projekts
@@ -16,6 +14,7 @@ namespace datorium_projekts
         public FormMain(string username)
         {
             InitializeComponent();
+
             // order is important, reservations and handouts must be initiated first
             reservationManager = new ReservationManager("Data Source=main.db");
             handoutManager = new HandoutManager("Data Source=main.db");
@@ -30,7 +29,7 @@ namespace datorium_projekts
             
             // get user instance
             currentUser = userManager.GetUser(username);
-            AddItemsToListView(materialListViewItems);
+            RefreshListViews();
 
             // add admin only functions if user is admin, otherwise remove not needed tabs
             if (currentUser.Admin) AdminSetup();
@@ -48,13 +47,18 @@ namespace datorium_projekts
             // user info on user page
             materialLabelName.Text = $"{currentUser.Name} {currentUser.Surname}";
         }
-
+        // refreshes handouts and items
+        public void RefreshListViews()
+        {
+            AddItemsToListView(materialListViewAdminItems);
+            AddItemsToListView(materialListViewItems);
+            AddHandoutsToListView(materialListViewHandouts);
+        }
         // add admin specific information and populate tables with info for admins
         public void AdminSetup()
         {
             materialLabelUsername.Text = $"Administrators {currentUser.Username}";
             AddUsersToListView(materialListViewUsers);
-            AddItemsToListView(materialListViewAdminItems);
         }
         // method for adding items to a listview object
         public void AddItemsToListView(MaterialListView listView)
@@ -67,14 +71,42 @@ namespace datorium_projekts
             {
                 ListViewItem listViewItem = new ListViewItem(item.Id.ToString());
 
-                // set item color based on status
-                if (item.Status == "available") listViewItem.BackColor = Color.Green;
-                else if (item.Status == "reserved") listViewItem.BackColor = Color.Yellow;
-                else if (item.Status == "taken") listViewItem.BackColor = Color.Orange;
-
                 listViewItem.SubItems.Add(item.Type);
                 listViewItem.SubItems.Add(item.Details);
-                listViewItem.SubItems.Add(item.Status);
+
+                if (item.Status == "available") listViewItem.SubItems.Add("Pieejams");
+                else if (item.Status == "reserved") listViewItem.SubItems.Add("Rezervēts");
+                else if (item.Status == "taken") listViewItem.SubItems.Add("Aizņemts");
+
+                listView.Items.Add(listViewItem);
+            }
+        }
+        // method for adding Handouts to a listview object
+        public void AddHandoutsToListView(MaterialListView listView)
+        {
+            listView.View = View.Details;
+            listView.Items.Clear();
+            List<Handout> handout_list = handoutManager.GetActiveHandoutsFromUser(currentUser);
+
+            foreach (Handout handout in handout_list)
+            {
+                Item item = itemManager.GetItem(handout.ItemId);
+                ListViewItem listViewItem = new ListViewItem($"{item.Id}: {item.Type}");
+
+                listViewItem.SubItems.Add(handout.IssuedAt.ToString());
+                listViewItem.SubItems.Add(handout.DueAt.ToString());
+                
+                // set color based on status
+                if (handout.Status == "active")
+                {
+                    listViewItem.BackColor = Color.Green;
+                    listViewItem.SubItems.Add("Aktīvs");
+                }
+                else if (handout.Status == "late")
+                {
+                    listViewItem.BackColor = Color.Orange;
+                    listViewItem.SubItems.Add("Kavēts");
+                }
                 listView.Items.Add(listViewItem);
             }
         }
@@ -104,8 +136,7 @@ namespace datorium_projekts
             formAdminItems.Show();
             formAdminItems.FormClosed += (s, ev) =>
             {
-                AddItemsToListView(materialListViewAdminItems);
-                AddItemsToListView(materialListViewItems);
+                RefreshListViews();
             };
         }
         // method for creating a dialog in the handout tab
@@ -115,8 +146,7 @@ namespace datorium_projekts
             formHandouts.Show();
             formHandouts.FormClosed += (s, ev) =>
             {
-                AddItemsToListView(materialListViewAdminItems);
-                AddItemsToListView(materialListViewItems);
+                RefreshListViews();
             };
         }
         private void materialButtonAdminItemCreate_Click(object sender, EventArgs e)
@@ -141,8 +171,7 @@ namespace datorium_projekts
                 ListViewItem selectedItem = materialListViewAdminItems.SelectedItems[0];
                 int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
                 itemManager.DeleteItem(item_id);
-                AddItemsToListView(materialListViewAdminItems);
-                AddItemsToListView(materialListViewItems);
+                RefreshListViews();
             }
         }
 
@@ -151,8 +180,8 @@ namespace datorium_projekts
             if (materialListViewItems.SelectedItems.Count == 1)
             {
                 ListViewItem selectedItem = materialListViewItems.SelectedItems[0];
-                int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
-                if (selectedItem.SubItems[3].Text == "available") handoutDialog(item_id);
+                Item item = itemManager.GetItem(Convert.ToInt32(selectedItem.SubItems[0].Text));
+                if (item.Status == "available") handoutDialog(item.Id);
             }
         }
 
@@ -163,8 +192,7 @@ namespace datorium_projekts
                 ListViewItem selectedItem = materialListViewItems.SelectedItems[0];
                 int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
                 handoutManager.ReturnItem(item_id, currentUser);
-                AddItemsToListView(materialListViewAdminItems);
-                AddItemsToListView(materialListViewItems);
+                RefreshListViews();
             }
         }
     }

@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             materialDrawer1 = new MaterialSkin.Controls.MaterialDrawer();
             materialTabControlMain = new MaterialSkin.Controls.MaterialTabControl();
             tabPageHandouts = new TabPage();
+            materialListViewHandouts = new MaterialSkin.Controls.MaterialListView();
+            columnHeaderItem = new ColumnHeader();
+            columnHeaderIssuedAt = new ColumnHeader();
+            columnHeaderReturnedAt = new ColumnHeader();
+            columnHeaderStatus = new ColumnHeader();
+            tabPageInventory = new TabPage();
             materialButtonItemTake = new MaterialSkin.Controls.MaterialButton();
             materialButtonItemReturn = new MaterialSkin.Controls.MaterialButton();
             materialListViewItems = new MaterialSkin.Controls.MaterialListView();
@@ -64,9 +69,9 @@
             columnHeaderName = new ColumnHeader();
             columnHeaderSurname = new ColumnHeader();
             columnHeaderGrade = new ColumnHeader();
-            imageListIcons = new ImageList(components);
             materialTabControlMain.SuspendLayout();
             tabPageHandouts.SuspendLayout();
+            tabPageInventory.SuspendLayout();
             tabPageUser.SuspendLayout();
             materialCardProfile.SuspendLayout();
             tabPageAdminItem.SuspendLayout();
@@ -95,12 +100,12 @@
             // materialTabControlMain
             // 
             materialTabControlMain.Controls.Add(tabPageHandouts);
+            materialTabControlMain.Controls.Add(tabPageInventory);
             materialTabControlMain.Controls.Add(tabPageReservations);
             materialTabControlMain.Controls.Add(tabPageUser);
             materialTabControlMain.Controls.Add(tabPageAdminItem);
             materialTabControlMain.Controls.Add(tabPageAdminUser);
             materialTabControlMain.Depth = 0;
-            materialTabControlMain.ImageList = imageListIcons;
             materialTabControlMain.Location = new Point(0, 24);
             materialTabControlMain.Margin = new Padding(0);
             materialTabControlMain.MouseState = MaterialSkin.MouseState.HOVER;
@@ -112,16 +117,69 @@
             // 
             // tabPageHandouts
             // 
-            tabPageHandouts.Controls.Add(materialButtonItemTake);
-            tabPageHandouts.Controls.Add(materialButtonItemReturn);
-            tabPageHandouts.Controls.Add(materialListViewItems);
-            tabPageHandouts.ImageKey = "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
+            tabPageHandouts.Controls.Add(materialListViewHandouts);
+            tabPageHandouts.ImageKey = "(none)";
             tabPageHandouts.Location = new Point(4, 24);
             tabPageHandouts.Name = "tabPageHandouts";
+            tabPageHandouts.Padding = new Padding(3);
             tabPageHandouts.Size = new Size(792, 385);
-            tabPageHandouts.TabIndex = 5;
+            tabPageHandouts.TabIndex = 6;
             tabPageHandouts.Text = "Izsniegumi";
             tabPageHandouts.UseVisualStyleBackColor = true;
+            // 
+            // materialListViewHandouts
+            // 
+            materialListViewHandouts.AutoSizeTable = false;
+            materialListViewHandouts.BackColor = Color.FromArgb(255, 255, 255);
+            materialListViewHandouts.BorderStyle = BorderStyle.None;
+            materialListViewHandouts.Columns.AddRange(new ColumnHeader[] { columnHeaderItem, columnHeaderIssuedAt, columnHeaderReturnedAt, columnHeaderStatus });
+            materialListViewHandouts.Depth = 0;
+            materialListViewHandouts.FullRowSelect = true;
+            materialListViewHandouts.Location = new Point(50, 0);
+            materialListViewHandouts.MaximumSize = new Size(750, 500);
+            materialListViewHandouts.MinimumSize = new Size(750, 100);
+            materialListViewHandouts.MouseLocation = new Point(-1, -1);
+            materialListViewHandouts.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewHandouts.MultiSelect = false;
+            materialListViewHandouts.Name = "materialListViewHandouts";
+            materialListViewHandouts.OwnerDraw = true;
+            materialListViewHandouts.Size = new Size(750, 389);
+            materialListViewHandouts.TabIndex = 3;
+            materialListViewHandouts.UseCompatibleStateImageBehavior = false;
+            materialListViewHandouts.View = View.Details;
+            // 
+            // columnHeaderItem
+            // 
+            columnHeaderItem.Text = "Vienums";
+            columnHeaderItem.Width = 150;
+            // 
+            // columnHeaderIssuedAt
+            // 
+            columnHeaderIssuedAt.Text = "Izsniegts";
+            columnHeaderIssuedAt.Width = 200;
+            // 
+            // columnHeaderReturnedAt
+            // 
+            columnHeaderReturnedAt.Text = "Jāatgriež";
+            columnHeaderReturnedAt.Width = 200;
+            // 
+            // columnHeaderStatus
+            // 
+            columnHeaderStatus.Text = "Statuss";
+            columnHeaderStatus.Width = 200;
+            // 
+            // tabPageInventory
+            // 
+            tabPageInventory.Controls.Add(materialButtonItemTake);
+            tabPageInventory.Controls.Add(materialButtonItemReturn);
+            tabPageInventory.Controls.Add(materialListViewItems);
+            tabPageInventory.ImageKey = "(none)";
+            tabPageInventory.Location = new Point(4, 24);
+            tabPageInventory.Name = "tabPageInventory";
+            tabPageInventory.Size = new Size(792, 385);
+            tabPageInventory.TabIndex = 5;
+            tabPageInventory.Text = "Inventārs";
+            tabPageInventory.UseVisualStyleBackColor = true;
             // 
             // materialButtonItemTake
             // 
@@ -206,7 +264,7 @@
             // 
             // tabPageReservations
             // 
-            tabPageReservations.ImageKey = "schedule_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
+            tabPageReservations.ImageKey = "(none)";
             tabPageReservations.Location = new Point(4, 24);
             tabPageReservations.Name = "tabPageReservations";
             tabPageReservations.Padding = new Padding(3);
@@ -218,7 +276,7 @@
             // tabPageUser
             // 
             tabPageUser.Controls.Add(materialCardProfile);
-            tabPageUser.ImageKey = "person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
+            tabPageUser.ImageKey = "(none)";
             tabPageUser.Location = new Point(4, 24);
             tabPageUser.Name = "tabPageUser";
             tabPageUser.Padding = new Padding(3);
@@ -286,13 +344,13 @@
             tabPageAdminItem.Controls.Add(materialButtonAdminItemUpdate);
             tabPageAdminItem.Controls.Add(materialButtonDelete);
             tabPageAdminItem.Controls.Add(materialListViewAdminItems);
-            tabPageAdminItem.ImageKey = "inventory_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
+            tabPageAdminItem.ImageKey = "(none)";
             tabPageAdminItem.Location = new Point(4, 24);
             tabPageAdminItem.Name = "tabPageAdminItem";
             tabPageAdminItem.Padding = new Padding(3);
             tabPageAdminItem.Size = new Size(792, 385);
             tabPageAdminItem.TabIndex = 2;
-            tabPageAdminItem.Text = "Inventārs";
+            tabPageAdminItem.Text = "Admin: Inventārs";
             tabPageAdminItem.UseVisualStyleBackColor = true;
             // 
             // materialButtonAdminItemCreate
@@ -399,13 +457,13 @@
             // tabPageAdminUser
             // 
             tabPageAdminUser.Controls.Add(materialListViewUsers);
-            tabPageAdminUser.ImageKey = "manage_accounts_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png";
+            tabPageAdminUser.ImageKey = "(none)";
             tabPageAdminUser.Location = new Point(4, 24);
             tabPageAdminUser.Name = "tabPageAdminUser";
             tabPageAdminUser.Padding = new Padding(3);
             tabPageAdminUser.Size = new Size(792, 385);
             tabPageAdminUser.TabIndex = 3;
-            tabPageAdminUser.Text = "Lietotāji";
+            tabPageAdminUser.Text = "Admin: Lietotāji";
             tabPageAdminUser.UseVisualStyleBackColor = true;
             // 
             // materialListViewUsers
@@ -461,17 +519,6 @@
             // 
             columnHeaderGrade.Text = "Klase";
             // 
-            // imageListIcons
-            // 
-            imageListIcons.ColorDepth = ColorDepth.Depth32Bit;
-            imageListIcons.ImageStream = (ImageListStreamer)resources.GetObject("imageListIcons.ImageStream");
-            imageListIcons.TransparentColor = Color.Transparent;
-            imageListIcons.Images.SetKeyName(0, "home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(1, "inventory_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(2, "manage_accounts_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(3, "person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            imageListIcons.Images.SetKeyName(4, "schedule_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
-            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -491,7 +538,8 @@
             Text = "Datoru izsniegšanas sistēma";
             materialTabControlMain.ResumeLayout(false);
             tabPageHandouts.ResumeLayout(false);
-            tabPageHandouts.PerformLayout();
+            tabPageInventory.ResumeLayout(false);
+            tabPageInventory.PerformLayout();
             tabPageUser.ResumeLayout(false);
             materialCardProfile.ResumeLayout(false);
             materialCardProfile.PerformLayout();
@@ -508,8 +556,7 @@
         private TabPage tabPageAdminItem;
         private TabPage tabPageAdminUser;
         private TabPage tabPageUser;
-        private ImageList imageListIcons;
-        private TabPage tabPageHandouts;
+        private TabPage tabPageInventory;
         private MaterialSkin.Controls.MaterialListView materialListViewItems;
         private ColumnHeader columnHeaderItemsID;
         private ColumnHeader columnHeaderItemsType;
@@ -537,5 +584,11 @@
         private MaterialSkin.Controls.MaterialButton materialButtonDelete;
         private MaterialSkin.Controls.MaterialButton materialButtonItemTake;
         private MaterialSkin.Controls.MaterialButton materialButtonItemReturn;
+        private TabPage tabPageHandouts;
+        private MaterialSkin.Controls.MaterialListView materialListViewHandouts;
+        private ColumnHeader columnHeaderItem;
+        private ColumnHeader columnHeaderIssuedAt;
+        private ColumnHeader columnHeaderReturnedAt;
+        private ColumnHeader columnHeaderStatus;
     }
 }

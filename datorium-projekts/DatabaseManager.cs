@@ -531,6 +531,36 @@ namespace datorium_projekts
                 updateCmd.ExecuteNonQuery();
             }
         }
+        public List<Handout> GetActiveHandoutsFromUser(User user)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                List<Handout> handouts = new List<Handout>();
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = @"
+                    SELECT * FROM Handouts
+                    WHERE
+                        username = @username AND
+                        (status = 'active' OR status = 'late');
+                ";
+                selectCmd.Parameters.AddWithValue("@username", user.Username);
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Handout new_handout = new Handout(
+                        id: Convert.ToInt32(reader["id"]),
+                        item_id: Convert.ToInt32(reader["item_id"]),
+                        username: Convert.ToString(reader["username"]),
+                        issued_at: Convert.ToDateTime(reader["issued_at"]),
+                        due_at: Convert.ToDateTime(reader["due_at"]),
+                        status: Convert.ToString(reader["status"])
+                    );
+                    handouts.Add(new_handout);
+                }
+                return handouts;
+            }
+        }
     }
     public class ReservationManager
     {
