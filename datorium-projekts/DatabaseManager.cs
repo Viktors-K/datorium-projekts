@@ -1,28 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using Microsoft.Data.Sqlite;
-using System.Text.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using Microsoft.VisualBasic;
-using System.Security.Permissions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace datorium_projekts
 {
     public class UserManager
     {
         private readonly string _connectionString;
-        public UserManager(string connectionString) 
+        public UserManager(string connectionString)
         {
             _connectionString = connectionString;
             InitUserTable();
         }
-        private void InitUserTable() 
+        private void InitUserTable()
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -136,7 +125,6 @@ namespace datorium_projekts
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
-                User new_user = null;
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
                 selectCmd.CommandText = "SELECT 1 FROM Users WHERE username = @username";
@@ -153,7 +141,6 @@ namespace datorium_projekts
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
-                User new_user = null;
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
                 selectCmd.CommandText = "SELECT 1 FROM Users WHERE email = @email";
@@ -573,12 +560,14 @@ namespace datorium_projekts
                 if (current_time < reserved_from)
                 {
                     insertCmd.Parameters.AddWithValue("@status", "upcoming");
-                } else
+                }
+                else
                 {
                     if (current_time < reserved_until)
                     {
                         insertCmd.Parameters.AddWithValue("@status", "active");
-                    } else
+                    }
+                    else
                     {
                         insertCmd.Parameters.AddWithValue("@status", "late");
                     }
