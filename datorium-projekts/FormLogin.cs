@@ -1,17 +1,30 @@
 ﻿using BCrypt.Net;
 using MaterialSkin;
 using MaterialSkin.Controls;
-
+using Microsoft.Data.Sqlite;
 namespace datorium_projekts
 {
     public partial class FormLogin : MaterialForm
     {
+        // order is important, reservations and handouts must be initiated first
+        private ReservationManager reservationManager;
+        private HandoutManager handoutManager;
+        private ItemManager itemManager;
         private UserManager userManager;
+
         private MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
         public FormLogin()
         {
             InitializeComponent();
+
+            // order is important, reservations and handouts must be initiated first
+            reservationManager = new ReservationManager("Data Source=main.db");
+            handoutManager = new HandoutManager("Data Source=main.db");
+            itemManager = new ItemManager("Data Source=main.db");
             userManager = new UserManager("Data Source=main.db");
+
+            PopulateDatabasesIfEmpty();
+
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
@@ -84,6 +97,24 @@ namespace datorium_projekts
         {
             materialLabelError.Text = message;
             materialLabelError.Show();
+        }
+        // sample data for db
+        private void PopulateDatabasesIfEmpty()
+        {
+            if (itemManager.GetAllItems().Count == 0)
+            {
+                itemManager.AddItem("Dators", "available", "Windows OS");
+                itemManager.AddItem("Lādētājs", "available", "9V DC");
+                itemManager.AddItem("Datorpele", "available", "USB-A");
+                itemManager.AddItem("Dators", "available", "Chromebook");
+                itemManager.AddItem("Lādētājs", "available", "9V DC");
+                itemManager.AddItem("Datorpele", "available", "USB-A");
+            }
+            if (userManager.GetAllUsers().Count == 0)
+            {
+                string hash = BCrypt.Net.BCrypt.HashPassword("Admin12$");
+                userManager.AddUser("admin", "admin@admin.lv", hash, "Admin", "Istrators", null, true);
+            }
         }
     }
 }
