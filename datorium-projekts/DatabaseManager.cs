@@ -599,7 +599,7 @@ namespace datorium_projekts
                 DateTime current_time = DateTime.Now;
                 connection.Open();
                 var insertCmd = connection.CreateCommand();
-                insertCmd.CommandText = @"INSERT INTO Handouts(item_id, username, reserved_from, reserved_until, status)
+                insertCmd.CommandText = @"INSERT INTO Reservations(item_id, username, reserved_from, reserved_until, status)
                                                       VALUES (@item_id, @username, @reserved_from, @reserved_until, @status)";
                 insertCmd.Parameters.AddWithValue("@item_id", item_id);
                 insertCmd.Parameters.AddWithValue("@username", username);
@@ -691,14 +691,14 @@ namespace datorium_projekts
             {
                 connection.Open();
                 var selectCmd = connection.CreateCommand();
-                selectCmd.CommandText = "SELECT Id FROM Reservations";
+                selectCmd.CommandText = "SELECT * FROM Reservations";
                 var reader = selectCmd.ExecuteReader();
 
                 // goes through all reservations
                 while (reader.Read())
                 {
                     // get reservation id
-                    int reservation_id = reader.GetInt32(0);
+                    int reservation_id = Convert.ToInt32(reader["id"]);
                     string old_status = Convert.ToString(reader["status"]);
                     DateTime reserved_from = Convert.ToDateTime(reader["reserved_from"]);
                     DateTime reserved_until = Convert.ToDateTime(reader["reserved_until"]);
@@ -734,6 +734,84 @@ namespace datorium_projekts
                         updateCmd.ExecuteNonQuery();
                     }
                 }
+            }
+        }
+        public List<Reservation> GetActiveReservationsFromUser(User user)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                List<Reservation> reservations = new List<Reservation>();
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = @"
+                    SELECT * FROM Reservations
+                    WHERE
+                        username = @username AND
+                        (status = 'active' OR status = 'late' OR status = 'upcoming');
+                ";
+                selectCmd.Parameters.AddWithValue("@username", user.Username);
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Reservation new_reservation = new Reservation(
+                        id: Convert.ToInt32(reader["id"]),
+                        item_id: Convert.ToInt32(reader["item_id"]),
+                        username: Convert.ToString(reader["username"]),
+                        reserved_from: Convert.ToDateTime(reader["reserved_from"]),
+                        reserved_until: Convert.ToDateTime(reader["reserved_until"]),
+                        status: Convert.ToString(reader["status"])
+                    );
+                    reservations.Add(new_reservation);
+                }
+                return reservations;
+            }
+        }
+
+        public Reservation GetReservationFromItem(int item_id, User user)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                Reservation new_reservation = null;
+                connection.Open();
+                var selectCmd = connection.CreateCommand();
+                selectCmd.CommandText = @"
+                    SELECT * FROM Reservations
+                    WHERE
+                        username = @username AND
+                        item_id = @item_id AND
+                        (status = 'active' OR status = 'late' OR status = 'upcoming');
+                ";
+                selectCmd.Parameters.AddWithValue("@username", user.Username);
+                selectCmd.Parameters.AddWithValue("@item_id", item_id);
+                var reader = selectCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    new_reservation = new Reservation(
+                        id: Convert.ToInt32(reader["id"]),
+                        item_id: Convert.ToInt32(reader["item_id"]),
+                        username: Convert.ToString(reader["username"]),
+                        reserved_from: Convert.ToDateTime(reader["reserved_from"]),
+                        reserved_until: Convert.ToDateTime(reader["reserved_until"]),
+                        status: Convert.ToString(reader["status"])
+                    );
+                }
+                return new_reservation;
+            }
+        }
+        public void CompleteReservation(Reservation reservation)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var updateCmd = connection.CreateCommand();
+                updateCmd.CommandText = @"
+					UPDATE Reservations SET
+                        status = @status
+                    WHERE id = @id;
+				";
+                updateCmd.Parameters.AddWithValue("@status", "completed");
+                updateCmd.Parameters.AddWithValue("@id", reservation.Id);
+                updateCmd.ExecuteNonQuery();
             }
         }
     }

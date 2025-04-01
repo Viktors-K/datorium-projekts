@@ -1,4 +1,5 @@
-﻿using MaterialSkin;
+﻿using System.Diagnostics;
+using MaterialSkin;
 using MaterialSkin.Controls;
 
 namespace datorium_projekts
@@ -46,6 +47,7 @@ namespace datorium_projekts
 
             // user info on user page
             materialLabelName.Text = $"{currentUser.Name} {currentUser.Surname}";
+            Size = new Size(801, 410);
         }
         // refreshes handouts and items
         public void RefreshListViews()
@@ -53,6 +55,7 @@ namespace datorium_projekts
             AddItemsToListView(materialListViewAdminItems);
             AddItemsToListView(materialListViewItems);
             AddHandoutsToListView(materialListViewHandouts);
+            AddReservationsToListView(materialListViewReservations);
         }
         // add admin specific information and populate tables with info for admins
         public void AdminSetup()
@@ -106,6 +109,40 @@ namespace datorium_projekts
                 {
                     listViewItem.BackColor = Color.Orange;
                     listViewItem.SubItems.Add("Kavēts");
+                }
+                listView.Items.Add(listViewItem);
+            }
+        }
+        // method for adding Handouts to a listview object
+        public void AddReservationsToListView(MaterialListView listView)
+        {
+            listView.View = View.Details;
+            listView.Items.Clear();
+            List<Reservation> reservation_list = reservationManager.GetActiveReservationsFromUser(currentUser);
+
+            foreach (Reservation reservation in reservation_list)
+            {
+                Item item = itemManager.GetItem(reservation.ItemId);
+                ListViewItem listViewItem = new ListViewItem($"{item.Id}: {item.Type}");
+
+                listViewItem.SubItems.Add(reservation.ReservedFrom.ToString());
+                listViewItem.SubItems.Add(reservation.ReservedUntil.ToString());
+
+                // set color based on status
+                if (reservation.Status == "active")
+                {
+                    listViewItem.BackColor = Color.Green;
+                    listViewItem.SubItems.Add("Aktīvs");
+                }
+                else if (reservation.Status == "late")
+                {
+                    listViewItem.BackColor = Color.Orange;
+                    listViewItem.SubItems.Add("Kavēts");
+                }
+                else if (reservation.Status == "upcoming")
+                {
+                    listViewItem.BackColor = Color.Orange;
+                    listViewItem.SubItems.Add("Gaidāms");
                 }
                 listView.Items.Add(listViewItem);
             }
@@ -213,6 +250,24 @@ namespace datorium_projekts
                 ListViewItem selectedItem = materialListViewItems.SelectedItems[0];
                 Item item = itemManager.GetItem(Convert.ToInt32(selectedItem.SubItems[0].Text));
                 if (item.Status == "available") reservationDialog(item.Id);
+            }
+        }
+
+        private void materialButtonReservationComplete_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("started reservationcomplete");
+            if (materialListViewReservations.SelectedItems.Count == 1)
+            {
+                Debug.WriteLine("continuing reservationcomplete");
+                ListViewItem selectedItem = materialListViewReservations.SelectedItems[0];
+                Debug.WriteLine("selected item");
+                int item_id = int.Parse(selectedItem.SubItems[0].Text.Split(':')[0].Trim());
+                Debug.WriteLine($"found item {item_id}");
+                Reservation reservation = reservationManager.GetReservationFromItem(item_id, currentUser);
+                Debug.WriteLine($"found reservation {reservation.Id}");
+                reservationManager.CompleteReservation(reservation);
+                Debug.WriteLine("completed reservation");
+                RefreshListViews();
             }
         }
     }
