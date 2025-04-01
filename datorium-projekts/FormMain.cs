@@ -26,7 +26,7 @@ namespace datorium_projekts
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
-            
+
             // get user instance
             currentUser = userManager.GetUser(username);
             RefreshListViews();
@@ -95,7 +95,7 @@ namespace datorium_projekts
 
                 listViewItem.SubItems.Add(handout.IssuedAt.ToString());
                 listViewItem.SubItems.Add(handout.DueAt.ToString());
-                
+
                 // set color based on status
                 if (handout.Status == "active")
                 {
@@ -139,12 +139,22 @@ namespace datorium_projekts
                 RefreshListViews();
             };
         }
-        // method for creating a dialog in the handout tab
+        // method for creating a dialog for handouts
         private void handoutDialog(int item_id)
         {
             FormHandouts formHandouts = new FormHandouts(item_id, currentUser.Username);
             formHandouts.Show();
             formHandouts.FormClosed += (s, ev) =>
+            {
+                RefreshListViews();
+            };
+        }
+        // method for creating a dialog for reservations
+        private void reservationDialog(int item_id)
+        {
+            FormReservations formReservations = new FormReservations(item_id, currentUser.Username);
+            formReservations.Show();
+            formReservations.FormClosed += (s, ev) =>
             {
                 RefreshListViews();
             };
@@ -193,6 +203,16 @@ namespace datorium_projekts
                 int item_id = Convert.ToInt32(selectedItem.SubItems[0].Text);
                 handoutManager.ReturnItem(item_id, currentUser);
                 RefreshListViews();
+            }
+        }
+
+        private void materialButtonItemReserve_Click(object sender, EventArgs e)
+        {
+            if (materialListViewItems.SelectedItems.Count == 1)
+            {
+                ListViewItem selectedItem = materialListViewItems.SelectedItems[0];
+                Item item = itemManager.GetItem(Convert.ToInt32(selectedItem.SubItems[0].Text));
+                if (item.Status == "available") reservationDialog(item.Id);
             }
         }
     }

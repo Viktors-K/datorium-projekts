@@ -38,6 +38,7 @@
             columnHeaderReturnedAt = new ColumnHeader();
             columnHeaderStatus = new ColumnHeader();
             tabPageInventory = new TabPage();
+            materialButtonItemReserve = new MaterialSkin.Controls.MaterialButton();
             materialButtonItemTake = new MaterialSkin.Controls.MaterialButton();
             materialButtonItemReturn = new MaterialSkin.Controls.MaterialButton();
             materialListViewItems = new MaterialSkin.Controls.MaterialListView();
@@ -46,6 +47,11 @@
             columnHeaderItemsDescription = new ColumnHeader();
             columnHeaderItemsStatus = new ColumnHeader();
             tabPageReservations = new TabPage();
+            materialListViewReservations = new MaterialSkin.Controls.MaterialListView();
+            columnHeaderRItem = new ColumnHeader();
+            columnHeaderReservedFrom = new ColumnHeader();
+            columnHeaderReservedUntil = new ColumnHeader();
+            columnHeaderRStatus = new ColumnHeader();
             tabPageUser = new TabPage();
             materialCardProfile = new MaterialSkin.Controls.MaterialCard();
             materialLabelGrade = new MaterialSkin.Controls.MaterialLabel();
@@ -72,6 +78,7 @@
             materialTabControlMain.SuspendLayout();
             tabPageHandouts.SuspendLayout();
             tabPageInventory.SuspendLayout();
+            tabPageReservations.SuspendLayout();
             tabPageUser.SuspendLayout();
             materialCardProfile.SuspendLayout();
             tabPageAdminItem.SuspendLayout();
@@ -143,7 +150,7 @@
             materialListViewHandouts.MultiSelect = false;
             materialListViewHandouts.Name = "materialListViewHandouts";
             materialListViewHandouts.OwnerDraw = true;
-            materialListViewHandouts.Size = new Size(750, 389);
+            materialListViewHandouts.Size = new Size(750, 390);
             materialListViewHandouts.TabIndex = 3;
             materialListViewHandouts.UseCompatibleStateImageBehavior = false;
             materialListViewHandouts.View = View.Details;
@@ -170,6 +177,7 @@
             // 
             // tabPageInventory
             // 
+            tabPageInventory.Controls.Add(materialButtonItemReserve);
             tabPageInventory.Controls.Add(materialButtonItemTake);
             tabPageInventory.Controls.Add(materialButtonItemReturn);
             tabPageInventory.Controls.Add(materialListViewItems);
@@ -181,6 +189,27 @@
             tabPageInventory.Text = "Inventārs";
             tabPageInventory.UseVisualStyleBackColor = true;
             // 
+            // materialButtonItemReserve
+            // 
+            materialButtonItemReserve.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButtonItemReserve.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButtonItemReserve.Depth = 0;
+            materialButtonItemReserve.HighEmphasis = true;
+            materialButtonItemReserve.Icon = null;
+            materialButtonItemReserve.Location = new Point(284, 343);
+            materialButtonItemReserve.Margin = new Padding(4, 6, 4, 6);
+            materialButtonItemReserve.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButtonItemReserve.Name = "materialButtonItemReserve";
+            materialButtonItemReserve.NoAccentTextColor = Color.Empty;
+            materialButtonItemReserve.RightToLeft = RightToLeft.No;
+            materialButtonItemReserve.Size = new Size(92, 36);
+            materialButtonItemReserve.TabIndex = 10;
+            materialButtonItemReserve.Text = "Rezervēt";
+            materialButtonItemReserve.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButtonItemReserve.UseAccentColor = false;
+            materialButtonItemReserve.UseVisualStyleBackColor = true;
+            materialButtonItemReserve.Click += materialButtonItemReserve_Click;
+            // 
             // materialButtonItemTake
             // 
             materialButtonItemTake.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -188,7 +217,7 @@
             materialButtonItemTake.Depth = 0;
             materialButtonItemTake.HighEmphasis = true;
             materialButtonItemTake.Icon = null;
-            materialButtonItemTake.Location = new Point(336, 343);
+            materialButtonItemTake.Location = new Point(384, 343);
             materialButtonItemTake.Margin = new Padding(4, 6, 4, 6);
             materialButtonItemTake.MouseState = MaterialSkin.MouseState.HOVER;
             materialButtonItemTake.Name = "materialButtonItemTake";
@@ -208,7 +237,7 @@
             materialButtonItemReturn.Depth = 0;
             materialButtonItemReturn.HighEmphasis = true;
             materialButtonItemReturn.Icon = null;
-            materialButtonItemReturn.Location = new Point(429, 343);
+            materialButtonItemReturn.Location = new Point(477, 343);
             materialButtonItemReturn.Margin = new Padding(4, 6, 4, 6);
             materialButtonItemReturn.MouseState = MaterialSkin.MouseState.HOVER;
             materialButtonItemReturn.Name = "materialButtonItemReturn";
@@ -230,14 +259,14 @@
             materialListViewItems.Depth = 0;
             materialListViewItems.FullRowSelect = true;
             materialListViewItems.Location = new Point(50, 0);
-            materialListViewItems.MaximumSize = new Size(750, 200);
+            materialListViewItems.MaximumSize = new Size(750, 400);
             materialListViewItems.MinimumSize = new Size(750, 100);
             materialListViewItems.MouseLocation = new Point(-1, -1);
             materialListViewItems.MouseState = MaterialSkin.MouseState.OUT;
             materialListViewItems.MultiSelect = false;
             materialListViewItems.Name = "materialListViewItems";
             materialListViewItems.OwnerDraw = true;
-            materialListViewItems.Size = new Size(750, 200);
+            materialListViewItems.Size = new Size(750, 334);
             materialListViewItems.TabIndex = 2;
             materialListViewItems.UseCompatibleStateImageBehavior = false;
             materialListViewItems.View = View.Details;
@@ -264,6 +293,7 @@
             // 
             // tabPageReservations
             // 
+            tabPageReservations.Controls.Add(materialListViewReservations);
             tabPageReservations.ImageKey = "(none)";
             tabPageReservations.Location = new Point(4, 24);
             tabPageReservations.Name = "tabPageReservations";
@@ -272,6 +302,47 @@
             tabPageReservations.TabIndex = 1;
             tabPageReservations.Text = "Rezervācijas";
             tabPageReservations.UseVisualStyleBackColor = true;
+            // 
+            // materialListViewReservations
+            // 
+            materialListViewReservations.AutoSizeTable = false;
+            materialListViewReservations.BackColor = Color.FromArgb(255, 255, 255);
+            materialListViewReservations.BorderStyle = BorderStyle.None;
+            materialListViewReservations.Columns.AddRange(new ColumnHeader[] { columnHeaderRItem, columnHeaderReservedFrom, columnHeaderReservedUntil, columnHeaderRStatus });
+            materialListViewReservations.Depth = 0;
+            materialListViewReservations.FullRowSelect = true;
+            materialListViewReservations.Location = new Point(50, 0);
+            materialListViewReservations.MaximumSize = new Size(750, 500);
+            materialListViewReservations.MinimumSize = new Size(750, 100);
+            materialListViewReservations.MouseLocation = new Point(-1, -1);
+            materialListViewReservations.MouseState = MaterialSkin.MouseState.OUT;
+            materialListViewReservations.MultiSelect = false;
+            materialListViewReservations.Name = "materialListViewReservations";
+            materialListViewReservations.OwnerDraw = true;
+            materialListViewReservations.Size = new Size(750, 390);
+            materialListViewReservations.TabIndex = 4;
+            materialListViewReservations.UseCompatibleStateImageBehavior = false;
+            materialListViewReservations.View = View.Details;
+            // 
+            // columnHeaderRItem
+            // 
+            columnHeaderRItem.Text = "Vienums";
+            columnHeaderRItem.Width = 150;
+            // 
+            // columnHeaderReservedFrom
+            // 
+            columnHeaderReservedFrom.Text = "Rezervēts no";
+            columnHeaderReservedFrom.Width = 200;
+            // 
+            // columnHeaderReservedUntil
+            // 
+            columnHeaderReservedUntil.Text = "Rezervēts līdz";
+            columnHeaderReservedUntil.Width = 200;
+            // 
+            // columnHeaderRStatus
+            // 
+            columnHeaderRStatus.Text = "Statuss";
+            columnHeaderRStatus.Width = 200;
             // 
             // tabPageUser
             // 
@@ -540,6 +611,7 @@
             tabPageHandouts.ResumeLayout(false);
             tabPageInventory.ResumeLayout(false);
             tabPageInventory.PerformLayout();
+            tabPageReservations.ResumeLayout(false);
             tabPageUser.ResumeLayout(false);
             materialCardProfile.ResumeLayout(false);
             materialCardProfile.PerformLayout();
@@ -590,5 +662,11 @@
         private ColumnHeader columnHeaderIssuedAt;
         private ColumnHeader columnHeaderReturnedAt;
         private ColumnHeader columnHeaderStatus;
+        private MaterialSkin.Controls.MaterialListView materialListViewReservations;
+        private ColumnHeader columnHeaderRItem;
+        private ColumnHeader columnHeaderReservedFrom;
+        private ColumnHeader columnHeaderReservedUntil;
+        private ColumnHeader columnHeaderRStatus;
+        private MaterialSkin.Controls.MaterialButton materialButtonItemReserve;
     }
 }
