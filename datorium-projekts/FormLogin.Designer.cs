@@ -188,7 +188,7 @@
             Controls.Add(materialButtonLogin);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormLogin";
-            Text = "Datoru izsniegšanas sistēma";
+            Text = "DatorPunkts";
             ResumeLayout(false);
             PerformLayout();
         }
