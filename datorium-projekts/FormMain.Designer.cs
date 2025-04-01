@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             materialDrawer1 = new MaterialSkin.Controls.MaterialDrawer();
             materialTabControlMain = new MaterialSkin.Controls.MaterialTabControl();
@@ -76,6 +77,7 @@
             columnHeaderName = new ColumnHeader();
             columnHeaderSurname = new ColumnHeader();
             columnHeaderGrade = new ColumnHeader();
+            imageListTabIcons = new ImageList(components);
             materialTabControlMain.SuspendLayout();
             tabPageHandouts.SuspendLayout();
             tabPageInventory.SuspendLayout();
@@ -114,6 +116,7 @@
             materialTabControlMain.Controls.Add(tabPageAdminItem);
             materialTabControlMain.Controls.Add(tabPageAdminUser);
             materialTabControlMain.Depth = 0;
+            materialTabControlMain.ImageList = imageListTabIcons;
             materialTabControlMain.Location = new Point(0, 24);
             materialTabControlMain.Margin = new Padding(0);
             materialTabControlMain.MouseState = MaterialSkin.MouseState.HOVER;
@@ -126,11 +129,11 @@
             // tabPageHandouts
             // 
             tabPageHandouts.Controls.Add(materialListViewHandouts);
-            tabPageHandouts.ImageKey = "(none)";
-            tabPageHandouts.Location = new Point(4, 24);
+            tabPageHandouts.ImageKey = "home.png";
+            tabPageHandouts.Location = new Point(4, 31);
             tabPageHandouts.Name = "tabPageHandouts";
             tabPageHandouts.Padding = new Padding(3);
-            tabPageHandouts.Size = new Size(792, 385);
+            tabPageHandouts.Size = new Size(792, 378);
             tabPageHandouts.TabIndex = 6;
             tabPageHandouts.Text = "Izsniegumi";
             tabPageHandouts.UseVisualStyleBackColor = true;
@@ -182,10 +185,10 @@
             tabPageInventory.Controls.Add(materialButtonItemTake);
             tabPageInventory.Controls.Add(materialButtonItemReturn);
             tabPageInventory.Controls.Add(materialListViewItems);
-            tabPageInventory.ImageKey = "(none)";
-            tabPageInventory.Location = new Point(4, 24);
+            tabPageInventory.ImageKey = "inventory.png";
+            tabPageInventory.Location = new Point(4, 31);
             tabPageInventory.Name = "tabPageInventory";
-            tabPageInventory.Size = new Size(792, 385);
+            tabPageInventory.Size = new Size(792, 378);
             tabPageInventory.TabIndex = 5;
             tabPageInventory.Text = "Inventārs";
             tabPageInventory.UseVisualStyleBackColor = true;
@@ -296,11 +299,11 @@
             // 
             tabPageReservations.Controls.Add(materialButtonReservationComplete);
             tabPageReservations.Controls.Add(materialListViewReservations);
-            tabPageReservations.ImageKey = "(none)";
-            tabPageReservations.Location = new Point(4, 24);
+            tabPageReservations.ImageKey = "schedule.png";
+            tabPageReservations.Location = new Point(4, 31);
             tabPageReservations.Name = "tabPageReservations";
             tabPageReservations.Padding = new Padding(3);
-            tabPageReservations.Size = new Size(792, 385);
+            tabPageReservations.Size = new Size(792, 378);
             tabPageReservations.TabIndex = 1;
             tabPageReservations.Text = "Rezervācijas";
             tabPageReservations.UseVisualStyleBackColor = true;
@@ -370,11 +373,11 @@
             // tabPageUser
             // 
             tabPageUser.Controls.Add(materialCardProfile);
-            tabPageUser.ImageKey = "(none)";
-            tabPageUser.Location = new Point(4, 24);
+            tabPageUser.ImageKey = "person.png";
+            tabPageUser.Location = new Point(4, 31);
             tabPageUser.Name = "tabPageUser";
             tabPageUser.Padding = new Padding(3);
-            tabPageUser.Size = new Size(792, 385);
+            tabPageUser.Size = new Size(792, 378);
             tabPageUser.TabIndex = 4;
             tabPageUser.Text = "Konts";
             tabPageUser.UseVisualStyleBackColor = true;
@@ -438,11 +441,11 @@
             tabPageAdminItem.Controls.Add(materialButtonAdminItemUpdate);
             tabPageAdminItem.Controls.Add(materialButtonDelete);
             tabPageAdminItem.Controls.Add(materialListViewAdminItems);
-            tabPageAdminItem.ImageKey = "(none)";
-            tabPageAdminItem.Location = new Point(4, 24);
+            tabPageAdminItem.ImageKey = "tv_options.png";
+            tabPageAdminItem.Location = new Point(4, 31);
             tabPageAdminItem.Name = "tabPageAdminItem";
             tabPageAdminItem.Padding = new Padding(3);
-            tabPageAdminItem.Size = new Size(792, 385);
+            tabPageAdminItem.Size = new Size(792, 378);
             tabPageAdminItem.TabIndex = 2;
             tabPageAdminItem.Text = "Admin: Inventārs";
             tabPageAdminItem.UseVisualStyleBackColor = true;
@@ -551,11 +554,11 @@
             // tabPageAdminUser
             // 
             tabPageAdminUser.Controls.Add(materialListViewUsers);
-            tabPageAdminUser.ImageKey = "(none)";
-            tabPageAdminUser.Location = new Point(4, 24);
+            tabPageAdminUser.ImageKey = "manage_accounts.png";
+            tabPageAdminUser.Location = new Point(4, 31);
             tabPageAdminUser.Name = "tabPageAdminUser";
             tabPageAdminUser.Padding = new Padding(3);
-            tabPageAdminUser.Size = new Size(792, 385);
+            tabPageAdminUser.Size = new Size(792, 378);
             tabPageAdminUser.TabIndex = 3;
             tabPageAdminUser.Text = "Admin: Lietotāji";
             tabPageAdminUser.UseVisualStyleBackColor = true;
@@ -612,6 +615,18 @@
             // columnHeaderGrade
             // 
             columnHeaderGrade.Text = "Klase";
+            // 
+            // imageListTabIcons
+            // 
+            imageListTabIcons.ColorDepth = ColorDepth.Depth32Bit;
+            imageListTabIcons.ImageStream = (ImageListStreamer)resources.GetObject("imageListTabIcons.ImageStream");
+            imageListTabIcons.TransparentColor = Color.Transparent;
+            imageListTabIcons.Images.SetKeyName(0, "home.png");
+            imageListTabIcons.Images.SetKeyName(1, "inventory.png");
+            imageListTabIcons.Images.SetKeyName(2, "manage_accounts.png");
+            imageListTabIcons.Images.SetKeyName(3, "person.png");
+            imageListTabIcons.Images.SetKeyName(4, "schedule.png");
+            imageListTabIcons.Images.SetKeyName(5, "tv_options.png");
             // 
             // FormMain
             // 
@@ -693,5 +708,6 @@
         private ColumnHeader columnHeaderRStatus;
         private MaterialSkin.Controls.MaterialButton materialButtonItemReserve;
         private MaterialSkin.Controls.MaterialButton materialButtonReservationComplete;
+        private ImageList imageListTabIcons;
     }
 }
