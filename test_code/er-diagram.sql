@@ -15,6 +15,7 @@ Table users {
 Table items {
   id integer [primary key, increment]
   type varchar [not null]
+  status text [not null]
   details text
 }
 
@@ -24,7 +25,7 @@ Table handouts {
   username varchar [not null]
   issued_at timestamp [not null]
   due_at timestamp [not null]
-  returned_at timestamp
+  status text [not null]
 }
 
 Table reservations {
