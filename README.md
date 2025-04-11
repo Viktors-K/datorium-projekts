@@ -66,7 +66,7 @@ Reservations
 | 2  | 2        | vvkocetoks | 14:00 12.02.2025  | 16:00 12.02.2025 | cancelled |
 | 3  | 3        | mpunans    | 09:00 13.02.2025  | 11:00 13.02.2025 | completed |
 
-![ER diagramma datubāzei](er-diagram.png "ER diagramma")
+![ER diagramma datubāzei](er-diagram-updated.png "ER diagramma")
 
 ## Koda risinājums
 Aplikācijā ir 3 galvenie Form jeb skati.
